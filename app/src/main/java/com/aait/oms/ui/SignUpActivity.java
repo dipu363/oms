@@ -55,10 +55,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         loadingProgress.setVisibility(View.INVISIBLE);
         //for spinner
         spinner = (Spinner) findViewById(R.id.spinner_gender);
-        String[] years = {"Male","Female","Others"};
-        ArrayAdapter<CharSequence> langAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, years );
-        langAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-        spinner.setAdapter(langAdapter);
+        String[] gen = {"Male","Female","Others"};
+        ArrayAdapter<CharSequence> genAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, gen );
+        genAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        spinner.setAdapter(genAdapter);
 
     }
 
@@ -122,7 +122,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         final String gender= spinner.getSelectedItem().toString();
         final String ref = reference.getText().toString().trim();
         final String password = upassword.getText().toString().trim();
-
         int passlenth = password.length();
         //checking the validity of the email
         if (TextUtils.isEmpty(firstname)) {

@@ -35,7 +35,15 @@ public class ApiClient {
         SupplierInterface supplierInterface = getClient().create(SupplierInterface.class);
         return supplierInterface;
     };
-
+/*
+    public static ProductInterface getrootcatService(){
+        ProductInterface productInterface = getClient().create(ProductInterface.class);
+        return productInterface;
+    };
+    public static ProductInterface getgetsubcattService(){
+        ProductInterface productInterface = getClient().create(ProductInterface.class);
+        return productInterface;
+    }; */
     public static ProductInterface getProductService(){
         ProductInterface productInterface = getClient().create(ProductInterface.class);
         return productInterface;

@@ -1,38 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/list_item_shape"
-    android:padding="10dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
-    <TextView
-
-        android:layout_marginLeft="10dp"
-        android:layout_centerVertical="true"
-        android:text="1"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:id="@+id/supid"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp" />
+        android:elevation="10dp"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/supname"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:text="Admin"
-        android:layout_marginLeft="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/serialid"
-        android:layout_toEndOf="@+id/supid"
-        android:layout_marginStart="5dp" />
+        <RelativeLayout
+            android:id="@+id/linear_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+<!--            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:text="1"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:id="@+id/supid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp" />-->
+            <ImageView
+                android:id="@+id/productimageid"
+                android:scaleType="fitXY"
+                android:src="@drawable/background_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_toRightOf="@+id/serialid" />
 
+            <TextView
+                android:id="@+id/supname"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:text="Admin"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/productimageid"
+                android:layout_toEndOf="@+id/productimageid"
+                android:layout_marginStart="5dp" />
 
-
-</RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
