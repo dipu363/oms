@@ -4,13 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.aait.oms.R;
-import com.aait.oms.model.ProdCatagoryModel;
-import com.aait.oms.model.ProductModel;
+import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.List;
@@ -53,8 +51,8 @@ public class CatagoryAdapter extends BaseAdapter {
 
 
 
-        TextView productname = convertView.findViewById(R.id.supname);
-        productname.setText(String.valueOf(t.get("productname")));
+       /* TextView productname = convertView.findViewById(R.id.supname);
+        productname.setText(String.valueOf(t.get("productname")));*/
         return convertView;
 
 

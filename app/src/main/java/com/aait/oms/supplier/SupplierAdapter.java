@@ -1,4 +1,4 @@
-package com.aait.oms.adapter;
+package com.aait.oms.supplier;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aait.oms.R;
-import com.aait.oms.model.SupplierModel;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.List;
@@ -59,7 +58,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Suppli
         public SupplierAdapterVH(@NonNull View itemView) {
             super(itemView);
            // supplierid = itemView.findViewById(R.id.supid);
-            suppliername = itemView.findViewById(R.id.supname);
+           // suppliername = itemView.findViewById(R.id.supname);
             //suppliername = itemView.findViewById(R.id.supnameid);
 
 

@@ -13,15 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.ProductListActivity"></activity>
-        <activity android:name=".ui.HomeActivity" />
-        <activity android:name=".ui.LogInActivity" />
-        <activity android:name=".ui.SignUpActivity" />
-        <activity android:name=".ui.SupplierListActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".orders.OrderActivity"/>
+        <activity
+            android:name=".ui.SendOtpActivity"
+            android:theme="@style/Theme.Oms.NoActionBar" />
+        <activity
+            android:name=".ui.OtpActivity"
+            android:theme="@style/Theme.Oms.NoActionBar" />
         <activity
             android:name=".ui.SplashScreenActivity"
-            android:theme="@style/Theme.Oms.NoActionBar">
+            android:theme="@style/Theme.Oms.NoActionBar" />
+        <activity android:name=".product.ProductListActivity" />
+        <activity
+            android:name=".ui.LogInActivity"
+            android:theme="@style/Theme.Oms.NoActionBar" />
+        <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".supplier.SupplierListActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

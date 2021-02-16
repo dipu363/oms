@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014407631670",
+    "project_id": "aborong-oms",
+    "storage_bucket": "aborong-oms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014407631670:android:6c580b29244592478d9997",
+        "android_client_info": {
+          "package_name": "com.aait.oms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014407631670-ev7efnv1s5h63binml1gatdj13aefc8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjIbsHoB1BaSik4AigQ5i99Gm1_56koPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014407631670-ev7efnv1s5h63binml1gatdj13aefc8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

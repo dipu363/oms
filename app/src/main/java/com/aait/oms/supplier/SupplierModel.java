@@ -1,4 +1,4 @@
-package com.aait.oms.model;
+package com.aait.oms.supplier;
 
 public class SupplierModel {
 

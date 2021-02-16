@@ -17,13 +17,17 @@
         <item
             android:id="@+id/orderlistitemid"
             android:icon="@drawable/ic_add_shopping_cart_black_24dp"
-            android:title="Order List" />
+            android:title="Order" />
+        <item
+            android:id="@+id/productlistitemid"
+            android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+            android:title="Products" />
 
 
         <item
             android:id="@+id/useritemid"
             android:icon="@drawable/ic_profile"
-            android:title="Users" />
+            android:title="Account" />
 
 
         <item

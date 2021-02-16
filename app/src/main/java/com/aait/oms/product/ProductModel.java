@@ -1,7 +1,7 @@
-package com.aait.oms.model;
+package com.aait.oms.product;
 
 public class ProductModel {
-
+//productmodel
 //     "ssCreator": "absfaruk",
 //             "ssCreatedOn": "2020-12-11T00:00:00.000+0000",
 //             "ssModifier": null,
@@ -127,4 +127,6 @@ public class ProductModel {
                 ", ledgername='" + ledgername + '\'' +
                 '}';
     }
+
+
 }

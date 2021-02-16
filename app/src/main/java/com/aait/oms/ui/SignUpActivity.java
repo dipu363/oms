@@ -1,6 +1,5 @@
 package com.aait.oms.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +24,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aait.oms.R;
+import com.aait.oms.apiconfig.ApiClient;
+import com.aait.oms.model.BaseResponse;
+import com.aait.oms.users.UserRequest;
+import com.aait.oms.users.UserService;
+import com.aait.oms.users.UsersModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RegisterActivity";
@@ -32,7 +49,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private Button btncountinu;
     private TextView doclogintaxt;
     private ProgressBar loadingProgress;
+    List<UserRequest> userslist;
     Spinner spinner;
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    String existingUser;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +77,59 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btncountinu.setOnClickListener(this);
         doclogintaxt.setOnClickListener(this);
         loadingProgress.setVisibility(View.INVISIBLE);
+
+
+
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("UsersInfo");
         //for spinner
         spinner = (Spinner) findViewById(R.id.spinner_gender);
-        String[] gen = {"Male","Female","Others"};
+        String[] gen = {"Select Gender","Male","Female","Others"};
         ArrayAdapter<CharSequence> genAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, gen );
         genAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         spinner.setAdapter(genAdapter);
 
+        uname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String un = uname.getText().toString().trim();
+                if(!hasFocus && !un.equals("")){
+                    chackusername(un);
+                }else{
+
+                    uname.setError("Enter Your Mobile Number");
+                    uname.requestFocus();
+                   // Toast.makeText(SignUpActivity.this, "Enter Your Mobile Number", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        reference.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String ref = reference.getText().toString().trim();
+               if(!hasFocus && !ref.equals("")){
+                   chackReference(ref);
+               }else{
+                   reference.setError("Enter Reference Customer ID");
+                   reference.requestFocus();
+                  // Toast.makeText(SignUpActivity.this, "Enter Reference Customer ID", Toast.LENGTH_SHORT).show();
+               }
+
+            }
+        });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+  /*      currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            sendToMain();
+
+        }*/
+
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -76,8 +144,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
+
+
+
         }
 
+    }
+
+    private void sendToMain(){
+        startActivity(new Intent(SignUpActivity.this , HomeActivity.class));
+        finish();
     }
 
 
@@ -87,7 +163,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
 
-            checkValidity();
+           checkValidity();
         }
         else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -117,28 +193,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void checkValidity(){
         final  String firstname = fname.getText().toString().trim();
-        final String lastemail = lname.getText().toString().trim();
+        final String lastname = lname.getText().toString().trim();
         final String username = uname.getText().toString().trim();
         final String gender= spinner.getSelectedItem().toString();
         final String ref = reference.getText().toString().trim();
         final String password = upassword.getText().toString().trim();
         int passlenth = password.length();
+        //getuserList(username);
         //checking the validity of the email
         if (TextUtils.isEmpty(firstname)) {
             fname.setError("Enter your first name");
             fname.requestFocus();
-        } else if (TextUtils.isEmpty(lastemail)) {
-
+        } else if (TextUtils.isEmpty(lastname)) {
             lname.setError("Enter your last name");
             lname.requestFocus();
 
         }
-
         //checking the validity of the password
-        else if (TextUtils.isEmpty(username)) {
-            uname.setError("Enter your User Name");
-            uname.requestFocus();
-        } else if (TextUtils.isEmpty(password) ) {
+        else if (TextUtils.isEmpty(password) ) {
             upassword.setError("Enter your password");
             upassword.requestFocus();
         }
@@ -147,10 +219,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             upassword.requestFocus();
         }
         else {
+
+
             btncountinu.setVisibility(View.INVISIBLE);
             loadingProgress.setVisibility(View.VISIBLE);
-            CreateUserAccount(firstname,lastemail,username,gender,password,ref);
+            CreateUserAccount(firstname,lastname,username,gender,password,ref);
+            UsersModel userModel = new UsersModel(username,firstname,lastname,102,password,gender,ref);
+            databaseReference.child(username).setValue(userModel);
+            Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
+            startActivity(intent);
+            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
             clear();
+            btncountinu.setVisibility(View.VISIBLE);
+            loadingProgress.setVisibility(View.INVISIBLE);
 
 
         }
@@ -161,12 +242,32 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     //create user accountmathod
 
-    private void CreateUserAccount(final String fname,final String lname,final String uname, final String gender,String password,String reference) {
-        Toast.makeText(this,"Congratulation ",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this,SupplierListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        clear();
+    private void CreateUserAccount(final String fname,final String lname,final String uname, final String gender,final String password, final String ref) {
+
+      UsersModel userModel = new UsersModel(uname,fname,lname,102,password,gender,ref);
+        UserService service = ApiClient.getRetrofit().create(UserService.class);
+        Gson gson = new Gson();
+        String json = gson.toJson(userModel);
+        JsonObject jsonObject = null;
+        jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        Call<String> submitOrderModelCall = service.saveUser(jsonObject);
+        submitOrderModelCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()){
+                    String um = response.body();
+                    Log.d("Success","Registration Success");
+                    Log.d("Success",um);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                    Log.d("Failure","Registration Fail" + t.getMessage());
+
+            }
+        });
 
     }
 
@@ -179,10 +280,67 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         reference.setText("");
     }
 
+    private  void chackusername(String userid){
+        UserService service = ApiClient.getRetrofit().create(UserService.class);
+        Call<BaseResponse> call = service.getuser(userid);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()){
+                    BaseResponse baseResponse = response.body();
+                    String massage = baseResponse.getMessage();
+                    if(massage.equals("find data Successfully")){
+
+                        uname.setText("");
+                        uname.setError("Number has been all ready used Please Choose Another");
+                        uname.requestFocus();
+                        //Toast.makeText(SignUpActivity.this, "User Name All ready Used Please Choose Another", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(SignUpActivity.this, "User Name has been available", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Log.d("Failure massage",t.getMessage());
+
+            }
+        });
+    }
+    private  void chackReference(String userid){
+        UserService service = ApiClient.getRetrofit().create(UserService.class);
+        Call<BaseResponse> call = service.getuser(userid);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()){
+                    BaseResponse baseResponse = response.body();
+                    String massage = baseResponse.getMessage();
+                    if(massage.equals("find data Successfully")){
+                        Toast.makeText(SignUpActivity.this, "Thank you for your reference", Toast.LENGTH_LONG).show();
+                    }else{
+                        reference.setText("");
+                        reference.setError("Customer ID Not Available Please Enter a Valid Customer ID.");
+                        reference.requestFocus();
+
+                        //Toast.makeText(SignUpActivity.this, "Customer ID not available", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Log.d("Failure massage",t.getMessage());
+
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()==android.R.id.home)
+        if(item.getItemId()== android.R.id.home)
         {
             finish();
         }

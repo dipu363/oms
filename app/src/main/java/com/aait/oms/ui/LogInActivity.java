@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -32,9 +34,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //remove the title ber
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //remove the notification ber
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_log_in);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("SIGN IN");
+
 
         login= findViewById(R.id.btn_login);
         signup= findViewById(R.id.btn_signup);

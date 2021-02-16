@@ -88,7 +88,15 @@
                     android:src="@drawable/ic_arrow_drop_down_24" />
 
             </RelativeLayout>
-
+            <EditText
+                android:id="@+id/reference_id"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Reference By"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/edit_username"
@@ -97,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_shape"
                 android:layout_gravity="left"
-                android:hint="User Name"
+                android:hint="Phone no"
                 android:inputType="text" />
 
             <EditText
@@ -109,15 +117,7 @@
                 android:layout_gravity="left"
                 android:hint="Password(At lest 4 character)"
                 android:inputType="text" />
-            <EditText
-                android:id="@+id/reference_id"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/edit_text_shape"
-                android:layout_gravity="left"
-                android:hint="Reference By"
-                android:inputType="text" />
+
 
             <ProgressBar
                 android:id="@+id/regProgressBar"

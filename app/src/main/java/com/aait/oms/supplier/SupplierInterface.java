@@ -1,9 +1,6 @@
-package com.aait.oms.interfaces;
+package com.aait.oms.supplier;
 
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.model.SupplierModel;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

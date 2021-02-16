@@ -4,126 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/off_white"
     android:orientation="vertical"
-
-    tools:context=".ui.ProductListActivity">
+    tools:context=".product.ProductListActivity">
 
 
 <!--    <SearchView
+        android:id="@+id/serchviewid"
         android:background="@drawable/list_item_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Search Your product"
-        android:id="@+id/searchproductid"
         android:iconifiedByDefault="false">
 
     </SearchView>-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
-        <TextView
-            android:text="select catagory"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight=".28"
-            android:background="@drawable/spinner_border"
-            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/catagoryid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:layout_marginLeft="5dp"
-                android:spinnerMode="dropdown" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_arrow_drop_down_24" />
-
-        </RelativeLayout>
-        <TextView
-            android:layout_marginTop="5dp"
-            android:text="Select SubCatagory"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="3dp"
-            android:layout_weight=".28"
-            android:background="@drawable/spinner_border"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/subcatagoryid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:layout_marginLeft="5dp"
-                android:spinnerMode="dropdown" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_arrow_drop_down_24" />
-
-        </RelativeLayout>
-
-
-
-        <AutoCompleteTextView
-            android:id="@+id/group_list_At"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:hint="Select Item Group"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="7dp">
              <ListView
-                    android:id="@+id/productlistviewid"
-                    android:layout_width="match_parent"
-                    android:divider="@color/white"
-                    android:layout_height="match_parent">
-
-
-                </ListView>
-
+                 android:id="@+id/productlist_id"
+                 android:layout_width="match_parent"
+                 android:dividerHeight="3dp"
+                 android:divider="@color/off_white"
+                 android:layout_height="match_parent">
+             </ListView>
 
     </LinearLayout>
+
+    <!--<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/product_list_recy_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+
 </LinearLayout>

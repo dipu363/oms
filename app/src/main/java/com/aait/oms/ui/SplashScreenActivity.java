@@ -13,7 +13,7 @@ import com.aait.oms.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private final int SPLASH_TIME_OUT = 3000;
+    private final int SPLASH_TIME_OUT = 1000;
     Handler mHandler;
     Runnable mRunnable;
 
@@ -34,10 +34,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 try {
 
+                   // Intent intent = new Intent(SplashScreenActivity.this, LogInActivity.class);
                     Intent intent = new Intent(SplashScreenActivity.this, LogInActivity.class);
                     startActivity(intent);
                 } catch (Exception e) {
-                    Log.d("sss", "error: ");
+//                    Log.d("sss", "error: ");
 
                 }
 

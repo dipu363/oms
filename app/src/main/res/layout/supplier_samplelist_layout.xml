@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:layout_margin="2dp"
-        android:padding="2dp"
+        android:elevation="50dp"
+        android:layout_margin="3dp"
+        android:padding="10dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -18,38 +18,151 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
-<!--            <TextView
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+       <!--     <TextView
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:text="1"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:id="@+id/supid"
+                android:textSize="18sp"
+                android:id="@+id/serialid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp" />-->
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/productimageid"
                 android:scaleType="fitXY"
-                android:src="@drawable/background_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_toRightOf="@+id/serialid" />
+                android:src="@drawable/fruits"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />-->
 
             <TextView
-                android:id="@+id/supname"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:text="Admin"
+                android:id="@+id/pname"
+                android:textSize="18sp"
+                android:textColor="@color/DarkGreen"
+                android:text="Product :"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/productimageid"
-                android:layout_toEndOf="@+id/productimageid"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:id="@+id/cardproductnameid"
+                android:textSize="18sp"
+                android:textColor="@color/DarkGreen"
+                android:text="Apple Red"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/pname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/pname"
+                android:layout_marginStart="5dp" />
+            <TextView
+                android:id="@+id/productcodeid"
+                android:textSize="14sp"
+                android:textColor="@color/dark_gray"
+                android:text="Code  :"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/cardproductnameid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:id="@+id/productcodeid2"
+                android:textSize="14sp"
+                android:textColor="@color/dark_gray"
+                android:text="Code"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/cardproductnameid"
+                android:layout_toRightOf="@+id/productcodeid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/productcodeid"
+                android:layout_marginStart="5dp" />
+            <TextView
+                android:id="@+id/stockid"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="In Stock :"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/productcodeid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:id="@+id/stockstatusid"
+                android:textSize="16sp"
+                android:textColor="@color/Green"
+                android:text="1000"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/productcodeid2"
+                android:layout_toRightOf="@+id/stockid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/stockid"
+                android:layout_marginStart="5dp" />
+            <TextView
+                android:id="@+id/unitid"
+                android:textSize="16sp"
+                android:textColor="@color/Green"
+                android:text="Unit"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/productcodeid2"
+                android:layout_toRightOf="@+id/stockstatusid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/stockstatusid"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:id="@+id/priceid"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Price :"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/stockid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
+
+            <TextView
+                android:id="@+id/propriceid"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Price"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/stockstatusid"
+                android:layout_toRightOf="@+id/pname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/pname"
+                android:layout_marginStart="5dp" />
+            <TextView
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="MR."
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/stockstatusid"
+                android:layout_toRightOf="@+id/propriceid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/propriceid"
                 android:layout_marginStart="5dp" />
 
         </RelativeLayout>

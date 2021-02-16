@@ -1,4 +1,4 @@
-package com.aait.oms.model;
+package com.aait.oms.rootcategory;
 
 public class ProdCatagoryModel {
     //    l1Code: 1

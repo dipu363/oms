@@ -9,7 +9,13 @@ import android.view.Menu;
 
 import com.aait.oms.R;
 import com.aait.oms.fragment.ProfileFragment;
+import com.aait.oms.orders.OrderActivity;
+import com.aait.oms.product.ProductListActivity;
+import com.aait.oms.supplier.SupplierListActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -25,6 +31,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle toggle;
 
 
+    FirebaseAuth mAuth;
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ActionBar actionBar = getSupportActionBar();
         NavigationView navigationView = findViewById(R.id.navigationviewId);
         navigationView.setNavigationItemSelectedListener(this);
+        mAuth = FirebaseAuth.getInstance();
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -53,13 +63,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    /*    FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null){
+            startActivity(new Intent(HomeActivity.this , SendOtpActivity.class));
+            finish();
+        }*/
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
-
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -76,7 +93,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         if (menuItem.getItemId() == R.id.nav_home) {
-            Intent intent = new Intent(this, ProductListActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             /*Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new AdminHomeFragment()).commit();*/
@@ -85,7 +102,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new AdminProfileFragment()).commit();*/
 
         } else if (menuItem.getItemId() == R.id.orderlistitemid) {
-            Intent intent = new Intent(this, SupplierListActivity.class);
+            Intent intent = new Intent(this, OrderActivity.class);
+            startActivity(intent);
+        }else if (menuItem.getItemId() == R.id.productlistitemid) {
+            Intent intent = new Intent(this, ProductListActivity.class);
             startActivity(intent);
 
         } else if (menuItem.getItemId() == R.id.useritemid) {
@@ -93,6 +113,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new UsersFragment()).commit();*/
 
         }  else if (menuItem.getItemId() == R.id.nav_logout) {
+
+           // mAuth.signOut();
+            Intent intent = new Intent(this, LogInActivity.class);
+            startActivity(intent);
+            finish();
          /*   FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(com.dipu.milkzone.AdminPanelActivity.this, LoginAs.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
