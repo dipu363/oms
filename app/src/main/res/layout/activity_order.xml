@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="10"
     android:orientation="vertical"
-
     tools:context=".orders.OrderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
+        android:layout_weight="2"
         android:weightSum="3"
         android:padding="8dp">
 
@@ -90,8 +91,8 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:layout_height="wrap_content">
-            <TextView
+            android:layout_height="match_parent">
+       <!--     <TextView
                 android:text="Total Amount"
                 android:textColor="@color/Green"
                 android:layout_gravity="center"
@@ -104,7 +105,37 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"/>-->
+            <FrameLayout
+                android:padding="20dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/cartbuttonid"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:id="@+id/listsizeid"
+                    android:layout_gravity="right"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </FrameLayout>
+
+       <!--     <Button
+                android:id="@+id/addbuttonid"
+                android:text="add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>-->
 
 
 
@@ -207,28 +238,24 @@
 
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="7dp">
+
+
+
+
+
+
+
+
         <ListView
+            android:layout_weight="8"
+            android:padding="5dp"
             android:id="@+id/order_productList_id"
             android:layout_width="match_parent"
-            android:divider="@color/white"
-            android:dividerHeight="3dp"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:divider="@color/holo_purple"
+            android:dividerHeight="1dp">
 
 
         </ListView>
-
-
-    </LinearLayout>
-
-
-
-
-
-
 
 </LinearLayout>

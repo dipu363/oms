@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".orders.ConfirmOrderActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:background="@drawable/edit_text_shape"
+                android:textColor="@color/Black"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="Choose a Delivery Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:background="@drawable/spinner_border"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:textColor="#000000"
+                        android:id="@+id/radiobtn1"
+                        android:textSize="18sp"
+                        android:text="From Branch"
+                        android:onClick="onRadioButtonClicked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:textColor="#000000"
+                        android:id="@+id/radiobtn2"
+                        android:textSize="18sp"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="Home Delivery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+
+                </RadioGroup>
+                <TextView
+                    android:id="@+id/redioselecttextid"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    android:textAlignment="textStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:background="@drawable/spinner_border"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_delivary_optionid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_drop_down_24" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/branch_add_id"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:visibility="invisible"
+                android:textAlignment="textStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start" />
+
+            <EditText
+                android:id="@+id/shipping_addid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:maxLines="3"
+                android:background="@drawable/edit_text_shape"
+                android:layout_marginTop="20dp"
+                android:hint="Enter Shipping Address"
+                android:inputType="text" />
+            <EditText
+                android:id="@+id/cmobile_noid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:background="@drawable/edit_text_shape"
+                android:layout_marginTop="20dp"
+                android:hint="Enter Mobile no"
+                android:inputType="text" />
+
+
+
+            <ProgressBar
+                android:id="@+id/regProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btnconfirmorderid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/submit_button_shape"
+                android:text="@string/signup"
+                android:layout_marginBottom="20dp"
+                android:textAllCaps="true"
+                android:textColor="@color/color_white" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

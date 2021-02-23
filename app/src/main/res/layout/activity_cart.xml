@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="15"
+    android:orientation="vertical"
+    tools:context=".orders.CartActivity">
+    <LinearLayout
+        android:layout_weight="13.5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="0dp">
+        <ListView
+            android:divider="@color/holo_purple"
+            android:dividerHeight="1dp"
+            android:id="@+id/ordercartlistid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <ImageButton
+            android:id="@+id/btnpreviusid"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_navigate_before_60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp" />
+        <ImageButton
+            android:id="@+id/btnnextid"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_navigate_next_60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+

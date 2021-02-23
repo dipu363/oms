@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="15"
+    tools:context=".orders.SummaryActivity">
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="6">
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SL"
+            android:textColor="@color/black"
+            android:layout_weight=".5"
+            android:textSize="18sp">
+
+
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_weight="2.5"
+            android:textSize="18sp"
+            android:gravity="center_horizontal">
+
+
+        </TextView>
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Qty"
+            android:textColor="@color/black"
+            android:textAlignment="textEnd"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:gravity="end">
+
+        </TextView>
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Rate"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:gravity="end">
+
+        </TextView>
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Total"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:gravity="center_horizontal">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/holo_purple"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </EditText>
+
+    <LinearLayout
+        android:layout_weight="11.5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="0dp">
+        <ListView
+            android:divider="@color/holo_purple"
+            android:dividerHeight="1dp"
+            android:id="@+id/summaryorderlistid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:padding="5dp"
+        android:weightSum="6">
+        <TextView
+            android:id="@+id/summarytotalpaytextid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:maxLines="2"
+            android:textColor="@color/DarkGreen"
+            android:layout_gravity="center"
+            android:text="Total:"
+            android:textSize="20sp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1.5"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <ImageButton
+            android:id="@+id/btnsummrypreid"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_navigate_before_60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp" />
+        <ImageButton
+            android:id="@+id/btnsummrynextid"
+            android:layout_marginLeft="10dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_navigate_next_60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

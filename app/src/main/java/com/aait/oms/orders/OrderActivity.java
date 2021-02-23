@@ -4,14 +4,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
@@ -33,8 +38,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     Spinner rootcat,subcat;
+   ImageButton cartbutton;
+   TextView textView;
     ListView orderlistView;
     List<ProductModel> allproductlist;
     List<Prod1L> allcatgorylist;
@@ -45,6 +52,7 @@ public class OrderActivity extends AppCompatActivity {
     List<String> categories;
     ProdCatagoryModel[] catagory;
     ProdSubCatagoryModel[] subcatagory;
+    ArrayList <String> checkedValue;
 
     int subcatid ;
     int l2codeid ;
@@ -55,23 +63,36 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Order");
+        actionBar.setTitle("Produts");
         rootcat = findViewById(R.id.catagoryid);
         subcat = findViewById(R.id.subcatagoryid);
+        cartbutton = findViewById(R.id.cartbuttonid);
+        textView = findViewById(R.id.listsizeid);
         orderlistView = findViewById(R.id.order_productList_id);
         allproductlist = new ArrayList<>();
         allcatgorylist = new ArrayList<>();
         allsubcatlist = new ArrayList<>();
-            /*   // Spinner Drop down elements
-         categories = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+        checkedValue = new ArrayList<>();
 
-        Log.d("catagory",categories.toString());*/
+        cartbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(checkedValue.size()>0){
+
+                    Intent intent = new Intent(OrderActivity.this,CartActivity.class);
+                    intent.putExtra("checkvalue",checkedValue);
+                    startActivity(intent);
+                }else {
+
+                    Toast.makeText(OrderActivity.this, "Item Not Found", Toast.LENGTH_LONG).show();
+                }
+
+               // Toast.makeText(OrderActivity.this,"" + checkedValue,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        orderlistView.setOnItemClickListener(this);
 
 
 
@@ -80,6 +101,18 @@ public class OrderActivity extends AppCompatActivity {
        // getallproduct(this,2);
 
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(checkedValue.size()>0){
+            int size = checkedValue.size();
+            textView.setText(String.valueOf(size));
+        }
 
     }
 
@@ -250,6 +283,8 @@ public class OrderActivity extends AppCompatActivity {
                 orderProductAdapter = new OrderProductAdapter(context,prodname);
                 orderlistView.setAdapter(orderProductAdapter);
 
+
+
                 }
 
             }
@@ -260,6 +295,34 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        // TODO Auto-generated method stub
+        CheckBox cb =  view.findViewById(R.id.prodlistchackboxid);
+        TextView tv =  view.findViewById(R.id.order_product_name_id);
+        TextView prodid = view.findViewById(R.id.order_prod_codeid);
+        cb.performClick();
+        if (cb.isChecked()) {
+           // Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
+            checkedValue.add(prodid.getText().toString());
+            // Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
+           String listsiz = String.valueOf(checkedValue.size());
+           textView.setText(listsiz);
+
+
+
+
+        } else if (!cb.isChecked()) {
+            //Toast.makeText(this, "false", Toast.LENGTH_SHORT).show();
+            checkedValue.remove(prodid.getText().toString());
+            String listsiz = String.valueOf(checkedValue.size());
+            textView.setText(listsiz);
+        }
 
 
     }

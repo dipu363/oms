@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true">
-        <activity android:name=".orders.OrderActivity"/>
+        <activity android:name=".orders.OrderInvoiceActivity"/>
+        <activity android:name=".orders.ConfirmOrderActivity" />
+        <activity android:name=".orders.SummaryActivity" />
+        <activity android:name=".orders.CartActivity" />
+        <activity android:name=".orders.OrderActivity" />
         <activity
             android:name=".ui.SendOtpActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
@@ -25,12 +29,12 @@
             android:theme="@style/Theme.Oms.NoActionBar" />
         <activity android:name=".product.ProductListActivity" />
         <activity
-            android:name=".ui.LogInActivity"
-            android:theme="@style/Theme.Oms.NoActionBar" />
+            android:name=".ui.HomeActivity" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".supplier.SupplierListActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ui.HomeActivity">
+        <activity android:name=".ui.LogInActivity"
+            android:theme="@style/Theme.Oms.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -61,7 +61,7 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
                 assert baseResponse != null;
                 allproductlist = baseResponse.getData();
                 List<StockViewModel> prodname = new ArrayList();
-                StockViewModel prod = new StockViewModel();
+                StockViewModel prod;
 
 
                 for(int i = 0 ; i<allproductlist.size(); i++){

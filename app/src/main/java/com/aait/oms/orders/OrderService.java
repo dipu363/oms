@@ -8,7 +8,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface OrderService {
-
+   // http://aborong.com/orderapi/orderapi/branch/list
+    @GET("branch/list")
+    Call<BaseResponse> get_branch_List();
     @GET("prodl/list")
     Call<BaseResponse> getCatList();
 
@@ -20,6 +22,8 @@ public interface OrderService {
     //http://aborong.com/orderapi/orderapi/prodmaster/findByl2Code?l2Code=1
    @GET("prodmaster/findByl2Code")
     Call<BaseResponse> getproductbyl2id(@Query("l2Code") int id);
+
+
 
 
 
