@@ -1,14 +1,22 @@
 package com.aait.oms.ui;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -18,6 +26,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,15 +38,24 @@ import com.aait.oms.model.BaseResponse;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.users.UsersModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +63,16 @@ import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RegisterActivity";
+    //userimage pickup
+    static int PReqCode = 1;
+    static int REQUESCODE = 1;
+    Uri pickedImgUri;
+    DatabaseReference db_users;
+    StorageReference mStorage;
+    private ImageView userImage;
+    //image
+
+
     private EditText fname, lname,uname,upassword,reference;
     private Button btncountinu;
     private TextView doclogintaxt;
@@ -72,10 +100,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         uname = findViewById(R.id.edit_username);
         reference=findViewById(R.id.reference_id);
         upassword = findViewById(R.id.edt_password);
+        userImage = findViewById(R.id.regUserPhoto);
         btncountinu = findViewById(R.id.btnSignUpContinue);
         doclogintaxt = findViewById(R.id.docLogin);
         btncountinu.setOnClickListener(this);
         doclogintaxt.setOnClickListener(this);
+        userImage.setOnClickListener(this);
         loadingProgress.setVisibility(View.INVISIBLE);
 
 
@@ -131,6 +161,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
 
@@ -144,6 +175,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
+            case R.id.regUserPhoto:
+                if (Build.VERSION.SDK_INT >= 22) {
+
+                    checkAndRequestForPermission();
+
+
+                } else {
+                    openGallery();
+                }
+
+
 
 
 
@@ -158,6 +200,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     // check mobile net work status and then call checkvalidity method ;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void netWorkCheck(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -191,6 +234,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void checkValidity(){
         final  String firstname = fname.getText().toString().trim();
         final String lastname = lname.getText().toString().trim();
@@ -223,9 +268,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             btncountinu.setVisibility(View.INVISIBLE);
             loadingProgress.setVisibility(View.VISIBLE);
-            CreateUserAccount(firstname,lastname,username,gender,password,ref);
-            UsersModel userModel = new UsersModel(username,firstname,lastname,102,password,gender,ref);
-            databaseReference.child(username).setValue(userModel);
+           // CreateUserAccount(firstname,lastname,username,gender,password,ref);
+            saveandupdateUserInfo(firstname,lastname,username,gender,password,ref,pickedImgUri);
             Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
             startActivity(intent);
             Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
@@ -240,7 +284,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    //create user accountmathod
+    //create user accountmathod on server
 
     private void CreateUserAccount(final String fname,final String lname,final String uname, final String gender,final String password, final String ref) {
 
@@ -336,6 +380,156 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
+
+    // update user photo and name
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void saveandupdateUserInfo(final String fname,final String lname,final String uname, final String gender,final String password, final String ref,final Uri pickedImgUri) {
+    /*    final String username = uname.getText().toString().trim();
+        final String email = uemail.getText().toString().trim();
+        final String phone = uphone.getText().toString().trim();
+        final String password = upassword.getText().toString().trim();*/
+        // first we need to upload user photo to firebase storage and get url
+
+
+        StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
+        if (pickedImgUri != null) {
+            //get user image from firestore
+            final StorageReference imageFilePath = mStorage.child(Objects.requireNonNull(pickedImgUri.getLastPathSegment()));
+
+
+            imageFilePath.putFile(pickedImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    // image uploaded succesfully
+                    // now we can get our image url
+                    imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // uri contain user image url
+                            //save data to database with image id
+                            String imageUrl = String.valueOf(uri);
+                            //String userid = currentUser.getUid();
+
+
+                            UsersModel userModel = new UsersModel(uname,fname,lname,102,password,gender,ref,imageUrl);
+                            databaseReference.child(uname).setValue(userModel);
+                     /*       //user profile build with user image
+                            UserProfileChangeRequest profleUpdate = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .setPhotoUri(uri)
+                                    .build();
+                            //update profile with user image
+                            currentUser.updateProfile(profleUpdate)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if (task.isSuccessful()) {
+                                                // user info updated successfully
+                                                //and go email verification activity
+                                                showMessage();
+                                                chackEmailVerify();
+                                            }
+
+                                        }
+                                    });*/
+
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignUpActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            //save data without user image
+            String imageUrl = "default";
+           // String userid = currentUser.getUid();
+            UsersModel userModel = new UsersModel(uname,fname,lname,102,password,gender,ref,imageUrl);
+            databaseReference.child(uname).setValue(userModel);
+
+        /*    //build profile without user image
+            UserProfileChangeRequest profleUpdate = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build();
+
+            //update user profile without user image
+
+            currentUser.updateProfile(profleUpdate)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if (task.isSuccessful()) {
+                                // user info updated successfully
+                                showMessage();
+                                chackEmailVerify();
+
+
+                            }
+
+                        }
+                    });*/
+
+        }
+
+    }
+
+
+
+    private void openGallery() {
+
+        //TODO: open gallery intent and wait for user to pick an image !
+
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, REQUESCODE);
+    }
+
+    private void checkAndRequestForPermission() {
+
+        if (ContextCompat.checkSelfPermission(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                Toast.makeText(SignUpActivity.this, "Please accept for required permission", Toast.LENGTH_SHORT).show();
+
+            } else {
+                ActivityCompat.requestPermissions(SignUpActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PReqCode);
+            }
+
+        } else
+            openGallery();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == REQUESCODE && data != null) {
+
+            // the user has successfully picked an image
+            // we need to save its reference to a Uri variable
+            pickedImgUri = data.getData();
+            userImage.setImageURI(pickedImgUri);
+
+
+        }
+
+
+    }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

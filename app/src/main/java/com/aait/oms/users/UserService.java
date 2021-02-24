@@ -22,6 +22,12 @@ public interface UserService {
     @GET("user/findByUser")
     Call<BaseResponse> getuser(@Query("userName") String userName);
 
+
+    // http://aborong.com/orderapi/orderapi/user/findByReferencedBy?referencedBy=admin
+
+    @GET("user/findByReferencedBy")
+    Call<BaseResponse> getuserReferences(@Query("referencedBy") String referenceby);
+
     /*@GET("Account/RegisterMobileNumber")
     Call<JsonObject> sendSMSToMobileNumber(@Query("mobileNumber") String mobileNumber);*/
 

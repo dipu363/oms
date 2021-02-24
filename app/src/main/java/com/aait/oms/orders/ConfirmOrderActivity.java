@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     List<BranchModel> allbranchlist;
     BranchModel[] branchsarraylist;
     BranchAdapter branchAdapter;
-    String deliverty ,bname,baddress ,bmobile;
+    String deliverty,bname,baddress ,bmobile;
 
     ArrayList<String> senddatatoinvoice;
 
@@ -59,6 +60,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
 
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Confirm Order ");
 
         radioButton1 = findViewById(R.id.radiobtn1);
@@ -69,7 +73,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         selectdelioption = findViewById(R.id.redioselecttextid);
         branchadd = findViewById(R.id.branch_add_id);
         cmobile = findViewById(R.id.cmobile_noid);
+
+        deliverty="";
         btnsubmint.setOnClickListener(this);
+
 
         allbranchlist = new ArrayList<>();
         senddatatoinvoice = new ArrayList<>();
@@ -101,6 +108,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.radiobtn2:
                 if (checked)
+                    getbrnachList(this);
                     selectdelioption.setText(R.string.selecthome);
                     selectdelioption.setTextColor(Color.RED);
                     selectdelioption.setVisibility(View.VISIBLE);
@@ -187,66 +195,91 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
         if (v.getId()== R.id.btnconfirmorderid){
 
-            String shipadd;
-            String mobile;
-            String total="";
-            Bundle bundle = getIntent().getExtras();
-            if(bundle!= null) {
-                total = bundle.getString("Total", null);
+            if(deliverty.equals("")){
+                Toast.makeText(this, "Please Choose a Delivery Option", Toast.LENGTH_LONG).show();
+
+            }else{
+
+                String shipadd;
+                String mobile;
+                String total="";
+                Bundle bundle = getIntent().getExtras();
+                if(bundle!= null) {
+                    total = bundle.getString("Total", null);
+
+                }
+                if(radioButton2.isChecked()){
+                    shipadd= shipaddress.getText().toString().trim();
+                    mobile = cmobile.getText().toString().trim();
+                    if(TextUtils.isEmpty(shipadd)){
+                        shipaddress.setError("Please Enter Shipping Address");
+                        shipaddress.requestFocus();
+                    }else if(TextUtils.isEmpty(mobile)){
+                        cmobile.setError("Please Enter Shipping Address");
+                        cmobile.requestFocus();
+                    }
+                    else {
+                        double grandtotal = Double.parseDouble(total)+5;
+                        senddatatoinvoice.clear();
+                        senddatatoinvoice.add(deliverty);
+                        senddatatoinvoice.add(bname);
+                        senddatatoinvoice.add(baddress);
+                        senddatatoinvoice.add(bmobile);
+                        senddatatoinvoice.add(shipadd);
+                        senddatatoinvoice .add(mobile);
+                        senddatatoinvoice.add(total);
+                        senddatatoinvoice.add("5.0");
+                        senddatatoinvoice.add(String.valueOf(grandtotal));
+
+                        Log.d("SEND Data", senddatatoinvoice.toString());
+
+                        Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
+                        intent.putExtra("alldata", senddatatoinvoice);
+                        startActivity(intent);
+                        Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
+
+                    }
+
+                }
+                else{
+
+
+                    senddatatoinvoice.clear();
+                    senddatatoinvoice.add(deliverty);
+                    senddatatoinvoice.add(bname);
+                    senddatatoinvoice.add(baddress);
+                    senddatatoinvoice.add(bmobile);
+                    senddatatoinvoice.add("----");
+                    senddatatoinvoice.add("----");
+                    senddatatoinvoice.add(total);
+                    senddatatoinvoice.add("----");
+                    senddatatoinvoice.add(total);
+
+                    Log.d("SEND Data", senddatatoinvoice.toString());
+
+                    Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
+                    intent.putExtra("alldata", senddatatoinvoice);
+                    startActivity(intent);
+                    Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
+
+                }
+
+
+
+
 
             }
-
-
-           if(radioButton2.isChecked()){
-               shipadd= shipaddress.getText().toString().trim();
-               mobile = cmobile.getText().toString().trim();
-               if(TextUtils.isEmpty(shipadd)){
-                   shipaddress.setError("Please Enter Shipping Address");
-                   shipaddress.requestFocus();
-               }else if(TextUtils.isEmpty(mobile)){
-                   cmobile.setError("Please Enter Shipping Address");
-                   cmobile.requestFocus();
-               }
-               else {
-                   double grandtotal = Double.parseDouble(total)+5;
-                   senddatatoinvoice.clear();
-                   senddatatoinvoice.add(deliverty);
-                   senddatatoinvoice.add(bname);
-                   senddatatoinvoice.add(baddress);
-                   senddatatoinvoice.add(bmobile);
-                   senddatatoinvoice.add(shipadd);
-                   senddatatoinvoice .add(mobile);
-                   senddatatoinvoice.add(total);
-                   senddatatoinvoice.add("5.0");
-                   senddatatoinvoice.add(String.valueOf(grandtotal));
-
-               }
-
-
-
-           }
-           else{
-               senddatatoinvoice.clear();
-               senddatatoinvoice.add(deliverty);
-               senddatatoinvoice.add(bname);
-               senddatatoinvoice.add(baddress);
-               senddatatoinvoice.add(bmobile);
-               senddatatoinvoice.add("----");
-               senddatatoinvoice .add("----");
-               senddatatoinvoice.add(total);
-               senddatatoinvoice.add("----");
-               senddatatoinvoice.add(total);
-
-           }
-           Log.d("SEND Data",senddatatoinvoice.toString());
-
-            Intent intent = new Intent(ConfirmOrderActivity.this,OrderInvoiceActivity.class);
-            intent.putExtra("alldata",senddatatoinvoice);
-            startActivity(intent);
-            Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
-
-
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()== android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

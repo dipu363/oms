@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -36,24 +37,20 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Order Summary");
 
         lvSummary = findViewById(R.id.summaryorderlistid);
         tvTotal = findViewById(R.id.summarytotalpaytextid);
-        btnpre = findViewById(R.id.btnsummrypreid);
         btnnext = findViewById(R.id.btnsummrynextid);
-        btnpre.setOnClickListener(this);
         btnnext.setOnClickListener(this);
         getOrderItemData();
 
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        getOrderItemData();
-    }
 
     private void getOrderItemData() {
 
@@ -99,7 +96,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                     }
                     else
                     {
-                        showMessage("Empty");
+                        showMessage("Item quantity Not found");
                     }
                 }
                 catch (Exception e)
@@ -122,18 +119,30 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
 
-            case R.id.btnsummrypreid:
-                Intent intent1 = new Intent(SummaryActivity.this,CartActivity.class);
-                startActivity(intent1);
-
-
-                break;
             case R.id.btnsummrynextid:
                 String tot = String.valueOf(Total);
-                Intent intent2 = new Intent(SummaryActivity.this, ConfirmOrderActivity.class);
-                intent2.putExtra("Total",tot);
-                startActivity(intent2);
+                if(tot.equals("0.0")){
+                    Toast.makeText(this,"please Enter Quantity at lest 1 item",Toast.LENGTH_LONG).show();
+                }else {
+
+                    Intent intent2 = new Intent(SummaryActivity.this, ConfirmOrderActivity.class);
+                    intent2.putExtra("Total",tot);
+                    startActivity(intent2);
+                }
+
                 break;
         }
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()== android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

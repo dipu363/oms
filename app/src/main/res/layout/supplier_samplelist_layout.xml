@@ -20,18 +20,18 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:orientation="vertical">
-       <!--     <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+            <TextView
+                android:background="@drawable/serial_no_shap"
+                android:padding="5dp"
                 android:layout_centerVertical="true"
                 android:text="1"
                 android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:id="@+id/serialid"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:id="@+id/prodserialid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp" />-->
+                 />
             <!--<ImageView
                 android:id="@+id/productimageid"
                 android:scaleType="fitXY"
@@ -39,16 +39,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />-->
 
-            <TextView
+     <!--       <TextView
                 android:id="@+id/pname"
                 android:textSize="18sp"
                 android:textColor="@color/DarkGreen"
                 android:text="Product :"
+                android:layout_toRightOf="@+id/serialid"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="5dp" />-->
 
             <TextView
                 android:id="@+id/cardproductnameid"
@@ -57,16 +58,17 @@
                 android:text="Apple Red"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/pname"
+                android:layout_toRightOf="@+id/prodserialid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/pname"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/prodserialid" />
             <TextView
                 android:id="@+id/productcodeid"
                 android:textSize="14sp"
                 android:textColor="@color/dark_gray"
                 android:text="Code  :"
+                android:layout_toRightOf="@+id/prodserialid"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/cardproductnameid"
@@ -92,6 +94,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:text="In Stock :"
+                android:layout_toRightOf="@+id/prodserialid"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/productcodeid"
@@ -131,6 +134,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:text="Price :"
+                android:layout_toRightOf="@+id/prodserialid"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/stockid"
@@ -146,11 +150,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@id/stockstatusid"
-                android:layout_toRightOf="@+id/pname"
+                android:layout_toRightOf="@+id/priceid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/pname"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/priceid" />
             <TextView
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -164,6 +168,14 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/propriceid"
                 android:layout_marginStart="5dp" />
+
+            <ImageView
+                android:layout_marginRight="25dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_check_box_60"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

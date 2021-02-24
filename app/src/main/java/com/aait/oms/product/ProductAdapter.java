@@ -1,5 +1,6 @@
 package com.aait.oms.product;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
     Context mContext;
     List<StockViewModel> stockViewModels;
     List<StockViewModel> itemsModelListFiltered;
-    private ArrayList<StockViewModel> arraylist;
+    private final ArrayList<StockViewModel> arraylist;
 
     public ProductAdapter(Context mContext, List<StockViewModel> stockViewModels) {
         this.mContext = mContext;
@@ -47,12 +48,19 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         return position;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
       /*  Object getrow =productModelList.get(position);
         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;*/
         StockViewModel stok = itemsModelListFiltered.get(position);
+
+        // for get serial no of list item
+        ArrayList<String> listWithSerialNumber = new ArrayList<>();
+        for (int i = 0; i < itemsModelListFiltered.size(); i++) {
+            listWithSerialNumber.add(String.valueOf(i + 1));
+        }
 
         if(convertView==null){
 
@@ -61,13 +69,14 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
 
         }
 
+        TextView serialid = convertView.findViewById(R.id.prodserialid);
         TextView productname = convertView.findViewById(R.id.cardproductnameid);
         TextView prodcode = convertView.findViewById(R.id.productcodeid2);
         TextView price = convertView.findViewById(R.id.propriceid);
         TextView stock = convertView.findViewById(R.id.stockstatusid);
         TextView unit = convertView.findViewById(R.id.unitid);
-
         //productname.setText(String.valueOf(t.get("productname")));
+        serialid.setText(listWithSerialNumber.get(position)+".");
 
         productname.setText(stok.getPname());
         prodcode.setText(stok.getPcode());

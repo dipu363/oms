@@ -1,12 +1,15 @@
 package com.aait.oms.orders;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,7 +43,7 @@ import retrofit2.Response;
 
 public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     Spinner rootcat,subcat;
-   ImageButton cartbutton;
+   ImageButton cartbutton ,btnnext;
    TextView textView;
     ListView orderlistView;
     List<ProductModel> allproductlist;
@@ -63,10 +66,14 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_order);
 
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Produts");
         rootcat = findViewById(R.id.catagoryid);
         subcat = findViewById(R.id.subcatagoryid);
         cartbutton = findViewById(R.id.cartbuttonid);
+        btnnext = findViewById(R.id.btnordernextid);
         textView = findViewById(R.id.listsizeid);
         orderlistView = findViewById(R.id.order_productList_id);
         allproductlist = new ArrayList<>();
@@ -92,11 +99,26 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
+        btnnext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkedValue.size()>0){
+
+                    Intent intent = new Intent(OrderActivity.this,CartActivity.class);
+                    intent.putExtra("checkvalue",checkedValue);
+                    startActivity(intent);
+                }else {
+
+                    Toast.makeText(OrderActivity.this, "Item Not Found", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         orderlistView.setOnItemClickListener(this);
 
 
 
-        getcatList(this);
+      //  getcatList(this);
        // getSubcatList(this ,2);
        // getallproduct(this,2);
 
@@ -113,8 +135,11 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             int size = checkedValue.size();
             textView.setText(String.valueOf(size));
         }
+        getcatList(this);
 
     }
+
+
 
     private  void getcatList(Context context){
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
@@ -384,4 +409,14 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     }*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()== android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="50dp"
+        android:layout_margin="3dp"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/linear_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+                 <TextView
+                     android:background="@drawable/serial_no_shap"
+                     android:padding="5dp"
+                     android:layout_centerVertical="true"
+                     android:text="1"
+                     android:textStyle="bold"
+                     android:textColor="@color/white"
+                     android:textSize="20sp"
+                     android:id="@+id/ref_serialid"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                      />
+            <!--<ImageView
+                android:id="@+id/productimageid"
+                android:scaleType="fitXY"
+                android:src="@drawable/fruits"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />-->
+
+        <!--    <TextView
+                android:id="@+id/ref_usertextid1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Name :"
+                android:layout_toRightOf="@+id/ref_serialid"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />-->
+
+            <TextView
+                android:id="@+id/ref_user_fnameid"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/DarkGreen"
+                android:text="First Name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/ref_serialid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ref_serialid"
+                android:layout_marginStart="5dp" />
+            <TextView
+                android:id="@+id/ref_user_lnameid"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/DarkGreen"
+                android:text=" Last name"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/ref_user_fnameid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
+
+       <!--     <TextView
+                android:id="@+id/ref_usertextid2"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:text="Status :"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/ref_usertextid1"
+                android:layout_toRightOf="@+id/ref_serialid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />-->
+            <TextView
+                android:id="@+id/ref_user_statusid"
+                android:textSize="18sp"
+                android:textColor="@color/DarkGreen"
+                android:text="Status"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/ref_user_fnameid"
+                android:layout_toRightOf="@+id/ref_serialid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/ref_serialid" />
+            <ImageView
+                android:id="@+id/downarrowid"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitXY"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp" />
+
+            <ImageView
+
+                android:scaleType="fitXY"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_activeicon_40"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toLeftOf="@+id/downarrowid"
+                android:layout_marginEnd="10dp" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

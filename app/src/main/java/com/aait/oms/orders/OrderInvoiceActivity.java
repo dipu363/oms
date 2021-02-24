@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.aait.oms.R;
@@ -28,6 +29,9 @@ public class OrderInvoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_invoice);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Invoice ");
         orderdate = findViewById(R.id.order_invoice_dateid);
         orderid = findViewById(R.id.order_invoice_orderid);
@@ -70,14 +74,17 @@ public class OrderInvoiceActivity extends AppCompatActivity {
         deliberycharge.setText(alldata.get(7));
         totalamount.setText(alldata.get(8));
 
-        showInvoice();
+
 
     }
 
-    private void showInvoice() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-
-
-
+        if(item.getItemId()== android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

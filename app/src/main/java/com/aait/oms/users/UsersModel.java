@@ -51,6 +51,7 @@ public class UsersModel {
     private String  commPromotionDate;
     private String  createBy;
     private Date  createDate;
+    public String imageID;
 
     public UsersModel(String userid, String fname, String lname, int roleId, String password, String referenced, String photo, String status, String phone1, String phone2, String email, String address, Date dob, String gender, String religion, String maritalStatus, String bloodGroup, String referencedTo, String commLayer, String commPromotionDate, String createBy, Date createDate) {
         this.userid = userid;
@@ -85,6 +86,23 @@ public class UsersModel {
         this.password = password;
         this.gender = gender;
         this.referenced = referenced;
+    }
+    public UsersModel(String userid, String fname, String lname, int roleId, String password,String gender, String referenced,String imageID ) {
+        this.userid = userid;
+        this.fname = fname;
+        this.lname = lname;
+        this.roleId = roleId;
+        this.password = password;
+        this.gender = gender;
+        this.referenced = referenced;
+        this.imageID = imageID;
+    }
+
+    public UsersModel(String userid, String fname, String lname, String status) {
+        this.userid = userid;
+        this.fname = fname;
+        this.lname = lname;
+        this.status = status;
     }
 
     public String getUserid() {
@@ -261,5 +279,13 @@ public class UsersModel {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getImageID() {
+        return imageID;
+    }
+
+    public void setImageID(String imageID) {
+        this.imageID = imageID;
     }
 }

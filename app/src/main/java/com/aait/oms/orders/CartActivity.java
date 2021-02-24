@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,7 +46,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<CardModel> products = new ArrayList<>();
 
     ArrayList<CardModel> productOrders = new ArrayList<>();
-
+    ArrayList <String> prodidlist =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +54,28 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_cart);
 
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Selected Products");
+
+
+
         listView = findViewById(R.id.ordercartlistid);
-        previusbtn = findViewById(R.id.btnpreviusid);
-        nextbtn = findViewById(R.id.btnnextid);
+        nextbtn = findViewById(R.id.btncartnextid);
         cardproductlist = new ArrayList<>();
         cardprod = new CardModel();
 
 
         Bundle bundle = getIntent().getExtras();
         if(bundle!= null){
-            ArrayList <String> prodidlist = bundle.getStringArrayList("checkvalue");
+            prodidlist.clear();
+             prodidlist = bundle.getStringArrayList("checkvalue");
             for (int i = 0 ;i< prodidlist.size();i++){
                 getsingleproduct(this,prodidlist.get(i));
             }
         }
-        previusbtn.setOnClickListener(this);
+
         nextbtn.setOnClickListener(this);
 
 
@@ -96,17 +103,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
       
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Bundle bundle = getIntent().getExtras();
-        if(bundle!= null){
-            ArrayList <String> prodidlist = bundle.getStringArrayList("checkvalue");
-            for (int i = 0 ;i< prodidlist.size();i++){
-                getsingleproduct(this,prodidlist.get(i));
-            }
-        }
-    }
+
 
     private void getsingleproduct(Context context, String id) {
         ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
@@ -176,11 +173,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.btnpreviusid:
-                Intent  intent1 = new Intent(CartActivity.this,OrderActivity.class);
-                startActivity(intent1);
-                break;
-            case R.id.btnnextid:
+            case R.id.btncartnextid:
             // Intent intent2 = new Intent(CartActivity.this,SummaryActivity.class);
             // startActivity(intent2);
                 placeOrder();
@@ -230,11 +223,19 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     public void openSummary(String orderItems)
     {
-        Intent summaryIntent = new Intent(this,SummaryActivity.class);
-        summaryIntent.putExtra("orderItems",orderItems);
-        startActivity(summaryIntent);
+            Intent summaryIntent = new Intent(this,SummaryActivity.class);
+            summaryIntent.putExtra("orderItems",orderItems);
+            startActivity(summaryIntent);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if(item.getItemId()== android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

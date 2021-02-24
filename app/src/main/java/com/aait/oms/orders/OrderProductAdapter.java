@@ -73,7 +73,7 @@ public class OrderProductAdapter extends BaseAdapter{
         TextView pcode = convertView.findViewById(R.id.order_prod_codeid);
          checkBox = convertView.findViewById(R.id.prodlistchackboxid);
 
-        serialno.setText(String.valueOf(listWithSerialNumber.get(position)));
+        serialno.setText(String.valueOf(listWithSerialNumber.get(position)+"."));
         productname.setText(prodmodel.getProductname());
         pcode.setText(prodmodel.getL4code());
         price.setText("RM "+prodmodel.getSalesrate());

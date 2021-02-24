@@ -9,9 +9,12 @@ import android.view.Menu;
 
 import com.aait.oms.R;
 import com.aait.oms.fragment.ProfileFragment;
+import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.product.ProductListActivity;
 import com.aait.oms.supplier.SupplierListActivity;
+import com.aait.oms.users.MyReferenceActivity;
+import com.aait.oms.users.UsersAccountActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,16 +104,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
            /* Objects.requireNonNull(getSupportActionBar()).setTitle("Profile");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new AdminProfileFragment()).commit();*/
 
-        } else if (menuItem.getItemId() == R.id.orderlistitemid) {
+        } else if (menuItem.getItemId() == R.id.nav_order) {
             Intent intent = new Intent(this, OrderActivity.class);
             startActivity(intent);
-        }else if (menuItem.getItemId() == R.id.productlistitemid) {
+        }else if (menuItem.getItemId() == R.id.nav_product) {
             Intent intent = new Intent(this, ProductListActivity.class);
             startActivity(intent);
 
-        } else if (menuItem.getItemId() == R.id.useritemid) {
+        } else if (menuItem.getItemId() == R.id.nav_myorders) {
            /* Objects.requireNonNull(getSupportActionBar()).setTitle("Users List");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, new UsersFragment()).commit();*/
+
+            Intent intent = new Intent(HomeActivity.this, MyOrdersActivity.class);
+            startActivity(intent);
+
+        } else if (menuItem.getItemId() == R.id.nav_myrefereces) {
+           /* Objects.requireNonNull(getSupportActionBar()).setTitle("Users List");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new UsersFragment()).commit();*/
+            Intent intent = new Intent(HomeActivity.this, MyReferenceActivity.class);
+            startActivity(intent);
+
+
+        } else if (menuItem.getItemId() == R.id.nav_account) {
+           /* Objects.requireNonNull(getSupportActionBar()).setTitle("Users List");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new UsersFragment()).commit();*/
+            Intent intent = new Intent(HomeActivity.this, UsersAccountActivity.class);
+            startActivity(intent);
+
 
         }  else if (menuItem.getItemId() == R.id.nav_logout) {
 
