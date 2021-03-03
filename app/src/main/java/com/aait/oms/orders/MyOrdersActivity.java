@@ -14,8 +14,13 @@ import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductModel;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +70,7 @@ public class MyOrdersActivity extends AppCompatActivity {
                     myOrderList = baseResponse.getItems();
                     List<OrderMasterModel> ordermodel = new ArrayList<>();
 
-                    for(int i = 0 ; i<myOrderList.size(); i++){
+                 /*   for(int i = 0 ; i<myOrderList.size(); i++){
                         Object getrow =myOrderList.get(i);
                         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
 
@@ -81,11 +86,16 @@ public class MyOrdersActivity extends AppCompatActivity {
                       OrderMasterModel orders = new OrderMasterModel(orderid,comid,branchId,userName,orderdate,shipadd,orderstatus,delstatus);
                         ordermodel.add(orders);
 
-                    }
+                    }*/
 
+                    Gson gson = new Gson();
+                    String json = gson.toJson(myOrderList);
+                   /* JsonObject jsonObject = null;
+                    jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
+                    Type typeMyType = new TypeToken<ArrayList<OrderMasterModel>>(){}.getType();
+                    ArrayList<OrderMasterModel> myObject = gson.fromJson(json, typeMyType);
 
-
-                    myOrdersAdapter = new MyOrdersAdapter(context,ordermodel);
+                    myOrdersAdapter = new MyOrdersAdapter(context,myObject);
                     myorderlistview.setAdapter(myOrdersAdapter);
 
                 }

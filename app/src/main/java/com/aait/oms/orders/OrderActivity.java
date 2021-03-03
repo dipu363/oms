@@ -1,13 +1,20 @@
 package com.aait.oms.orders;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -127,6 +134,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onStart() {
         super.onStart();
@@ -135,11 +143,45 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             int size = checkedValue.size();
             textView.setText(String.valueOf(size));
         }
-        getcatList(this);
+        netWorkCheck( this);
 
     }
 
+    // check mobile net work status and then call checkvalidity method ;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void netWorkCheck(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
 
+            getcatList(this);
+
+        }
+        else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(" NO NetWork")
+                    .setMessage("Enable Mobile Network ")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    dialogInterface.cancel();
+                    finish();
+                }
+            });
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        }
+
+    }
 
     private  void getcatList(Context context){
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
@@ -409,6 +451,8 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     }*/
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

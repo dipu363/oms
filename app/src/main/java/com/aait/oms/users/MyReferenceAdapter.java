@@ -15,9 +15,9 @@ import java.util.List;
 public class MyReferenceAdapter extends BaseAdapter {
 
     Context context;
-    List<UsersModel> userslist;
+    List<UsersViewModel> userslist;
 
-    public MyReferenceAdapter(Context context, List<UsersModel> userslist) {
+    public MyReferenceAdapter(Context context, List<UsersViewModel> userslist) {
         this.context = context;
         this.userslist = userslist;
     }
@@ -40,7 +40,7 @@ public class MyReferenceAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        UsersModel usermodel = userslist.get(position);
+        UsersViewModel usermodel = userslist.get(position);
 
 
         // for get serial no of list item
@@ -65,7 +65,7 @@ public class MyReferenceAdapter extends BaseAdapter {
 
             status = "Active";
         }else{
-            status = "Terminate";
+            status = "DeActive";
         }
 
         serialid.setText(listWithSerialNumber.get(position)+".");

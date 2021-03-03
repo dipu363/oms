@@ -4,43 +4,37 @@ import java.util.Date;
 
 public class UserRequest {
 
-    private String userid;
-    private String fName;
-    private String lName;
-    private int  roleId;
+    private String userName;
+    private String roleId;
     private String password;
-    private String referencedBy;
-    private String  gender;
+    private String  referencedBy;
+    private String active;
+    private String fname;
+    private String  lname;
 
-    public String getUserid() {
-        return userid;
+    public UserRequest(String userName, String roleId, String password, String referencedBy, String active, String fname, String lname) {
+        this.userName = userName;
+        this.roleId = roleId;
+        this.password = password;
+        this.referencedBy = referencedBy;
+        this.active = active;
+        this.fname = fname;
+        this.lname = lname;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getfName() {
-        return fName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
-
-    public int getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 
@@ -60,11 +54,27 @@ public class UserRequest {
         this.referencedBy = referencedBy;
     }
 
-    public String getGender() {
-        return gender;
+    public String getActive() {
+        return active;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setActive(String active) {
+        this.active = active;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 }

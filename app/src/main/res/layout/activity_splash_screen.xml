@@ -22,7 +22,7 @@ android:layout_marginTop="50dp"
         android:textAlignment="center"
         android:textColor="@color/line_border_color_white_gray"
         android:textSize="36sp"
-        android:text="@string/ktholesalae"
+        android:text="@string/company_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

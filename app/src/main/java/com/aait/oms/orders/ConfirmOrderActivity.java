@@ -136,9 +136,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         String jsons = new Gson().toJson(allbranchlist);
                         Type listType = new TypeToken<BranchModel[]>() {}.getType();
                         branchsarraylist = new Gson().fromJson(jsons , listType);
-                        branchsarraylist = new Gson().fromJson(jsons,listType);
-
-
                         branchAdapter =new BranchAdapter(context, android.R.layout.simple_spinner_item,branchsarraylist);
                         branchAdapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         branchspinner.setAdapter(branchAdapter);

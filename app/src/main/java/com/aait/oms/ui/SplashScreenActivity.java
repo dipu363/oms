@@ -13,7 +13,7 @@ import com.aait.oms.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private final int SPLASH_TIME_OUT = 1000;
+    private final int SPLASH_TIME_OUT = 5000;
     Handler mHandler;
     Runnable mRunnable;
 

@@ -36,10 +36,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         //remove the title ber
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //(Window.FEATURE_NO_TITLE);
         //remove the notification ber
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_log_in);
+      /*  ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setLogo(R.drawable.ic_home_icon);
+        actionBar.setTitle("K And T Trading");*/
+
 
 
         login= findViewById(R.id.btn_login);

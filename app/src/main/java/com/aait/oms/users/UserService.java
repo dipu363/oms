@@ -17,13 +17,14 @@ public interface UserService {
 
  /*   @GET("user/findByUser")
     Call<String> getuser(@Query("userName") String id);*/
-
+   // http://aborong.com/orderapi/orderapi/user/findByUser?userName=dipu
 
     @GET("user/findByUser")
     Call<BaseResponse> getuser(@Query("userName") String userName);
 
 
     // http://aborong.com/orderapi/orderapi/user/findByReferencedBy?referencedBy=admin
+    //http://aborong.com/orderapi/orderapi/user/findByReferencedBy?referencedBy=dipu
 
     @GET("user/findByReferencedBy")
     Call<BaseResponse> getuserReferences(@Query("referencedBy") String referenceby);

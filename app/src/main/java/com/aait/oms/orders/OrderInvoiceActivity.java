@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -45,9 +46,9 @@ public class OrderInvoiceActivity extends AppCompatActivity {
         ordertotal = findViewById(R.id.order_invoice_ordertotalid);
         deliberycharge = findViewById(R.id.order_invoice_delivarichrgeid);
         totalamount = findViewById(R.id.order_invoice_totalamountid);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    /*    FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        String username = firebaseUser.getPhoneNumber();
+       String username = firebaseUser.getPhoneNumber();*/
         int max = 31999999;
         int min =21999999;
         int random = (int )(Math.random() * max + min);
@@ -63,7 +64,7 @@ public class OrderInvoiceActivity extends AppCompatActivity {
 
         orderdate.setText(formeter.format(date));
         orderid .setText(String.valueOf(random));
-        cusid.setText(username);
+        cusid.setText("username");
         deltype.setText(alldata.get(0));
         brnchname.setText(alldata.get(1));
         baddress.setText(alldata.get(2));
@@ -83,6 +84,8 @@ public class OrderInvoiceActivity extends AppCompatActivity {
 
         if(item.getItemId()== android.R.id.home)
         {
+            Intent intent = new Intent(OrderInvoiceActivity.this,OrderActivity.class);
+            startActivity(intent);
             finish();
         }
         return super.onOptionsItemSelected(item);

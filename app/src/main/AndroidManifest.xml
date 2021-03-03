@@ -21,7 +21,8 @@
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".users.UsersAccountActivity"></activity>
+        <activity android:name=".users.UserDetailActivity"/>
+        <activity android:name=".users.UsersAccountActivity" />
         <activity android:name=".users.MyReferenceActivity" />
         <activity android:name=".orders.MyOrdersActivity" />
         <activity android:name=".orders.OrderInvoiceActivity" />
@@ -36,7 +37,7 @@
             android:name=".ui.OtpActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name=".ui.LogInActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
         <activity android:name=".product.ProductListActivity" />
         <activity android:name=".ui.HomeActivity" />
@@ -44,7 +45,7 @@
         <activity android:name=".supplier.SupplierListActivity" />
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".ui.LogInActivity"
+            android:name=".ui.SplashScreenActivity"
             android:theme="@style/Theme.Oms.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

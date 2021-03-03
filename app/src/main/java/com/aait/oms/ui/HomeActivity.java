@@ -1,13 +1,17 @@
 package com.aait.oms.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import android.view.Menu;
+import android.view.View;
+import android.widget.Toast;
 
 import com.aait.oms.R;
+import com.aait.oms.fragment.HomePragment;
 import com.aait.oms.fragment.ProfileFragment;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
@@ -23,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,10 +37,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-
-
     FirebaseAuth mAuth;
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -56,9 +58,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new ProfileFragment()).commit();
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomePragment()).commit();
 
 
 
@@ -96,13 +97,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         if (menuItem.getItemId() == R.id.nav_home) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            /*Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new AdminHomeFragment()).commit();*/
+            /*Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);*/
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomePragment()).commit();
+
         } else if (menuItem.getItemId() == R.id.nav_profile) {
-           /* Objects.requireNonNull(getSupportActionBar()).setTitle("Profile");
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new AdminProfileFragment()).commit();*/
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Profile");
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
 
         } else if (menuItem.getItemId() == R.id.nav_order) {
             Intent intent = new Intent(this, OrderActivity.class);

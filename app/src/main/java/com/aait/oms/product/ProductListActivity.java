@@ -1,11 +1,19 @@
 package com.aait.oms.product;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +38,7 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
     ProductAdapter productAdapter;
     List<StockViewModel> allproductlist;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +49,21 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("PRODUCTS");
 
-
         listView = findViewById(R.id.productlist_id);
         //recyclerView = findViewById(R.id.product_list_recy_id);
        // searchView1 = findViewById(R.id.serchviewid);
-        getallproduct(this);
-
        // searchView1.setOnQueryTextListener(this);
+        netWorkCheck(this);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onStart() {
+        super.onStart();
+
 
     }
+
     private void getallproduct(Context context) {
         ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
        Call<BaseResponse> productlist = apiService.getstockview();
@@ -143,6 +158,44 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         return true;
 
     }
+
+
+    // check mobile net work status and then call checkvalidity method ;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void netWorkCheck(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+
+            getallproduct(context);
+
+        }
+        else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(" NO NetWork")
+                    .setMessage("Enable Mobile Network ")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    dialogInterface.cancel();
+                    finish();
+                }
+            });
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        }
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

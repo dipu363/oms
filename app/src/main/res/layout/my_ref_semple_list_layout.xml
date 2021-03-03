@@ -108,7 +108,7 @@
                 android:scaleType="fitXY"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                android:src="@drawable/ic_navigate_next_60"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
