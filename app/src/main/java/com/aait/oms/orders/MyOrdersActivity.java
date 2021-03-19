@@ -5,15 +5,20 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductModel;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -47,18 +52,42 @@ public class MyOrdersActivity extends AppCompatActivity {
 
         myorderlistview = findViewById(R.id.myorderlistviewid);
         myOrderList = new ArrayList<OrderMasterModel>();
-        getmyorderlist(this);
+        SQLiteDB sqLiteDB = new SQLiteDB(this);
+        Cursor cursor = sqLiteDB.getUserInfo();
+        String uname ="";
 
+        if(cursor.moveToFirst()){
+            uname = cursor.getString(1);
+
+        }
+        getmyorderlist(this,uname);
+
+        myorderlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                OrderMasterModel omm = myOrdersAdapter.myorderlist.get(position);
+
+                String orderid = String.valueOf(omm.getOrderId());
+                Intent intent = new Intent(MyOrdersActivity.this,OrderDetailsActivity.class);
+                intent.putExtra("orderid",orderid);
+                startActivity(intent);
+
+
+
+
+            }
+        });
 
 
     }
 
 
 
-    public void  getmyorderlist(Context context){
+    public void  getmyorderlist(Context context,String uname){
 
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
-        Call<BaseResponse> call = service.getUserOrders("absfaruk");
+        Call<BaseResponse> call = service.getUserOrders(uname);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

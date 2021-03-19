@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -38,6 +39,7 @@ import com.aait.oms.model.BaseResponse;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.users.UsersModel;
+import com.aait.oms.util.SQLiteDB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -158,6 +160,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         }*/
 
+        SQLiteDB sqLiteDB = new SQLiteDB(this);
+        Cursor cursor =  sqLiteDB.getUserInfo();
+
+        if (cursor != null && cursor.moveToFirst()){
+            Toast.makeText(this, "Please Logging Out first", Toast.LENGTH_SHORT).show();
+            sendToMain();
+
+        }
+
 
     }
 
@@ -268,11 +279,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             btncountinu.setVisibility(View.INVISIBLE);
             loadingProgress.setVisibility(View.VISIBLE);
-           // CreateUserAccount(firstname,lastname,username,gender,password,ref);
-            saveandupdateUserInfo(firstname,lastname,username,gender,password,ref,pickedImgUri);
+            CreateUserAccount(firstname,lastname,username,gender,password,ref);
+           // saveandupdateUserInfo(firstname,lastname,username,gender,password,ref,pickedImgUri);
             Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
             startActivity(intent);
-            Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
             clear();
             btncountinu.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(View.INVISIBLE);
@@ -288,17 +299,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void CreateUserAccount(final String fname,final String lname,final String uname, final String gender,final String password, final String ref) {
 
-      UsersModel userModel = new UsersModel(uname,fname,lname,102,password,gender,ref);
+      UsersModel userModel = new UsersModel(uname,fname,lname,102,password,ref);
         UserService service = ApiClient.getRetrofit().create(UserService.class);
         Gson gson = new Gson();
         String json = gson.toJson(userModel);
         JsonObject jsonObject = null;
         jsonObject = new JsonParser().parse(json).getAsJsonObject();
-        Call<String> submitOrderModelCall = service.saveUser(jsonObject);
-        submitOrderModelCall.enqueue(new Callback<String>() {
+        Call<String> submituserinfoCall = service.saveUser(jsonObject);
+        submituserinfoCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
+
+
                     String um = response.body();
                     Log.d("Success","Registration Success");
                     Log.d("Success",um);
@@ -336,7 +349,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     if(massage.equals("find data Successfully")){
 
                         uname.setText("");
-                        uname.setError("Number has been all ready used Please Choose Another");
+                        uname.setError("Number all ready used Please Choose Another");
                         uname.requestFocus();
                         //Toast.makeText(SignUpActivity.this, "User Name All ready Used Please Choose Another", Toast.LENGTH_LONG).show();
                     }else{

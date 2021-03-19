@@ -19,7 +19,10 @@ import com.aait.oms.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SummaryActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +32,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     TextView tvTotal;
     Double Total=0d;
     ArrayList<CardModel> productOrders = new ArrayList<>();
+    ArrayList<OrderDetailsModel> orderDetailsModels = new ArrayList<>();
+
     SummaryAdapter  summaryAdapter;
 
 
@@ -77,6 +82,14 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                         String activeStatus = jsonObject.getString("activeStatus");
                         String ledgername = jsonObject.getString("ledgername");
                         int qty = jsonObject.getInt("qty");
+                        float price= qty* Float.parseFloat(salesrate);
+
+                         OrderDetailsModel orderDetailsModel= new OrderDetailsModel();
+                         orderDetailsModel.setL4Code(l4code);
+                         orderDetailsModel.setQty(qty);
+                         orderDetailsModel.setRate(Float.parseFloat(salesrate));
+                         orderDetailsModel.setItemTotal(price);
+                         orderDetailsModels.add(orderDetailsModel);
 
 
                         CardModel products = new CardModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,qty);
@@ -126,6 +139,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                 }else {
 
                     Intent intent2 = new Intent(SummaryActivity.this, ConfirmOrderActivity.class);
+                    intent2.putExtra("myObj", orderDetailsModels);
                     intent2.putExtra("Total",tot);
                     startActivity(intent2);
                 }

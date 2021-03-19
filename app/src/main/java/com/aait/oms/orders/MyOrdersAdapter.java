@@ -60,15 +60,14 @@ public class MyOrdersAdapter extends BaseAdapter {
         TextView delstatus = convertView.findViewById(R.id.my_orders_delivery_status);
         String status = "";
         if (orderMasterModel.getDeliveryStatus().equals("2")){
-
             status = "Delivered";
         }else {
             status = "Processing";
         }
 
-        orderserialid.setText(listWithSerialNumber.get(position)+".");// for get serial no of list item
-        orderid.setText(orderMasterModel.getOrderId());
-        orderdate.setText(orderMasterModel.getOrderDate().substring(0,10));
+        orderserialid.setText(listWithSerialNumber.get(position));// for get serial no of list item
+        orderid.setText(String.valueOf(orderMasterModel.getOrderId()));
+        orderdate.setText(String.valueOf(orderMasterModel.getOrderDate()).substring(0,10));
         orderstatus.setText(orderMasterModel.getActivStatus());
         shipaddress.setText(orderMasterModel.getShippingAddress());
         delstatus.setText(status);

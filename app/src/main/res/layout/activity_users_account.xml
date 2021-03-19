@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".users.UsersAccountActivity">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".commission.UsersAccountActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/account_balanceid"
+            android:textSize="24sp"
+            android:textColor="@color/DarkGreen"
+            android:text="RM   500.0"
+            android:textStyle="bold"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2.5dp" />
+        <TextView
+            android:id="@+id/commisiontextid"
+            android:textSize="16sp"
+            android:textColor="@color/DarkGreen"
+            android:text="Net Balance"
+            android:textStyle="bold"
+            android:layout_marginLeft="2.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2.5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/account_btn_Withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/submit_button_shape"
+            android:text="Withdraw"
+            android:textAllCaps="true"
+            android:textColor="@color/color_white" />
+    </LinearLayout>
+
+</LinearLayout>

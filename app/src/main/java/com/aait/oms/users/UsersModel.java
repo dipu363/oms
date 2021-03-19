@@ -78,13 +78,12 @@ public class UsersModel {
         this.createDate = createDate;
     }
 
-    public UsersModel(String userid, String fname, String lname, int roleId, String password,String gender, String referenced ) {
+    public UsersModel(String userid, String fname, String lname, int roleId, String password, String referenced ) {
         this.userid = userid;
         this.fname = fname;
         this.lname = lname;
         this.roleId = roleId;
         this.password = password;
-        this.gender = gender;
         this.referenced = referenced;
     }
     public UsersModel(String userid, String fname, String lname, int roleId, String password,String gender, String referenced,String imageID ) {

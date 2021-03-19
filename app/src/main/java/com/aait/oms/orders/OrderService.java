@@ -1,9 +1,12 @@
 package com.aait.oms.orders;
 
 import com.aait.oms.model.BaseResponse;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -33,12 +36,17 @@ public interface OrderService {
 
     @GET("order/findByIdUserId")
     Call<BaseResponse> getUserOrders(@Query("userName") String username);
+   // http://aborong.com/orderapi/orderapi/order/findDetailsById?orderId=777299045 //order detail list
+
+    @GET("order/findDetailsById")
+    Call<BaseResponse> getOrderdetails(@Query("orderId") int orderid);
 
 
+    @POST("order/create")
+    Call<String> saveOrder(@Body JsonObject json);
 
-
-
-
-
+    //http://aborong.com/orderapi/orderapi/userCommission/findById?orderId=absfaruk  // indivedual user commission
+    @GET("userCommission/findById")
+    Call<BaseResponse> getuserCommission(@Query("orderId") String username);
 
 }

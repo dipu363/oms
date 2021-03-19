@@ -58,15 +58,10 @@ public class UserDetailActivity extends AppCompatActivity {
             promossiondate.setText(" "+alldata.get(7));
             comlyare.setText(" "+"Level "+ alldata.get(8));
 
-
-
-
-
-
         }
 
 
-/*        PasswordBecrypt passwordBecrypt = new PasswordBecrypt();
+        PasswordBecrypt passwordBecrypt = new PasswordBecrypt();
         try {
            String outPutencode = passwordBecrypt.encrypt("dipu","123");
 
@@ -77,7 +72,7 @@ public class UserDetailActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
 
     }

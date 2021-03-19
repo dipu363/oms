@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -23,6 +24,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aait.oms.R;
+import com.aait.oms.apiconfig.ApiClient;
+import com.aait.oms.model.BaseResponse;
+import com.aait.oms.users.UserRequest;
+import com.aait.oms.users.UserService;
+import com.aait.oms.util.SQLiteDB;
+import com.google.android.gms.common.api.Api;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -77,6 +92,18 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 //
 //            Toast.makeText(this, "there have no current user", Toast.LENGTH_SHORT).show();
 //        }
+        SQLiteDB sqLiteDB = new SQLiteDB(this);
+        Cursor cursor =  sqLiteDB.getUserInfo();
+
+       if (cursor != null && cursor.moveToFirst()){
+
+           Intent intent =new Intent(LogInActivity.this,HomeActivity.class);
+           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           finish();
+           startActivity(intent);
+
+       }
+
     }
 
     @Override
@@ -157,9 +184,66 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public void signIn(String username ,String pass){
-        loginProgress.setVisibility(View.VISIBLE);
+    public void signIn(String uname ,String pass){
+
+        UserService userService = ApiClient.getRetrofit().create(UserService.class);
+        Call<BaseResponse> call= userService.getuser(uname);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse baseResponse = response.body();
+                    String massage = baseResponse.getMessage();
+                    if(massage.equals("Data not Found !!")){
+                        Toast.makeText(LogInActivity.this, "User Name not mach", Toast.LENGTH_LONG).show();
+                    }else{
+                        loginProgress.setVisibility(View.VISIBLE);
+                        login.setVisibility(View.INVISIBLE);
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(baseResponse.getObj());
+                   /* JsonObject jsonObject = null;
+                    jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
+                        Type typeMyType = new TypeToken<UserRequest>(){}.getType();
+                        UserRequest user = gson.fromJson(json, typeMyType);
+                        String  userPassword = user.getMobiPassword();
+                        if (userPassword != null && userPassword.equals(pass)) {
+                            //save username to sqlite db  for getting session;
+                                SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
+                                UserRequest request = new UserRequest();
+                                request.setUserName(uname);
+                                request.setMobiPassword(pass);
+                                sqLiteDBHelper.insertUserinfo(request);
+
+                            Toast.makeText(LogInActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(LogInActivity.this,HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            clear();
+
+                        } else {
+
+                            Toast.makeText(LogInActivity.this, "Password not mach", Toast.LENGTH_SHORT).show();
+                            login.setVisibility(View.VISIBLE);
+                            loginProgress.setVisibility(View.INVISIBLE);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Toast.makeText(LogInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+   /*     loginProgress.setVisibility(View.VISIBLE);
         login.setVisibility(View.INVISIBLE);
+
         if (username.equals("admin")&& pass.equals("admin") ){
             Toast.makeText(LogInActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(LogInActivity.this,HomeActivity.class);
@@ -168,15 +252,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             clear();
 
         }else{
-
-//            login.setVisibility(View.VISIBLE);
-//            loginProgress.setVisibility(View.INVISIBLE);
+            login.setVisibility(View.VISIBLE);
+            loginProgress.setVisibility(View.INVISIBLE);
             Toast.makeText(LogInActivity.this,"Failed",Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
 
     private void clear() {
         useremail.setText("");
         userpasswordid.setText("");
     }
+
 }

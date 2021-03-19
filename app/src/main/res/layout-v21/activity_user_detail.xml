@@ -82,7 +82,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_task_alt_40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
                     />
                 <TextView
                     android:id="@+id/user_detail_roleid"
@@ -104,8 +104,9 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="35dp">
                 <ImageView
                    android:layout_weight="1"
                     android:layout_gravity="center"
@@ -131,6 +132,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -138,7 +140,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_location_on_40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
 
                 <TextView
                     android:id="@+id/user_detail_addressid"
@@ -159,7 +161,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5"
-
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -167,7 +169,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_phone_40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
 
                 <TextView
                    android:id="@+id/user_detail_phoneid"
@@ -188,6 +190,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -195,7 +198,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_mail_outline_40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
 
                 <TextView
                    android:id="@+id/user_detail_emailid"
@@ -216,7 +219,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5"
-
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -224,7 +227,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_layers_40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
 
                 <TextView
                     android:id="@+id/user_detail_levelid"
@@ -245,6 +248,7 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:weightSum="5"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -253,7 +257,7 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_calendar_today_40"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="35dp" />
 
                 <TextView
                     android:id="@+id/user_detail_promossiondateid"

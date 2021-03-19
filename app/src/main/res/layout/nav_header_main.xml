@@ -8,37 +8,165 @@
     android:padding="15dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-
-        android:id="@+id/nav_user_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/userphoto"
-        app:civ_border="true"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="1dp"
-
-        />
 
 
-    <TextView
-        android:id="@+id/nav_headernametext_id1"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="Giyas Uddin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nav_headeremailtext_id2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="giyasuddin636@gmail.com"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/deshboardid"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/logo"
+                app:civ_border="true"
+                android:layout_margin="5dp"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp"
+                 />
 
-        />
+
+            <TextView
+                android:id="@+id/dashboard_comnameid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/company_name"
+                android:layout_toRightOf="@+id/deshboardid"
+                android:textColor="@color/DarkGreen"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textStyle="bold"
+                android:layout_toEndOf="@+id/deshboardid" />
+            <TextView
+                android:id="@+id/dashboard_comadd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_toRightOf="@+id/deshboardid"
+                android:layout_below="@+id/dashboard_comnameid"
+                android:textColor="@color/DarkGreen"
+                android:text="@string/company_address1"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textStyle="italic"
+                android:layout_toEndOf="@+id/deshboardid" />
+            <TextView
+                android:id="@+id/dashboard_compostid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_toRightOf="@+id/deshboardid"
+                android:layout_below="@+id/dashboard_comadd"
+                android:textColor="@color/DarkGreen"
+                android:text="@string/company_address2"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textStyle="italic"
+                android:layout_toEndOf="@+id/deshboardid" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_toRightOf="@+id/deshboardid"
+                android:layout_below="@+id/dashboard_compostid"
+                android:textColor="@color/DarkGreen"
+                android:text="@string/company_address3"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textStyle="italic"
+                android:layout_toEndOf="@+id/deshboardid" />
+
+
+
+        </RelativeLayout>
+
+    <!--    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/Green" />-->
+      <!--  <LinearLayout
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_mail_outline_40"
+                android:layout_width="0dp"
+                android:layout_height="24dp" />
+
+            <TextView
+
+                android:textSize="18sp"
+                android:layout_weight="4"
+                android:textColor="@color/Black"
+                android:text="@string/company_email"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_phone_40"
+                android:layout_width="0dp"
+                android:layout_height="24dp" />
+
+            <TextView
+
+                android:textSize="18sp"
+                android:layout_weight="4"
+                android:textColor="@color/Black"
+                android:text="@string/company_phone2"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp" />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_phone_40"
+                android:layout_width="0dp"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:textSize="18sp"
+                android:layout_weight="4"
+                android:textColor="@color/Black"
+                android:text="@string/company_phone3"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp" />
+
+
+
+        </LinearLayout>-->
+    </LinearLayout>
 </LinearLayout>

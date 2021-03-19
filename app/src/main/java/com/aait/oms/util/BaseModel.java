@@ -5,9 +5,9 @@ import java.util.Date;
 public class BaseModel {
 
     private String ssCreator;
-    private Date ssCreatedOn;
+    private Date ssCreatedOn = new Date();
     private String ssModifier;
-    private Date ssModifiedOn;
+    private Date ssModifiedOn = new Date();
 
     public BaseModel() {
     }

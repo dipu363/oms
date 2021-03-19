@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".commission.CommissionWithdrawActivity">
+
+
+    <FrameLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/withdrawbalancetextid"
+                        android:background="@drawable/edit_text_shape"
+                        android:textColor="@color/Black"
+                        android:layout_marginTop="20dp"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:text="available balance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/transection_amount_edittextid"
+            android:layout_width="match_parent"
+            android:background="@drawable/edit_text_shape"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:hint="Enter amount"
+            android:inputType="number" />
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/transection_password_edittextid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text_shape"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            android:hint="Type your password"
+            android:inputType="textPassword"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/withdrawmassegeid"
+            android:background="@drawable/edit_text_shape"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:gravity="start"
+            android:text="Massege"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/withdraw_btn_next1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/submit_button_shape"
+            android:text="next"
+            android:textAllCaps="true"
+            android:textColor="@color/color_white" />
+  <!--      <Button
+            android:id="@+id/withdraw_btn_next2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/submit_button_shape"
+            android:text="send request"
+            android:visibility="invisible"
+            android:textAllCaps="true"
+            android:textColor="@color/color_white" />-->
+        <Button
+            android:id="@+id/withdraw_btn_send"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:background="@drawable/submit_button_shape"
+            android:text="send request"
+            android:textAllCaps="true"
+            android:textColor="@color/color_white" />
+
+
+    </FrameLayout>
+
+</LinearLayout>

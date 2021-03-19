@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.OrderMasterModel;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
@@ -39,6 +41,7 @@ public class MyReferenceActivity extends AppCompatActivity {
     List<UsersModel> refuserslist;
     ArrayList<String> senddatatorefdetails;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +54,17 @@ public class MyReferenceActivity extends AppCompatActivity {
         myreflistview = findViewById(R.id.myreferencelistviewid);
         refuserslist = new ArrayList<UsersModel>();
         senddatatorefdetails = new ArrayList<String>();
+        SQLiteDB sqLiteDB = new SQLiteDB(this);
+        Cursor cursor = sqLiteDB.getUserInfo();
+        String uname ="";
+
+        if(cursor.moveToFirst()){
+            uname = cursor.getString(1);
+        }
 
 
 
-        getrefUsresList(this);
+        getrefUsresList(this,uname);
 
         myreflistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,9 +96,9 @@ public class MyReferenceActivity extends AppCompatActivity {
 
     }
 
-  public void   getrefUsresList(Context context){
+  public void   getrefUsresList(Context context,String username){
         UserService service = ApiClient.getRetrofit().create(UserService.class);
-        Call<BaseResponse> call = service.getuserReferences("absfaruk");
+        Call<BaseResponse> call = service.getuserReferences(username);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

@@ -11,6 +11,10 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,8 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <LinearLayout
-                android:background="@drawable/spinner_border"
+                android:background="@drawable/edit_text_shape"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -103,7 +108,7 @@
             <TextView
                 android:id="@+id/branch_add_id"
                 android:layout_marginTop="5dp"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:visibility="invisible"
                 android:textAlignment="textStart"
                 android:layout_width="wrap_content"
@@ -126,31 +131,91 @@
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
                 android:background="@drawable/edit_text_shape"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:hint="Enter Mobile no"
                 android:inputType="text" />
 
 
-
-            <ProgressBar
-                android:id="@+id/regProgressBar"
-                style="?android:attr/progressBarStyle"
-                android:visibility="invisible"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <Button
-                android:id="@+id/btnconfirmorderid"
+        </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/submit_button_shape"
-                android:text="@string/signup"
-                android:layout_marginBottom="20dp"
-                android:textAllCaps="true"
-                android:textColor="@color/color_white" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="12dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight=".28"
+                    android:background="@drawable/spinner_border"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spinner_payment_optionid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow_drop_down_24" />
+
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/select_paymentsystem_textmassege_id"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:text="Cash On delivery"
+                    android:visibility="visible"
+                    android:textAlignment="textStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start" />
+             <!--   <EditText
+                    android:id="@+id/shipping_addid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:maxLines="3"
+                    android:background="@drawable/edit_text_shape"
+                    android:layout_marginTop="20dp"
+                    android:hint="Enter Shipping Address"
+                    android:inputType="text" />
+                <EditText
+                    android:id="@+id/cmobile_noid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:background="@drawable/edit_text_shape"
+                    android:layout_marginTop="5dp"
+                    android:hint="Enter Mobile no"
+                    android:inputType="text" />-->
+
+
+                <Button
+                    android:id="@+id/btnconfirmorderid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/submit_button_shape"
+                    android:text="@string/signup"
+                    android:layout_marginBottom="20dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_white" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

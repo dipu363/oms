@@ -63,10 +63,10 @@ public class SummaryAdapter extends BaseAdapter {
         code.setText(cardModel.getL4code());
         rate.setText(cardModel.getSalesrate());
         qty.setText(String.valueOf(cardModel.getQty()));
-        serialno.setText(String.valueOf(listWithSerialNumber.get(position)+"."));
+        serialno.setText(String.valueOf(listWithSerialNumber.get(position)));
         int q  = cardModel.getQty();
-        Double p = Double.parseDouble(cardModel.getSalesrate());
-        price.setText(String.valueOf(q*p));
+        float p = Float.parseFloat(cardModel.getSalesrate());
+        price.setText(String.valueOf(p*q));
 
 
 

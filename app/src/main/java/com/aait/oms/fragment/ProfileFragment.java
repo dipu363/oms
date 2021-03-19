@@ -1,5 +1,6 @@
 package com.aait.oms.fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.users.UsersModel;
 import com.aait.oms.util.BaseModel;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -53,11 +55,18 @@ public class ProfileFragment extends Fragment {
         userName = view.findViewById(R.id.profile_usernameid);
         roleId = view.findViewById(R.id.profile_roleid);
         referencedBy = view.findViewById(R.id.profile_referenceid);
+        SQLiteDB sqLiteDB = new SQLiteDB(getContext());
+        Cursor cursor = sqLiteDB.getUserInfo();
+        String uname ="";
+
+        if(cursor.moveToFirst()){
+            uname = cursor.getString(1);
+        }
 
 
 
 
-        readuserinfo("dipu");
+        readuserinfo(uname);
         return view;
 
 
@@ -88,7 +97,7 @@ public class ProfileFragment extends Fragment {
                     String stat = user.getActive();
 
                     if (role.equals("102")){
-                        roleId.setText("Customer");
+                        roleId.setText("General Customer");
                     }else {
                         roleId.setText("Role Not define");
                     }
@@ -99,8 +108,8 @@ public class ProfileFragment extends Fragment {
                     }
                     fname.setText(user.getFname());
                     lname.setText(user.getLname());
-                    userName.setText(user.getUserName());
-                    referencedBy.setText(user.getReferencedBy());
+                    userName.setText("User Name: "+user.getUserName());
+                    referencedBy.setText("Referenced By: "+user.getReferencedBy());
 
 
 

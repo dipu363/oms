@@ -31,10 +31,12 @@
 
                 <RelativeLayout
                     android:padding="5dp"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
                         android:id="@id/invoiceimageid"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="3dp"
                         android:src="@drawable/logo"
                         android:layout_marginRight="5dp"
@@ -49,22 +51,53 @@
                         android:textSize="24sp"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/white"
-                        android:text="K &amp; T Fresh Ltd."
+                        android:text="@string/company_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_toEndOf="@+id/invoiceimageid" />
                     <TextView
+                        android:id="@+id/companyaddress1"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginLeft="20dp"
                         android:layout_below="@+id/companiid"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/white"
-                        android:text="company address here"
+                        android:text="@string/company_address1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/invoiceimageid" />
+                    <TextView
+                        android:id="@+id/companyaddress2"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_below="@+id/companyaddress1"
+                        android:layout_toRightOf="@+id/invoiceimageid"
+                        android:textColor="@color/white"
+                        android:text="@string/company_address2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/invoiceimageid" />
+                    <TextView
+                        android:id="@+id/companyaddress3"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_below="@+id/companyaddress2"
+                        android:layout_toRightOf="@+id/invoiceimageid"
+                        android:textColor="@color/white"
+                        android:text="@string/company_address3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@+id/invoiceimageid" />
 
                 </RelativeLayout>
 
@@ -122,6 +155,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -209,9 +243,37 @@
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/branchnamelinearid"
+                android:id="@+id/paymenttypelinearid"
                 android:orientation="vertical"
                 android:layout_below="@+id/deliverytypelinearid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/orderinvoicetextid13"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:text="payment Type:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/order_invoice_paymenttypeid"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:text="From Branch"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/branchnamelinearid"
+                android:orientation="vertical"
+                android:layout_below="@+id/paymenttypelinearid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
@@ -303,29 +365,33 @@
                 android:layout_below="@+id/branchphonelinearid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:padding="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/orderinvoicetextid8"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:text="Shipping address: "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+            <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/order_invoice_shippingaddressid"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:text="56/a, nalua road, narayanganj 1400"
-                        android:layout_alignParentRight="true"
-                        android:textAlignment="textEnd"
-                        android:layout_width="230dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end" />
-                </RelativeLayout>
+            <TextView
+                android:id="@+id/orderinvoicetextid8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shipping address: "
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/order_invoice_shippingaddressid"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="end"
+                android:text="56/a, nalua road, narayanganj 1400"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/cus_phone_linearid"
@@ -400,13 +466,14 @@
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/orderinvoicetextid11"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        android:text="Delivery Charge(RM)"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="Delivery Charge(RM)"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/order_invoice_delivarichrgeid"
@@ -470,6 +537,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/signeturetextid"
                 android:layout_below="@+id/total_amount_linearid"
                 android:orientation="vertical"
                 android:gravity="center"
@@ -478,16 +546,30 @@
 
                 <TextView
 
-                    android:padding="10dp"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="20dp"
-                    android:textColor="@color/black"
-                    android:text="NOTE:- This is a computer generated receipt and does not require a signature."
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+
+                    android:padding="10dp"
+                    android:text="NOTE:- This is a computer generated receipt and does not require a signature."
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_invoicefab_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:src="@drawable/baseline_done_black_24dp"
+                    android:layout_marginBottom="30dp"
+                    android:contentDescription="TODO" />
 
 
             </LinearLayout>
+
+
+
+
+
 
 
 
@@ -596,6 +678,7 @@
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
 
 
 

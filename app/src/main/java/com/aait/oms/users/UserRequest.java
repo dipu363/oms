@@ -11,8 +11,9 @@ public class UserRequest {
     private String active;
     private String fname;
     private String  lname;
+    private String mobiPassword;
 
-    public UserRequest(String userName, String roleId, String password, String referencedBy, String active, String fname, String lname) {
+    public UserRequest(String userName, String roleId, String password, String referencedBy, String active, String fname, String lname, String mobiPassword) {
         this.userName = userName;
         this.roleId = roleId;
         this.password = password;
@@ -20,6 +21,14 @@ public class UserRequest {
         this.active = active;
         this.fname = fname;
         this.lname = lname;
+        this.mobiPassword = mobiPassword;
+    }
+
+    public UserRequest() {
+    }
+
+    public UserRequest(String userName) {
+        this.userName = userName;
     }
 
     public String getUserName() {
@@ -76,5 +85,13 @@ public class UserRequest {
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    public String getMobiPassword() {
+        return mobiPassword;
+    }
+
+    public void setMobiPassword(String mobiPassword) {
+        this.mobiPassword = mobiPassword;
     }
 }

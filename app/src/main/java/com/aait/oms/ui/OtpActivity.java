@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.aait.oms.MainActivity;
 import com.aait.oms.R;
+import com.aait.oms.orders.OrderActivity;
+import com.aait.oms.users.UserRequest;
+import com.aait.oms.util.SQLiteDB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -102,7 +105,14 @@ public class OtpActivity extends AppCompatActivity {
 
 
     private void sendToMain(){
-        startActivity(new Intent(OtpActivity.this , HomeActivity.class));
-        finish();
+        SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
+        UserRequest request = new UserRequest(OTP);
+        sqLiteDBHelper.insertUserinfo(request);
+
+        Toast.makeText(OtpActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(OtpActivity.this,HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
     }
 }

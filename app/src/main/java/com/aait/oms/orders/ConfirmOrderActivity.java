@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -28,12 +30,20 @@ import com.aait.oms.branch.BranchModel;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
+import com.aait.oms.users.UserService;
+import com.aait.oms.util.SQLiteDB;
 import com.google.android.gms.common.internal.Asserts;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,15 +51,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ConfirmOrderActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView selectdelioption, branchadd;
+    TextView selectdelioption, branchadd ,paytextviewmassage;
     RadioButton radioButton1,radioButton2;
     EditText shipaddress, cmobile;
-    Spinner branchspinner;
+    Spinner branchspinner,paymentspinner;
     Button btnsubmint;
     List<BranchModel> allbranchlist;
     BranchModel[] branchsarraylist;
+    //OrderDetailsModel[] orderDetailsModels;
+    List<OrderDetailsModel> orderDetailsModels=new ArrayList<>();
     BranchAdapter branchAdapter;
     String deliverty,bname,baddress ,bmobile;
+    int branchid;
+    String option;
 
     ArrayList<String> senddatatoinvoice;
 
@@ -67,8 +81,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
         radioButton1 = findViewById(R.id.radiobtn1);
         radioButton2 = findViewById(R.id.radiobtn2);
+        paytextviewmassage = findViewById(R.id.select_paymentsystem_textmassege_id);
         shipaddress = findViewById(R.id.shipping_addid);
         branchspinner = findViewById(R.id.spinner_delivary_optionid);
+        paymentspinner = findViewById(R.id.spinner_payment_optionid);
         btnsubmint = findViewById(R.id.btnconfirmorderid);
         selectdelioption = findViewById(R.id.redioselecttextid);
         branchadd = findViewById(R.id.branch_add_id);
@@ -80,6 +96,42 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
         allbranchlist = new ArrayList<>();
         senddatatoinvoice = new ArrayList<>();
+
+        //for spinner
+        String[] payoption = {"Select Payment Option","Cash On Delivery","Online Banking"};
+        ArrayAdapter<CharSequence> payAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, payoption );
+        payAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        paymentspinner.setAdapter(payAdapter);
+        paymentspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 option = (String) payAdapter.getItem(position);
+                if(option.equals("Online Banking")){
+                    paytextviewmassage.setVisibility(View.VISIBLE);
+                    paytextviewmassage.setText("Please sent your payment at PUBLIC BANK, Account no 3145263227, if you have any queries please Contact +60 95135005");
+                    paytextviewmassage.setTextColor(Color.RED);
+                }else if(option.equals("Cash On Delivery")){
+                    paytextviewmassage.setVisibility(View.VISIBLE);
+                    paytextviewmassage.setText("Please give your payment to our Delivery Man. if you have any queries please Contact +60 95135005");
+                    paytextviewmassage.setTextColor(Color.RED);
+                }else{
+                    option="Cash on Delivery";
+                    paytextviewmassage.setText("");
+                    paytextviewmassage.setVisibility(View.INVISIBLE);
+                }
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+
+
+            }
+        });
 
 
 
@@ -123,6 +175,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
 
     private  void getbrnachList(Context context){
+
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.get_branch_List();
@@ -154,6 +207,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                                  );
                                  branchadd.setVisibility(View.VISIBLE);
                                  branchadd.setTextColor(Color.RED);
+                                 branchid=branchModel.getBranchID();
                                  bname = branchModel.getBname();
                                  baddress= branchModel.getAddress();
                                  bmobile = branchModel.getMobile1();
@@ -219,6 +273,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         double grandtotal = Double.parseDouble(total)+5;
                         senddatatoinvoice.clear();
                         senddatatoinvoice.add(deliverty);
+                        senddatatoinvoice.add(option);
                         senddatatoinvoice.add(bname);
                         senddatatoinvoice.add(baddress);
                         senddatatoinvoice.add(bmobile);
@@ -229,20 +284,21 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         senddatatoinvoice.add(String.valueOf(grandtotal));
 
                         Log.d("SEND Data", senddatatoinvoice.toString());
-
+                        saveOrder(shipadd + mobile);
                         Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
                         intent.putExtra("alldata", senddatatoinvoice);
                         startActivity(intent);
-                        Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
 
                     }
 
                 }
                 else{
 
-
+                   // saveOrder(bname + baddress + bmobile);
                     senddatatoinvoice.clear();
                     senddatatoinvoice.add(deliverty);
+                    senddatatoinvoice.add(option);
                     senddatatoinvoice.add(bname);
                     senddatatoinvoice.add(baddress);
                     senddatatoinvoice.add(bmobile);
@@ -253,11 +309,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     senddatatoinvoice.add(total);
 
                     Log.d("SEND Data", senddatatoinvoice.toString());
-
+                    saveOrder(bname + baddress + bmobile);
                     Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
                     intent.putExtra("alldata", senddatatoinvoice);
                     startActivity(intent);
-                    Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -267,6 +323,77 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
             }
         }
+
+    }
+
+
+
+    public void saveOrder(final String shippingAddress){
+
+
+        @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+
+        String orderdate= formeter.format(date);
+
+        SQLiteDB sqLiteDB = new SQLiteDB(this);
+        Cursor cursor = sqLiteDB.getUserInfo();
+        String uname ="";
+        if(cursor.moveToFirst()){
+            uname = cursor.getString(1);
+        }
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!= null){
+             orderDetailsModels = bundle.getParcelableArrayList("myObj");
+
+        }
+
+
+       // OrderMasterModel orderMasterModel = new OrderMasterModel(666666667,"101",branchid,uname,shippingAddress,"1","1");
+
+        OrderMasterModel orderMasterModel = new OrderMasterModel("101",branchid,uname,orderdate,shippingAddress,"1","1",orderDetailsModels);
+        OrderService service = ApiClient.getRetrofit().create(OrderService.class);
+        Gson gson = new Gson();
+        String json = gson.toJson(orderMasterModel);
+        JsonObject jsonObject = null;
+        jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        Call<String> submitorderCall = service.saveOrder(jsonObject);
+        try {
+            submitorderCall.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()){
+
+                        String um = response.body();
+                        Log.d("um",um);
+
+
+                        Toast.makeText(ConfirmOrderActivity.this, "Order submitted successful", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Toast.makeText(ConfirmOrderActivity.this, "Failure "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("failure",t.getMessage());
+
+                }
+            });
+
+
+
+        }catch (Exception e){
+
+            Log.d("exception",e.getMessage());
+
+        }
+
+
+
+
+
 
     }
 

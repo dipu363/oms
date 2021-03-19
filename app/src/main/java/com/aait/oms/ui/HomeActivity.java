@@ -1,7 +1,7 @@
 package com.aait.oms.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,18 +16,16 @@ import com.aait.oms.fragment.ProfileFragment;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.product.ProductListActivity;
-import com.aait.oms.supplier.SupplierListActivity;
 import com.aait.oms.users.MyReferenceActivity;
-import com.aait.oms.users.UsersAccountActivity;
+import com.aait.oms.commission.UsersAccountActivity;
+import com.aait.oms.util.SQLiteDB;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,6 +72,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(HomeActivity.this , SendOtpActivity.class));
             finish();
         }*/
+
+        userprfileupdate();
     }
 
     @Override
@@ -137,20 +137,40 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }  else if (menuItem.getItemId() == R.id.nav_logout) {
 
            // mAuth.signOut();
-            Intent intent = new Intent(this, LogInActivity.class);
-            startActivity(intent);
-            finish();
-         /*   FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(com.dipu.milkzone.AdminPanelActivity.this, LoginAs.class);
+
+            SQLiteDB sqLiteDB = new SQLiteDB(this);
+            sqLiteDB.deleteuserinfo(1);
+
+            Intent intent = new Intent(HomeActivity.this, LogInActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Successfully Sign out", Toast.LENGTH_LONG).show();
-            finish();*/
+            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
 
         return true;
+    }
+
+
+    public void userprfileupdate() {
+
+        SQLiteDB sqLiteDB = new SQLiteDB(this);
+        Cursor cursor = sqLiteDB.getUserInfo();
+        String uname ="";
+        if(cursor.moveToFirst()){
+            uname = cursor.getString(1);
+        }
+        NavigationView navigationView = findViewById(R.id.navigationviewId);
+        View headerview = navigationView.getHeaderView(0);
+       // TextView username = headerview.findViewById(R.id.nav_headernametext_id1);
+       // TextView useremail = headerview.findViewById(R.id.nav_headeremailtext_id2);
+        //ImageView userimage = headerview.findViewById(R.id.nav_user_photo);
+        //username.setText(uname);
+       // useremail.setText(currentuser.getEmail());
+       // Glide.with(this).load(currentuser.getPhotoUrl()).into(userimage);
+
     }
 }

@@ -14,15 +14,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".users.UserDetailActivity"/>
-        <activity android:name=".users.UsersAccountActivity" />
+        <activity android:name=".commission.CommissionWithdrawActivity"></activity>
+        <activity android:name=".orders.OrderDetailsActivity" />
+        <activity android:name=".users.UserDetailActivity" />
+        <activity android:name=".commission.UsersAccountActivity" />
         <activity android:name=".users.MyReferenceActivity" />
         <activity android:name=".orders.MyOrdersActivity" />
         <activity android:name=".orders.OrderInvoiceActivity" />

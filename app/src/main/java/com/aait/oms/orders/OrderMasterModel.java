@@ -1,5 +1,13 @@
 package com.aait.oms.orders;
 
+
+import com.aait.oms.util.BaseModel;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class OrderMasterModel {
 
 
@@ -10,18 +18,33 @@ public class OrderMasterModel {
     String ssCreatedOn;
     String ssModifier;
     String ssModifiedOn;*/
-    String orderId;
+    int orderId;
     String companyId;
-    String branchId;
+    int branchId;
     String userName;
-    String orderDate;
+    String orderDate ;
     String shippingAddress;
     String activStatus;
     String deliveryStatus;
+    List<OrderDetailsModel> orderDetailList;
 
+    public OrderMasterModel(int orderId) {
+        this.orderId = orderId;
+    }
 
+    public OrderMasterModel( String companyId, int branchId, String userName, String orderDate, String shippingAddress, String activStatus, String deliveryStatus, List<OrderDetailsModel> orderDetailList) {
 
-    public OrderMasterModel(String orderId, String companyId, String branchId, String userName ,String orderDate, String shippingAddress, String activStatus, String deliveryStatus) {
+        this.companyId = companyId;
+        this.branchId = branchId;
+        this.userName = userName;
+        this.orderDate = orderDate;
+        this.shippingAddress = shippingAddress;
+        this.activStatus = activStatus;
+        this.deliveryStatus = deliveryStatus;
+        this.orderDetailList = orderDetailList;
+    }
+
+    public OrderMasterModel(int orderId, String companyId, int branchId, String userName , String orderDate, String shippingAddress, String activStatus, String deliveryStatus) {
 
         this.orderId = orderId;
         this.companyId = companyId;
@@ -34,6 +57,8 @@ public class OrderMasterModel {
 
     }
 
+
+
     public String getUserName() {
         return userName;
     }
@@ -42,11 +67,11 @@ public class OrderMasterModel {
         this.userName = userName;
     }
 
-    public String getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
@@ -58,12 +83,16 @@ public class OrderMasterModel {
         this.companyId = companyId;
     }
 
-    public String getBranchId() {
+    public int getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(String branchId) {
+    public void setBranchId(int branchId) {
         this.branchId = branchId;
+    }
+
+    public List<OrderDetailsModel> getOrderDetailList() {
+        return orderDetailList;
     }
 
     public String getOrderDate() {
@@ -73,6 +102,12 @@ public class OrderMasterModel {
     public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
+
+    public void setOrderDetailList(List<OrderDetailsModel> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
+
 
     public String getShippingAddress() {
         return shippingAddress;

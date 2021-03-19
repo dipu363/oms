@@ -1,13 +1,11 @@
 package com.aait.oms.util;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.google.gson.JsonParseException;
 
 import java.io.IOException;
 public interface CommonFunctions {
 
-    default  <T> T objectMapperReadValue(String content, Class<T> valueType) {
+   /* default  <T> T objectMapperReadValue(String content, Class<T> valueType) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
 
@@ -27,5 +25,5 @@ public interface CommonFunctions {
             return null;
         }
         //  return null;
-    }
+    }*/
 }
