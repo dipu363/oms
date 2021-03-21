@@ -11,13 +11,14 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserService {
-    @POST("users/adduser")
+    @POST("user/save")
     Call<String> saveUser(@Body JsonObject json);
 
 
  /*   @GET("user/findByUser")
     Call<String> getuser(@Query("userName") String id);*/
    // http://aborong.com/orderapi/orderapi/user/findByUser?userName=dipu
+   // http://localhost:8080/orderapi/orderapi/user/findByUser?userName=admin
 
     @GET("user/findByUser")
     Call<BaseResponse> getuser(@Query("userName") String userName);

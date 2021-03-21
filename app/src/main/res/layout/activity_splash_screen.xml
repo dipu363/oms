@@ -9,17 +9,16 @@
     tools:context=".ui.SplashScreenActivity">
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/deshboardid"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:src="@drawable/logo"
-        app:civ_border="true"
-        android:layout_margin="30dp"
-        app:civ_border_color="@color/black"
-        app:civ_border_width="2dp"
+        android:layout_marginLeft="40dp"
+
+
         />
 
     <TextView
-android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:layout_gravity="center"
@@ -29,5 +28,17 @@ android:layout_marginTop="50dp"
         android:text="@string/company_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="80dp"
+
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="Fruit wholesaler in Kuantan, Malaysia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 </FrameLayout>

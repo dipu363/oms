@@ -76,7 +76,8 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Produts");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("    Products");
         rootcat = findViewById(R.id.catagoryid);
         subcat = findViewById(R.id.subcatagoryid);
         cartbutton = findViewById(R.id.cartbuttonid);
@@ -190,41 +191,57 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             call.enqueue(new Callback<BaseResponse>() {
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+
                     if(response.isSuccessful()){
                         BaseResponse baseResponse = response.body();
-                        allcatgorylist= baseResponse.getData();
-
-                        String jsons = new Gson().toJson(allcatgorylist);
-                        Type listType = new TypeToken<ProdCatagoryModel[]>() {}.getType();
-                        catagory = new Gson().fromJson(jsons , listType);
-                        catagory = new Gson().fromJson(jsons,listType);
+                        allcatgorylist = baseResponse.getData();
+                        if(allcatgorylist.size() == 0){
 
 
-                        catSpinnerAdapter =new CatSpinnerAdapter(context, android.R.layout.simple_spinner_item,catagory);
-                        catSpinnerAdapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        rootcat.setAdapter(catSpinnerAdapter);
+                            showMessege("Data Not Found");
+
+                        }else {
 
 
-                        rootcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                         @Override
-                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            String jsons = new Gson().toJson(allcatgorylist);
+                            Type listType = new TypeToken<ProdCatagoryModel[]>() {
+                            }.getType();
+                            catagory = new Gson().fromJson(jsons, listType);
+                            catagory = new Gson().fromJson(jsons, listType);
 
-                             ProdCatagoryModel prodCatagoryModel = catSpinnerAdapter.getItem(position);
-                             assert prodCatagoryModel != null;
-                             subcatid = prodCatagoryModel.getL1Code();
-                             String catname = prodCatagoryModel.getL1Name();
-                             Toast.makeText(OrderActivity.this,catname, Toast.LENGTH_SHORT).show();
-                             getSubcatList(context,subcatid);
 
-                         }
+                            catSpinnerAdapter = new CatSpinnerAdapter(context, android.R.layout.simple_spinner_item, catagory);
+                            catSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            rootcat.setAdapter(catSpinnerAdapter);
 
-                         @Override
-                         public void onNothingSelected(AdapterView<?> parent) {
 
-                         }
-                        });
+                            rootcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                        Log.d("good", "onResponse: "+ catagory);
+                                    ProdCatagoryModel prodCatagoryModel = catSpinnerAdapter.getItem(position);
+                                    assert prodCatagoryModel != null;
+                                    subcatid = prodCatagoryModel.getL1Code();
+                                    String catname = prodCatagoryModel.getL1Name();
+                                    Toast.makeText(OrderActivity.this, catname, Toast.LENGTH_SHORT).show();
+                                    getSubcatList(context, subcatid);
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+
+                            Log.d("good", "onResponse: " + catagory);
+                        }
+
+                    }
+                    else{
+
+                        showMessege("Request Not Response");
+
                     }
                 }
 
@@ -451,6 +468,14 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     }*/
+
+
+    private void  showMessege(String msg){
+
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
+
+    }
 
 
 

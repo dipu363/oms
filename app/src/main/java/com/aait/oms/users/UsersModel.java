@@ -32,6 +32,7 @@ public class UsersModel {
     private String userid;
     private String fname;
     private String lname;
+    private int branchID;
     private int  roleId;
     private String password;
     private String referenced;
@@ -78,15 +79,17 @@ public class UsersModel {
         this.createDate = createDate;
     }
 
-    public UsersModel(String userid, String fname, String lname, int roleId, String password, String referenced ) {
+    public UsersModel(String userid, String fname, String lname, int branchID, int roleId, String password, String referenced) {
         this.userid = userid;
         this.fname = fname;
         this.lname = lname;
+        this.branchID = branchID;
         this.roleId = roleId;
         this.password = password;
         this.referenced = referenced;
     }
-    public UsersModel(String userid, String fname, String lname, int roleId, String password,String gender, String referenced,String imageID ) {
+
+    public UsersModel(String userid, String fname, String lname, int roleId, String password, String gender, String referenced, String imageID ) {
         this.userid = userid;
         this.fname = fname;
         this.lname = lname;

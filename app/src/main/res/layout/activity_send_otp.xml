@@ -65,6 +65,37 @@
                 android:hint="+88"
                 android:inputType="number" />
 
+<!--
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_shape"
+                android:orientation="horizontal"
+                android:layout_marginEnd="3dp">
+
+                <Spinner
+                    android:id="@+id/spinner_countrycode_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_drop_down_24" />
+
+            </RelativeLayout>-->
+
             <EditText
                 android:id="@+id/input_phone"
                 android:layout_width="0dp"

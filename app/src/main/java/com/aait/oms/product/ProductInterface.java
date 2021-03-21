@@ -10,7 +10,6 @@ public interface ProductInterface {
 
     @GET("prodmaster/list")
     Call<BaseResponse> getallproduct();
-
     @GET("prodmaster/findById")
     Call<BaseResponse> getsingleproduct(@Query("id")String id);
     @GET("stock/viewlist")

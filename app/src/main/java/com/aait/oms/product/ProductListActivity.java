@@ -19,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
+
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
@@ -70,9 +72,15 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                BaseResponse baseResponse = response.body();
+
+                if(baseResponse.getMessage().equals("") ) {
+                    showMaseage("Data Note found");
+                }else{
+
 
                // Log.e("success",response.body().toString());
-                BaseResponse baseResponse = response.body();
+               // BaseResponse baseResponse = response.body();
                 assert baseResponse != null;
                 allproductlist = baseResponse.getData();
                 List<StockViewModel> prodname = new ArrayList();
@@ -105,7 +113,6 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
                     String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
 
                     prod = new StockViewModel(pcode,uomName,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-
                     prodname.add(prod);
 
                 }
@@ -114,6 +121,11 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
 
                 productAdapter = new ProductAdapter(context,prodname);
                 listView.setAdapter(productAdapter);
+
+                }
+
+
+
 
 
             }
@@ -158,7 +170,10 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         return true;
 
     }
+public void showMaseage( String msg){
 
+    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+}
 
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

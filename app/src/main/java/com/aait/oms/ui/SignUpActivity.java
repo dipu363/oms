@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.users.UsersModel;
@@ -270,8 +271,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             upassword.setError("Enter your password");
             upassword.requestFocus();
         }
-        else if (passlenth < 4 ) {
-            upassword.setError("Password Entered At Least 4 Characters ");
+        else if (passlenth < 6 ) {
+            upassword.setError("Password Entered At Least 6 Characters ");
             upassword.requestFocus();
         }
         else {
@@ -279,7 +280,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             btncountinu.setVisibility(View.INVISIBLE);
             loadingProgress.setVisibility(View.VISIBLE);
-            CreateUserAccount(firstname,lastname,username,gender,password,ref);
+            createUserAccount(firstname,lastname,username,gender,password,ref);
            // saveandupdateUserInfo(firstname,lastname,username,gender,password,ref,pickedImgUri);
             Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
             startActivity(intent);
@@ -297,36 +298,48 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     //create user accountmathod on server
 
-    private void CreateUserAccount(final String fname,final String lname,final String uname, final String gender,final String password, final String ref) {
+    private void createUserAccount(final String fname,final String lname,final String uname, final String gender,final String password, final String ref) {
 
-      UsersModel userModel = new UsersModel(uname,fname,lname,102,password,ref);
-        UserService service = ApiClient.getRetrofit().create(UserService.class);
+        UserModel userModel = new UserModel(uname,fname,lname,112,password,5,ref,gender);
         Gson gson = new Gson();
         String json = gson.toJson(userModel);
         JsonObject jsonObject = null;
         jsonObject = new JsonParser().parse(json).getAsJsonObject();
-        Call<String> submituserinfoCall = service.saveUser(jsonObject);
-        submituserinfoCall.enqueue(new Callback<String>() {
+        UserService userService = ApiClient.getRetrofit().create(UserService.class);
+        Call<String> call = userService.saveUser(jsonObject);
+        call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
+                    Toast.makeText(SignUpActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
 
-
-                    String um = response.body();
-                    Log.d("Success","Registration Success");
-                    Log.d("Success",um);
+                }else{
+                    Toast.makeText(SignUpActivity.this, "Registration Fail", Toast.LENGTH_SHORT).show();
                 }
+
+
+
 
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                    Log.d("Failure","Registration Fail" + t.getMessage());
+
+                Log.d("failure " , t.getMessage());
 
             }
         });
 
+
     }
+
+
+
+
+
+
+
+
 
     //clear text field
     public void clear(){
@@ -346,7 +359,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if (response.isSuccessful()){
                     BaseResponse baseResponse = response.body();
                     String massage = baseResponse.getMessage();
-                    if(massage.equals("find data Successfully")){
+                    if(baseResponse.getObj()!= null){
 
                         uname.setText("");
                         uname.setError("Number all ready used Please Choose Another");
@@ -374,7 +387,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if (response.isSuccessful()){
                     BaseResponse baseResponse = response.body();
                     String massage = baseResponse.getMessage();
-                    if(massage.equals("find data Successfully")){
+                    if(baseResponse.getObj()!=null){
                         Toast.makeText(SignUpActivity.this, "Thank you for your reference", Toast.LENGTH_LONG).show();
                     }else{
                         reference.setText("");
@@ -426,7 +439,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             //String userid = currentUser.getUid();
 
 
-                            UsersModel userModel = new UsersModel(uname,fname,lname,102,password,gender,ref,imageUrl);
+                            UsersModel userModel = new UsersModel(uname,fname,lname,1,password,gender,ref,imageUrl);
                             databaseReference.child(uname).setValue(userModel);
                      /*       //user profile build with user image
                             UserProfileChangeRequest profleUpdate = new UserProfileChangeRequest.Builder()
@@ -464,7 +477,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             //save data without user image
             String imageUrl = "default";
            // String userid = currentUser.getUid();
-            UsersModel userModel = new UsersModel(uname,fname,lname,102,password,gender,ref,imageUrl);
+            UsersModel userModel = new UsersModel(uname,fname,lname,1,password,gender,ref,imageUrl);
             databaseReference.child(uname).setValue(userModel);
 
         /*    //build profile without user image

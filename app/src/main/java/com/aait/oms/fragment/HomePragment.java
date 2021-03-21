@@ -40,10 +40,9 @@ public class HomePragment extends Fragment implements View.OnClickListener {
         card_option3 = view.findViewById(R.id.cardviewadmin_Optino3);
         card_option4 = view.findViewById(R.id.cardviewadmin_Optino4);
         textView1= view.findViewById(R.id.dashboard_comnameid);
-        textView1.setText("K & T TRADING");
         card_option1.setOnClickListener(this);
         card_option2.setOnClickListener(this);
-        //card_option3.setOnClickListener(this);
+        card_option3.setOnClickListener(this);
         card_option4.setOnClickListener(this);
 
 

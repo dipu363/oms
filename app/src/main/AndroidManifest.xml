@@ -21,7 +21,7 @@
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".commission.CommissionWithdrawActivity"></activity>
+        <activity android:name=".commission.CommissionWithdrawActivity"/>
         <activity android:name=".orders.OrderDetailsActivity" />
         <activity android:name=".users.UserDetailActivity" />
         <activity android:name=".commission.UsersAccountActivity" />

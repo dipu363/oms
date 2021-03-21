@@ -22,13 +22,12 @@
             android:layout_height="wrap_content">
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/deshboardid"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/logo"
-                app:civ_border="true"
-                android:layout_margin="5dp"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="1dp"
+                android:layout_marginRight="10dp"
+
+
                  />
 
 
@@ -36,7 +35,7 @@
                 android:id="@+id/dashboard_comnameid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:text="@string/company_name"
                 android:layout_toRightOf="@+id/deshboardid"
                 android:textColor="@color/DarkGreen"

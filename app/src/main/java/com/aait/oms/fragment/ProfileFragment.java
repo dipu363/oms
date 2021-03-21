@@ -15,6 +15,7 @@ import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.OrderMasterModel;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
+import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.users.UsersModel;
@@ -90,26 +91,26 @@ public class ProfileFragment extends Fragment {
                     String json = gson.toJson(baseResponse.getObj());
                    /* JsonObject jsonObject = null;
                     jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
-                    Type typeMyType = new TypeToken<UserRequest>(){}.getType();
-                    UserRequest user = gson.fromJson(json, typeMyType);
+                    Type typeMyType = new TypeToken<UserModel>(){}.getType();
+                    UserModel user = gson.fromJson(json, typeMyType);
 
-                    String role = user.getRoleId();
-                    String stat = user.getActive();
+                    int role = user.getRoleId();
+                    String stat = user.getStatus();
 
-                    if (role.equals("102")){
+                    if (role ==112){
                         roleId.setText("General Customer");
                     }else {
                         roleId.setText("Role Not define");
                     }
-                    if (stat.equals("1")){
+                    if (stat!= null && stat.equals("1")){
                         active.setText("Active");
                     }else {
                         active.setText("unknown");
                     }
                     fname.setText(user.getFname());
-                    lname.setText(user.getLname());
-                    userName.setText("User Name: "+user.getUserName());
-                    referencedBy.setText("Referenced By: "+user.getReferencedBy());
+                    lname.setText(user.getlName());
+                    userName.setText("User Name: "+user.getUsername());
+                    referencedBy.setText("Referenced By: "+user.getReferenced());
 
 
 

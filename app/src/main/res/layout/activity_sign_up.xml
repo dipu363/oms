@@ -16,7 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="12dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="12dp">
 
             <!--            <TextView-->
             <!--                android:background="@drawable/edit_text_shape"-->
@@ -115,8 +117,9 @@
                 android:layout_width="match_parent"
                 android:background="@drawable/edit_text_shape"
                 android:layout_gravity="left"
-                android:hint="Password(At lest 4 character)"
-                android:inputType="text" />
+                android:hint="@string/password_at_lest_6_character"
+                android:inputType="text"
+                tools:ignore="TextFields" />
 
 
             <ProgressBar

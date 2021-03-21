@@ -3,14 +3,18 @@ package com.aait.oms.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +41,7 @@ import retrofit2.Response;
 public class SendOtpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mSendOTPBtn ,otpsignupbtn;
+    Spinner spinner;
     private TextView processText;
     private EditText countryCodeEdit , phoneNumberEdit;
     private FirebaseAuth auth;
@@ -52,10 +57,19 @@ public class SendOtpActivity extends AppCompatActivity implements View.OnClickLi
         countryCodeEdit = findViewById(R.id.input_country_code);
         phoneNumberEdit = findViewById(R.id.input_phone);
         otpsignupbtn = findViewById(R.id.otp_signup_btn);
+        //for spinner
+        spinner = (Spinner) findViewById(R.id.spinner_gender);
+        String[] gen = {"88","6","Female","Others"};
+        ArrayAdapter<CharSequence> genAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, gen );
+        genAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        spinner.setAdapter(genAdapter);
 
         auth = FirebaseAuth.getInstance();
         mSendOTPBtn.setOnClickListener(this);
         otpsignupbtn.setOnClickListener(this);
+
+
+
 
     }
 
@@ -181,6 +195,9 @@ public class SendOtpActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
+
+
+
 
 
 }

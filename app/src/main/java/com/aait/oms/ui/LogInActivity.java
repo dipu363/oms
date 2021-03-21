@@ -194,7 +194,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 if (response.isSuccessful()) {
                     BaseResponse baseResponse = response.body();
                     String massage = baseResponse.getMessage();
-                    if(massage.equals("Data not Found !!")){
+                    if(baseResponse.getObj() == null){
                         Toast.makeText(LogInActivity.this, "User Name not mach", Toast.LENGTH_LONG).show();
                     }else{
                         loginProgress.setVisibility(View.VISIBLE);

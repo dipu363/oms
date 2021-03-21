@@ -14,7 +14,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="company_name"> K &amp; T TRADING </string>
+    <string name="company_name"> K &amp; T TRADING (KUANTAN) SDN BHD </string>
     <string name="company_address1">No 5, Lorong Industri Tanah Putih Baru 6</string>
     <string name="company_address2">25150, Kuantan.</string>
     <string name="company_address3">Pahang Darul Makmur.</string>
@@ -26,6 +26,6 @@
     <string name="selectbranch">Thanks for the choose your delivery option --From Branch--, you will not be pay any charge for delivery your Order. Please Select your nearest Branch Below.</string>
     <string name="selecthome"> Thanks for the choose your delivery option --Home Delivery--, you will be pay 5 RM extra with your order total amount as delivery Charge for your Order Delivery to your home.</string>
     <string name="invoicemassege"> "Dear Customer, Thanks to you that you choose our company for purchase your needed product. you will get your ordered product on time at your chooseing delivery option. please take a screen shot and collect it for use in future."</string>
-
+    <string name="password_at_lest_6_character">Password(At lest 6 character)</string>
 
 </resources>

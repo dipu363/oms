@@ -70,11 +70,10 @@
                             android:id="@+id/dashboard_comnameid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="30sp"
+                            android:textSize="24sp"
                             android:text="@string/company_name"
                             android:layout_toRightOf="@+id/deshboardid"
                             android:textColor="@color/DarkGreen"
-                            android:textAppearance="?android:textAppearanceLarge"
                             android:textStyle="bold"
                             android:layout_toEndOf="@+id/deshboardid" />
                         <TextView
@@ -244,7 +243,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="PRODUCTS"
-                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
 
@@ -281,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="ORDER"
-                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
 
@@ -325,7 +324,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="REFERENCES"
-                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
 
@@ -362,7 +361,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="MYORDERS"
-                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
 
