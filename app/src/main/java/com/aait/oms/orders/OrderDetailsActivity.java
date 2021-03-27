@@ -49,7 +49,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setTitle("Order Details");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Order Details");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 

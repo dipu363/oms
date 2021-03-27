@@ -57,7 +57,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Selected Products");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Selected Products");
 
 
 
@@ -118,7 +119,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     // assert baseResponse != null;
 
                     Object row =  baseResponse.getObj();
-
                     LinkedTreeMap<Object,Object> t = (LinkedTreeMap) row;
                         String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));

@@ -13,12 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.util.SQLiteDB;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -39,6 +41,8 @@ public class MyOrdersActivity extends AppCompatActivity {
     MyOrdersAdapter myOrdersAdapter;
     List<OrderMasterModel> myOrderList;
 
+    TextView textView ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,13 @@ public class MyOrdersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_orders);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setTitle("My Orders");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  My Orders");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         myorderlistview = findViewById(R.id.myorderlistviewid);
+        textView = findViewById(R.id.ordernotfound_id);
         myOrderList = new ArrayList<OrderMasterModel>();
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor = sqLiteDB.getUserInfo();
@@ -92,12 +98,20 @@ public class MyOrdersActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     BaseResponse baseResponse = response.body();
 
                     myOrderList = baseResponse.getItems();
-                    List<OrderMasterModel> ordermodel = new ArrayList<>();
+
+                    if (myOrderList.size() == 0) {
+                        textView.setVisibility(View.VISIBLE);
+                        Snackbar.make(textView, "Data Not Found", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+
+                    } else {
+
 
                  /*   for(int i = 0 ; i<myOrderList.size(); i++){
                         Object getrow =myOrderList.get(i);
@@ -117,16 +131,18 @@ public class MyOrdersActivity extends AppCompatActivity {
 
                     }*/
 
-                    Gson gson = new Gson();
-                    String json = gson.toJson(myOrderList);
+                        Gson gson = new Gson();
+                        String json = gson.toJson(myOrderList);
                    /* JsonObject jsonObject = null;
                     jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
-                    Type typeMyType = new TypeToken<ArrayList<OrderMasterModel>>(){}.getType();
-                    ArrayList<OrderMasterModel> myObject = gson.fromJson(json, typeMyType);
+                        Type typeMyType = new TypeToken<ArrayList<OrderMasterModel>>() {
+                        }.getType();
+                        ArrayList<OrderMasterModel> myObject = gson.fromJson(json, typeMyType);
 
-                    myOrdersAdapter = new MyOrdersAdapter(context,myObject);
-                    myorderlistview.setAdapter(myOrdersAdapter);
+                        myOrdersAdapter = new MyOrdersAdapter(context, myObject);
+                        myorderlistview.setAdapter(myOrdersAdapter);
 
+                    }
                 }
 
             }

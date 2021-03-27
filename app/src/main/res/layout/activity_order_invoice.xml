@@ -31,7 +31,6 @@
 
                 <RelativeLayout
                     android:padding="5dp"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
@@ -45,58 +44,58 @@
 
                     <TextView
                         android:id="@+id/companiid"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:layout_marginLeft="10dp"
                         android:textSize="24sp"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/white"
                         android:text="@string/company_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/invoiceimageid" />
                     <TextView
                         android:id="@+id/companyaddress1"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="12sp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_below="@+id/companiid"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/white"
                         android:text="@string/company_address1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/invoiceimageid" />
                     <TextView
                         android:id="@+id/companyaddress2"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="12sp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_below="@+id/companyaddress1"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/white"
                         android:text="@string/company_address2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/invoiceimageid" />
                     <TextView
                         android:id="@+id/companyaddress3"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="12sp"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_below="@+id/companyaddress2"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/white"
                         android:text="@string/company_address3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/invoiceimageid" />
 
                 </RelativeLayout>
@@ -108,21 +107,21 @@
 
             <LinearLayout
                 android:id="@+id/invoicelineartextviewid"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/invoiceidtextid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="113dp"
+                android:layout_below="@+id/invoiceidtextid"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_shape"
                     android:padding="10dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:text="@string/invoicemassege"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
 
             </LinearLayout>

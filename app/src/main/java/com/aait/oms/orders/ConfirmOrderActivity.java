@@ -30,13 +30,18 @@ import com.aait.oms.branch.BranchModel;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
+import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserService;
+import com.aait.oms.util.CommonFunctions;
 import com.aait.oms.util.SQLiteDB;
 import com.google.android.gms.common.internal.Asserts;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
@@ -50,7 +55,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConfirmOrderActivity extends AppCompatActivity implements View.OnClickListener {
+public class ConfirmOrderActivity extends AppCompatActivity implements View.OnClickListener , CommonFunctions {
     TextView selectdelioption, branchadd ,paytextviewmassage;
     RadioButton radioButton1,radioButton2;
     EditText shipaddress, cmobile;
@@ -62,7 +67,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     List<OrderDetailsModel> orderDetailsModels=new ArrayList<>();
     BranchAdapter branchAdapter;
     String deliverty,bname,baddress ,bmobile;
-    int branchid;
+    int branchid ,orderID;
     String option;
 
     ArrayList<String> senddatatoinvoice;
@@ -77,7 +82,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Confirm Order ");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("   Confirm Order ");
 
         radioButton1 = findViewById(R.id.radiobtn1);
         radioButton2 = findViewById(R.id.radiobtn2);
@@ -112,7 +118,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     paytextviewmassage.setTextColor(Color.RED);
                 }else if(option.equals("Cash On Delivery")){
                     paytextviewmassage.setVisibility(View.VISIBLE);
-                    paytextviewmassage.setText("Please give your payment to our Delivery Man. if you have any queries please Contact +60 95135005");
+                    paytextviewmassage.setText("Please give your payment to our service provider. if you have any queries please Contact +60 95135005");
                     paytextviewmassage.setTextColor(Color.RED);
                 }else{
                     option="Cash on Delivery";
@@ -270,8 +276,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         cmobile.requestFocus();
                     }
                     else {
+
                         double grandtotal = Double.parseDouble(total)+5;
                         senddatatoinvoice.clear();
+
                         senddatatoinvoice.add(deliverty);
                         senddatatoinvoice.add(option);
                         senddatatoinvoice.add(bname);
@@ -282,12 +290,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         senddatatoinvoice.add(total);
                         senddatatoinvoice.add("5.0");
                         senddatatoinvoice.add(String.valueOf(grandtotal));
-
                         Log.d("SEND Data", senddatatoinvoice.toString());
-                        saveOrder(shipadd + mobile);
-                        Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
-                        intent.putExtra("alldata", senddatatoinvoice);
-                        startActivity(intent);
+                        saveOrder(shipadd+","+ mobile +","+option);
+
+
                        // Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
 
                     }
@@ -296,6 +302,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 else{
 
                    // saveOrder(bname + baddress + bmobile);
+
                     senddatatoinvoice.clear();
                     senddatatoinvoice.add(deliverty);
                     senddatatoinvoice.add(option);
@@ -309,10 +316,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     senddatatoinvoice.add(total);
 
                     Log.d("SEND Data", senddatatoinvoice.toString());
-                    saveOrder(bname + baddress + bmobile);
-                    Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
-                    intent.putExtra("alldata", senddatatoinvoice);
-                    startActivity(intent);
+                    saveOrder(bname+"," + baddress +","+ bmobile +","+option);
+
+
                    // Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
 
                 }
@@ -352,7 +358,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
        // OrderMasterModel orderMasterModel = new OrderMasterModel(666666667,"101",branchid,uname,shippingAddress,"1","1");
 
-        OrderMasterModel orderMasterModel = new OrderMasterModel("101",branchid,uname,orderdate,shippingAddress,"1","1",orderDetailsModels);
+        OrderMasterModel orderMasterModel = new OrderMasterModel("101",branchid,uname,orderdate,shippingAddress,"Ordered","1",orderDetailsModels);
+        orderMasterModel.setSsCreator(uname);
+        orderMasterModel.setSsCreatedOn(orderdate);
+        orderMasterModel.setSsModifier(uname);
+        orderMasterModel.setSsModifiedOn(orderdate);
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         Gson gson = new Gson();
         String json = gson.toJson(orderMasterModel);
@@ -363,13 +373,38 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             submitorderCall.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
+
+                  /*  //when send post request
+                    //if error faced Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
+                    //Error say's you want to get result in String body.
+                    //If you want to do this, Just add ScalarsConverterFactory.create() in your Retrofit.Builder.
+                    //Use retrofit Implementation in app level build.gradle.
+                    //implementation 'com.squareup.retrofit2:converter-scalars:2.1.0' update version
+                    // .baseUrl(BASE_URL)
+                    // .addConverterFactory(ScalarsConverterFactory.create())
+                    // .addConverterFactory(GsonConverterFactory.create())
+                    // .build();*/
+
                     if (response.isSuccessful()){
-
+                        assert response.body() != null;
                         String um = response.body();
-                        Log.d("um",um);
+                        // Log.d("um",um);
+                        BaseResponse baseResponse = objectMapperReadValue(um,BaseResponse.class);
+
+                        Object row= baseResponse.getObj();
+
+                        String jsons = new Gson().toJson(row);
+                        Type listType = new TypeToken<OrderMasterModel>() {}.getType();
+                        OrderMasterModel omm   = new Gson().fromJson(jsons , listType);
+                        orderID = omm.getOrderId();
+                        senddatatoinvoice.add(String.valueOf(orderID));
 
 
-                        Toast.makeText(ConfirmOrderActivity.this, "Order submitted successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
+                        intent.putExtra("alldata", senddatatoinvoice);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(ConfirmOrderActivity.this, "Order submitted successful", Toast.LENGTH_LONG).show();
                     }
 
                 }

@@ -1,15 +1,47 @@
 package com.aait.oms.users;
 
+import com.aait.oms.util.BaseModel;
+
 import java.sql.Date;
 
-public class UserModel {
+public class UserModel extends BaseModel {
 
-    private String username;
+   /* active: "1"
+            ​​
+    branchID: 4
+            ​​
+    fname: "dipu"
+            ​​
+    lname: "dipu"
+            ​​
+    mobiPassword: "123456"
+            ​​
+    password: "$2a$10$J1epF5ms.2VCXAYqYKmjiuL/hLdsTe36UK0vIqCUbNCY.E1bg74IO"
+            ​​
+    photo: null
+            ​​
+    referencedBy: "dipu"
+            ​​
+    roleId: 112
+            ​​
+    ssCreatedOn: "2021-03-23T17:53:26.061+0000"
+            ​​
+    ssCreator: "admin"
+            ​​
+    ssModifiedOn: "2021-03-23T17:53:26.061+0000"
+            ​​
+    ssModifier: null
+            ​​
+    userName: "monir
+    */
+
+
+
+    private String userid;
     private String fname;
-    private String lName;
+    private String lname;
     private int  roleId;
     private String password;
-
     private  int branchID;
     private String referenced;
     private String photo;
@@ -26,14 +58,13 @@ public class UserModel {
     private String referencedTo;
     private String commLayer;
     private String commPromotionDate;
-    private String ssCreator;
-    private Date ssCreatedOn;
     private String  mobiPassword;
+    private String username;
 
-    public UserModel(String username, String fname, String lName, int roleId, String password, int branchID, String referenced, String gender) {
-        this.username = username;
+    public UserModel(String userid, String fname, String lname, int roleId, String password, int branchID, String referenced, String gender) {
+        this.userid = userid;
         this.fname = fname;
-        this.lName = lName;
+        this.lname = lname;
         this.roleId = roleId;
         this.password = password;
         this.branchID = branchID;
@@ -41,12 +72,20 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getReferenced() {
+        return referenced;
+    }
+
+    public void setReferenced(String referenced) {
+        this.referenced = referenced;
     }
 
     public String getFname() {
@@ -57,12 +96,12 @@ public class UserModel {
         this.fname = fname;
     }
 
-    public String getlName() {
-        return lName;
+    public String getLname() {
+        return lname;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public int getRoleId() {
@@ -89,13 +128,7 @@ public class UserModel {
         this.branchID = branchID;
     }
 
-    public String getReferenced() {
-        return referenced;
-    }
 
-    public void setReferenced(String referenced) {
-        this.referenced = referenced;
-    }
 
     public String getPhoto() {
         return photo;
@@ -208,28 +241,19 @@ public class UserModel {
     public void setCommPromotionDate(String commPromotionDate) {
         this.commPromotionDate = commPromotionDate;
     }
-
-    public String getSsCreator() {
-        return ssCreator;
-    }
-
-    public void setSsCreator(String ssCreator) {
-        this.ssCreator = ssCreator;
-    }
-
-    public Date getSsCreatedOn() {
-        return ssCreatedOn;
-    }
-
-    public void setSsCreatedOn(Date ssCreatedOn) {
-        this.ssCreatedOn = ssCreatedOn;
-    }
-
     public String getMobiPassword() {
         return mobiPassword;
     }
 
     public void setMobiPassword(String mobiPassword) {
         this.mobiPassword = mobiPassword;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

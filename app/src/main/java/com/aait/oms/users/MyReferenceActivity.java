@@ -3,6 +3,7 @@ package com.aait.oms.users;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.OrderMasterModel;
 import com.aait.oms.util.SQLiteDB;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +43,7 @@ public class MyReferenceActivity extends AppCompatActivity {
     MyReferenceAdapter refAdapter;
     List<UsersModel> refuserslist;
     ArrayList<String> senddatatorefdetails;
+    TextView textView;
 
 
     @Override
@@ -48,12 +52,15 @@ public class MyReferenceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_reference);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setTitle("My References");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  My References");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         myreflistview = findViewById(R.id.myreferencelistviewid);
+        textView = findViewById(R.id.referencenotfound_id);
         refuserslist = new ArrayList<UsersModel>();
         senddatatorefdetails = new ArrayList<String>();
+
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor = sqLiteDB.getUserInfo();
         String uname ="";
@@ -105,6 +112,18 @@ public class MyReferenceActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     BaseResponse userslist = response.body();
                     refuserslist = userslist.getItems();
+                    if(refuserslist.size()==0){
+
+                        CoordinatorLayout coordinatorLayout ;
+                        textView.setVisibility(View.VISIBLE);
+
+                        Snackbar.make(textView, "Data Not Found", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
+                    }else{
+
+
+
                     List<UsersViewModel> allrefuser = new ArrayList<UsersViewModel>();
 
             /*        for(int i = 0 ; i<refuserslist.size(); i++) {
@@ -129,7 +148,7 @@ public class MyReferenceActivity extends AppCompatActivity {
 
                     refAdapter = new MyReferenceAdapter(context,allrefuser);
                     myreflistview.setAdapter(refAdapter);
-
+                    }
 
                 }
 

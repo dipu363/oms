@@ -28,20 +28,19 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     private static final String USER_ID = "Id";
     private static final String USER_NAME = "userName";
+    private static final String OTP_UID = "otpUID";
     private static final String USER_PASSWORD = "userPassword";
+    private static final String LOGIN_STATUS = "login_status";
 
 
 
 
     public static final String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO + "("
-            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + USER_PASSWORD + " TEXT " + ")";
+            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN " +")";
 
     public SQLiteDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-
-
 
 
 
@@ -84,7 +83,9 @@ public class SQLiteDB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(USER_ID,1);
         values.put(USER_NAME,userRequest.getUserName());
+        values.put(OTP_UID,userRequest.getOtpUID());
         values.put(USER_PASSWORD,userRequest.getMobiPassword());
+        values.put(LOGIN_STATUS,userRequest.isLogin_status());
         db.insert(TABLE_USER_INFO,null,values);
         db.close();
     }
@@ -99,6 +100,31 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public  void deleteuserinfo(int userid){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USER_INFO,USER_ID + "=?",new String[]{String.valueOf(userid)});
+        db.close();
+    }
+
+
+    public void updateuserotp( String otp,int id ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(OTP_UID,otp);
+        db.update(TABLE_USER_INFO,value,USER_ID +" = ?",new String[]{String.valueOf(id)});
+        db.close();
+    }
+    public void updateuserloginstatus( boolean loginstatus ,int id ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(LOGIN_STATUS,loginstatus);
+        db.update(TABLE_USER_INFO,value,USER_ID +" = ?",new String[]{String.valueOf(id)});
+        db.close();
+    }
+    public void updateuserunamepassstatus( String uname ,String pass, boolean loginstatus ,int id ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(USER_NAME,uname);
+        value.put(USER_PASSWORD,pass);
+        value.put(LOGIN_STATUS,loginstatus);
+        db.update(TABLE_USER_INFO,value,USER_ID +" = ?",new String[]{String.valueOf(id)});
         db.close();
     }
 }

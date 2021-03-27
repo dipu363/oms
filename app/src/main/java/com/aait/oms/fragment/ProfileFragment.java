@@ -102,13 +102,13 @@ public class ProfileFragment extends Fragment {
                     }else {
                         roleId.setText("Role Not define");
                     }
-                    if (stat!= null && stat.equals("1")){
+                    if (stat.equals("1")){
                         active.setText("Active");
                     }else {
                         active.setText("unknown");
                     }
                     fname.setText(user.getFname());
-                    lname.setText(user.getlName());
+                    lname.setText(user.getLname());
                     userName.setText("User Name: "+user.getUsername());
                     referencedBy.setText("Referenced By: "+user.getReferenced());
 

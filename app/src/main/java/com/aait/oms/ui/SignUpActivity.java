@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -57,6 +58,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -96,7 +102,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("REGISTRATION");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Registration");
         loadingProgress = findViewById(R.id.regProgressBar);
         fname= findViewById(R.id.edit_firstname);
         lname = findViewById(R.id.edit_lastname);
@@ -126,12 +133,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String un = uname.getText().toString().trim();
-                if(!hasFocus && !un.equals("")){
+                if(!un.equals("")){
                     chackusername(un);
                 }else{
 
-                    uname.setError("Enter Your Mobile Number");
-                    uname.requestFocus();
+                    uname.setError("Mobile Number all ready Used or field is Empty.");
+
                    // Toast.makeText(SignUpActivity.this, "Enter Your Mobile Number", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -140,12 +147,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 String ref = reference.getText().toString().trim();
-               if(!hasFocus && !ref.equals("")){
+               if(!ref.equals("")){
                    chackReference(ref);
-               }else{
-                   reference.setError("Enter Reference Customer ID");
-                   reference.requestFocus();
-                  // Toast.makeText(SignUpActivity.this, "Enter Reference Customer ID", Toast.LENGTH_SHORT).show();
+               }
+               else{
+
+                   reference.setError("Customer ID Not Available, Please Enter a Valid Customer ID.");
+
                }
 
             }
@@ -265,6 +273,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             lname.setError("Enter your last name");
             lname.requestFocus();
 
+        }else if (TextUtils.isEmpty(username)){
+            uname.setError("Enter You Phone Number");
+        }
+        else if (TextUtils.isEmpty(ref)){
+            reference.setError("Enter Reference");
         }
         //checking the validity of the password
         else if (TextUtils.isEmpty(password) ) {
@@ -280,12 +293,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             btncountinu.setVisibility(View.INVISIBLE);
             loadingProgress.setVisibility(View.VISIBLE);
-            createUserAccount(firstname,lastname,username,gender,password,ref);
+            createUserAccount(username,firstname,lastname,gender,password,ref);
            // saveandupdateUserInfo(firstname,lastname,username,gender,password,ref,pickedImgUri);
-            Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
-            startActivity(intent);
-            //Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-            clear();
+
             btncountinu.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(View.INVISIBLE);
 
@@ -298,35 +308,58 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     //create user accountmathod on server
 
-    private void createUserAccount(final String fname,final String lname,final String uname, final String gender,final String password, final String ref) {
+    private void createUserAccount(final String uname,final String fname,final String lname, final String gender,final String password, final String ref) {
 
-        UserModel userModel = new UserModel(uname,fname,lname,112,password,5,ref,gender);
-        Gson gson = new Gson();
+        @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String regdate= formeter.format(date);
+
+        UserModel userModel = new UserModel(uname,fname,lname,112,password,4,ref,gender);
+        userModel.setSsCreator(uname);
+        userModel.setSsModifier(uname);
+
+
+       /* SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
+        UserRequest request = new UserRequest();
+        request.setUserName(uname);
+        request.setMobiPassword(password);
+        request.setLogin_status(false);
+        sqLiteDBHelper.insertUserinfo(request);*/
+
+
+
+    /*  Gson gson = new Gson();
         String json = gson.toJson(userModel);
         JsonObject jsonObject = null;
         jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        UserService userService = ApiClient.getRetrofit().create(UserService.class);*/
+
+        Gson gson = new Gson();
+        String json = gson.toJson(userModel);
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         UserService userService = ApiClient.getRetrofit().create(UserService.class);
-        Call<String> call = userService.saveUser(jsonObject);
+        Call<String> call = userService.userSave(jsonObject);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(SignUpActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+                String res = response.body();
 
-                }else{
-                    Toast.makeText(SignUpActivity.this, "Registration Fail", Toast.LENGTH_SHORT).show();
-                }
+                SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
+                UserRequest request = new UserRequest();
+                request.setUserName(uname);
+                request.setMobiPassword(password);
+                request.setLogin_status(false);
+                sqLiteDBHelper.insertUserinfo(request);
 
-
-
-
+                Toast.makeText(SignUpActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
-                Log.d("failure " , t.getMessage());
-
+                Toast.makeText(SignUpActivity.this, "Registration fail", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -362,7 +395,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     if(baseResponse.getObj()!= null){
 
                         uname.setText("");
-                        uname.setError("Number all ready used Please Choose Another");
                         uname.requestFocus();
                         //Toast.makeText(SignUpActivity.this, "User Name All ready Used Please Choose Another", Toast.LENGTH_LONG).show();
                     }else{
@@ -386,14 +418,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.isSuccessful()){
                     BaseResponse baseResponse = response.body();
-                    String massage = baseResponse.getMessage();
+                    //String massage = baseResponse.getMessage();
                     if(baseResponse.getObj()!=null){
+
                         Toast.makeText(SignUpActivity.this, "Thank you for your reference", Toast.LENGTH_LONG).show();
                     }else{
                         reference.setText("");
-                        reference.setError("Customer ID Not Available Please Enter a Valid Customer ID.");
                         reference.requestFocus();
-
                         //Toast.makeText(SignUpActivity.this, "Customer ID not available", Toast.LENGTH_LONG).show();
                     }
                 }

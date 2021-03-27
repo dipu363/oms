@@ -1,18 +1,20 @@
 package com.aait.oms.util;
 
+import android.content.Context;
+import android.database.Cursor;
+
 import java.util.Date;
 
 public class BaseModel {
-
     private String ssCreator;
-    private Date ssCreatedOn = new Date();
+    private String ssCreatedOn;
     private String ssModifier;
-    private Date ssModifiedOn = new Date();
+    private String ssModifiedOn;
 
     public BaseModel() {
     }
 
-    public BaseModel(String ssCreator, Date ssCreatedOn, String ssModifier, Date ssModifiedOn) {
+    public BaseModel(String ssCreator, String ssCreatedOn, String ssModifier, String ssModifiedOn) {
         this.ssCreator = ssCreator;
         this.ssCreatedOn = ssCreatedOn;
         this.ssModifier = ssModifier;
@@ -27,11 +29,11 @@ public class BaseModel {
         this.ssCreator = ssCreator;
     }
 
-    public Date getSsCreatedOn() {
+    public String getSsCreatedOn() {
         return ssCreatedOn;
     }
 
-    public void setSsCreatedOn(Date ssCreatedOn) {
+    public void setSsCreatedOn(String ssCreatedOn) {
         this.ssCreatedOn = ssCreatedOn;
     }
 
@@ -43,11 +45,11 @@ public class BaseModel {
         this.ssModifier = ssModifier;
     }
 
-    public Date getSsModifiedOn() {
+    public String getSsModifiedOn() {
         return ssModifiedOn;
     }
 
-    public void setSsModifiedOn(Date ssModifiedOn) {
+    public void setSsModifiedOn(String ssModifiedOn) {
         this.ssModifiedOn = ssModifiedOn;
     }
 }

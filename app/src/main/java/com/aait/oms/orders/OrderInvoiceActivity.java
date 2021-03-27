@@ -39,7 +39,8 @@ public class OrderInvoiceActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Invoice ");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Invoice ");
         orderdate = findViewById(R.id.order_invoice_dateid);
         fab = findViewById(R.id.btn_invoicefab_id);
         orderid = findViewById(R.id.order_invoice_orderid);
@@ -57,9 +58,9 @@ public class OrderInvoiceActivity extends AppCompatActivity {
     /*    FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
        String username = firebaseUser.getPhoneNumber();*/
-        int max = 31999999;
+       /* int max = 31999999;
         int min =21999999;
-        int random = (int )(Math.random() * max + min);
+        int random = (int )(Math.random() * max + min);*/
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor = sqLiteDB.getUserInfo();
         String uname ="";
@@ -86,7 +87,7 @@ public class OrderInvoiceActivity extends AppCompatActivity {
         });
 
         orderdate.setText(formeter.format(date));
-        orderid .setText(String.valueOf(random));
+        orderid .setText(String.valueOf(alldata.get(10)));
         cusid.setText(uname);
         deltype.setText(alldata.get(0));
         paytype.setText(alldata.get(1));

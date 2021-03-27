@@ -45,7 +45,8 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Order Summary");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Order Summary");
 
         lvSummary = findViewById(R.id.summaryorderlistid);
         tvTotal = findViewById(R.id.summarytotalpaytextid);

@@ -27,7 +27,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.math.RoundingMode;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
@@ -52,7 +54,8 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setTitle("Commission Withdraw");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Commission Withdraw");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -67,7 +70,12 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
         if(bundle!= null){
             String bal = bundle.getString("balance");
             ablebalance = Float.parseFloat(bal);
-            balancetextview.setText("Available Amount RM " + bal);
+
+            double doubleResult = Float.valueOf(ablebalance);
+            DecimalFormat df = new DecimalFormat("#.00");
+            df.setRoundingMode(RoundingMode.CEILING);
+            String v = df.format(doubleResult);
+            balancetextview.setText("Available Amount RM " + v);
         }
 
         btn_send = findViewById(R.id.withdraw_btn_send);
@@ -85,20 +93,24 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
         switch (v.getId()){
             case R.id.withdraw_btn_next1:
                 String req_amount= transectionamount.getText().toString();
-               float reqbalance = Float.parseFloat(req_amount);
-                if(TextUtils.isEmpty(req_amount)){
+                if(TextUtils.isEmpty(req_amount )){
                     transectionamount.setError("Please Enter Request amount");
                     transectionamount.requestFocus();
-                }else if (reqbalance > ablebalance){
-                    transectionamount.setError(" You have not Enough amount available");
-                    transectionamount.requestFocus();
-
                 }
                 else {
-                    transectionamount.setVisibility(View.INVISIBLE);
-                    btn_next1.setVisibility(View.INVISIBLE);
-                    transectionpassword.setVisibility(View.VISIBLE);
-                    btn_send.setVisibility(View.VISIBLE);
+                    float reqbalance = Float.parseFloat(req_amount);
+                    if (reqbalance > ablebalance){
+                        transectionamount.setError(" You have not Enough amount available");
+                        transectionamount.requestFocus();
+
+                    }else{
+                        transectionamount.setVisibility(View.INVISIBLE);
+                        btn_next1.setVisibility(View.INVISIBLE);
+                        transectionpassword.setVisibility(View.VISIBLE);
+                        btn_send.setVisibility(View.VISIBLE);
+                    }
+
+
                 }
                 break;
 
@@ -114,7 +126,7 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
                     Cursor cursor =  sqLiteDB.getUserInfo();
 
                     if (cursor != null && cursor.moveToFirst()){
-                        String password = cursor.getString(2);
+                        String password = cursor.getString(3);
                         if (password.equals(pass)){
                             transectionpassword.setVisibility(View.INVISIBLE);
                             btn_send.setVisibility(View.INVISIBLE);

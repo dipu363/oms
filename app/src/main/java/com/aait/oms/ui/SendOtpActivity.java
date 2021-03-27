@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
+import com.aait.oms.commission.CommissionModel;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +34,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -44,6 +48,7 @@ public class SendOtpActivity extends AppCompatActivity implements View.OnClickLi
     Spinner spinner;
     private TextView processText;
     private EditText countryCodeEdit , phoneNumberEdit;
+    List<UserModel> userModelList;
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
 
@@ -57,13 +62,7 @@ public class SendOtpActivity extends AppCompatActivity implements View.OnClickLi
         countryCodeEdit = findViewById(R.id.input_country_code);
         phoneNumberEdit = findViewById(R.id.input_phone);
         otpsignupbtn = findViewById(R.id.otp_signup_btn);
-        //for spinner
-        spinner = (Spinner) findViewById(R.id.spinner_gender);
-        String[] gen = {"88","6","Female","Others"};
-        ArrayAdapter<CharSequence> genAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, gen );
-        genAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-        spinner.setAdapter(genAdapter);
-
+        userModelList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         mSendOTPBtn.setOnClickListener(this);
         otpsignupbtn.setOnClickListener(this);
@@ -119,8 +118,10 @@ public class SendOtpActivity extends AppCompatActivity implements View.OnClickLi
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.isSuccessful()){
                     BaseResponse baseResponse = response.body();
-                    String massage = baseResponse.getMessage();
-                    if(massage.equals("find data Successfully")){
+                    Object obj = baseResponse.getObj();
+                   // boolean size = obj.equals(null);
+
+                    if(baseResponse.getObj()!= null){
                         Toast.makeText(SendOtpActivity.this, " Customer found", Toast.LENGTH_LONG).show();
                         String country_code = countryCodeEdit.getText().toString();
                         String phone = phoneNumberEdit.getText().toString();
@@ -165,9 +166,10 @@ public class SendOtpActivity extends AppCompatActivity implements View.OnClickLi
                         PhoneAuthProvider.verifyPhoneNumber(options);
                     }else{
                         //Toast.makeText(SignInActivity.this, "Customer ID not available", Toast.LENGTH_LONG).show();
+                        countryCodeEdit.setText("");
                         phoneNumberEdit.setText("");
-                        phoneNumberEdit.setError("Customer ID not available");
-                        phoneNumberEdit.requestFocus();
+                        phoneNumberEdit.setError("You are not registered our system. Please click sign up button for your registration.");
+
 
                     }
                 }

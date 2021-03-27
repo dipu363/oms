@@ -15,8 +15,14 @@ public interface CommissionService {
     @GET("userCommission/findById")
     Call<BaseResponse> getuserCommission(@Query("orderId") String username);
 
+    // http://aborong.com/orderapi/orderapi/commWithdraw/create
+    // send a jsonObject with your model to joson body
     @POST("commWithdraw/create")
     Call<String> saveCommissionWithdrawRequest(@Body JsonObject json);
+
+   // http://aborong.com/orderapi/orderapi/commWithdraw/findById?orderId=admin
+    @GET("commWithdraw/findById")
+    Call<BaseResponse> getuserWithdrawCommission(@Query("orderId") String username);
 
 
 

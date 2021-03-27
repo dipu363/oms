@@ -30,6 +30,8 @@ import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.util.SQLiteDB;
 import com.google.android.gms.common.api.Api;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -44,6 +46,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private EditText useremail,userpasswordid;
     private Button login, signup;
     private ProgressBar loginProgress;
+    private FirebaseAuth mAuth;
+    private String username = null;
+
 
 
     @Override
@@ -70,6 +75,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
         loginProgress.setVisibility(View.INVISIBLE);
+        mAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -77,32 +83,49 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
-//        user = auth.getCurrentUser();
-//        if(user != null) {
-//
-//            if(user.isEmailVerified()){
-//                updateUI();
-//
-//            }else{
-//                Toast.makeText(LoginActivity.this, "Your Email is not verified Please verify your email", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            //user is already login  so we need to redirect him to home pag
-//        }else{
-//
-//            Toast.makeText(this, "there have no current user", Toast.LENGTH_SHORT).show();
-//        }
+        String otpcode =null;
+        String currentuser =null;
+        int loginstatus = 0;
+
+      FirebaseUser  user = mAuth.getCurrentUser();
+        currentuser = user.getUid();
         SQLiteDB sqLiteDB = new SQLiteDB(this);
+        //sqLiteDB.updateuserotp(currentuser,1);
         Cursor cursor =  sqLiteDB.getUserInfo();
+        if(cursor.moveToFirst()){
+            username = cursor.getString(1);
+             otpcode = cursor.getString(2);
+             loginstatus = cursor.getInt(4);
 
-       if (cursor != null && cursor.moveToFirst()){
 
-           Intent intent =new Intent(LogInActivity.this,HomeActivity.class);
-           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
-           finish();
-           startActivity(intent);
+        }
 
-       }
+
+
+        if(user != null && otpcode.equals(user.getUid())) {
+            //user is already login  so we need to redirect him to home pag
+          /* String usern= user.getPhoneNumber();
+            String uid = user.getUid();
+            mAuth.signOut();*/
+
+
+            if (loginstatus == 1){
+
+                Intent intent =new Intent(LogInActivity.this,HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+                startActivity(intent);
+
+            }
+
+        }else{
+            Intent intent =new Intent(LogInActivity.this,SendOtpActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
+            startActivity(intent);
+
+        }
+
 
     }
 
@@ -137,8 +160,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
         else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(" NO NetWork")
+            builder.setTitle(" No Network")
                     .setMessage("Enable Mobile Network")
+                    .setIcon(R.drawable.logopng40)
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
@@ -178,7 +202,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
 
         else{
-            signIn(uemail,upass);
+                signIn(uemail,upass);
         }
 
 
@@ -210,10 +234,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         if (userPassword != null && userPassword.equals(pass)) {
                             //save username to sqlite db  for getting session;
                                 SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
-                                UserRequest request = new UserRequest();
-                                request.setUserName(uname);
-                                request.setMobiPassword(pass);
-                                sqLiteDBHelper.insertUserinfo(request);
+                                sqLiteDBHelper.updateuserunamepassstatus(uname,pass,true,1);
 
                             Toast.makeText(LogInActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(LogInActivity.this,HomeActivity.class);
@@ -223,7 +244,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                         } else {
 
-                            Toast.makeText(LogInActivity.this, "Password not mach", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogInActivity.this, "Password or Role not mach", Toast.LENGTH_SHORT).show();
                             login.setVisibility(View.VISIBLE);
                             loginProgress.setVisibility(View.INVISIBLE);
 

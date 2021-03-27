@@ -7,11 +7,22 @@
     android:background="@color/off_white"
     android:orientation="vertical"
     tools:context=".users.MyReferenceActivity">
+
+    <TextView
+        android:id="@+id/referencenotfound_id"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:text="Data Not Found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="7dp">
+
         <ListView
             android:id="@+id/myreferencelistviewid"
             android:layout_width="match_parent"
@@ -20,6 +31,8 @@
             android:layout_height="match_parent">
         </ListView>
 
+
     </LinearLayout>
+
 
 </LinearLayout>

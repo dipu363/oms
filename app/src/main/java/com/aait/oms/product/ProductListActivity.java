@@ -49,7 +49,8 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("PRODUCTS");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  Products");
 
         listView = findViewById(R.id.productlist_id);
         //recyclerView = findViewById(R.id.product_list_recy_id);

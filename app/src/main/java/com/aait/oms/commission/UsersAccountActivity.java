@@ -26,6 +26,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +41,11 @@ public class UsersAccountActivity extends AppCompatActivity {
     Button withdrawbtn;
 
     List<CommissionModel> commissionModelList;
+    List<CommissionWithdrawModel> commissionWithdrawModelList;
 
-    float balance = 0;
+    float netBalance = 0.0f;
+    float commissionBalance = 0.0f;
+    float withdrawBalance = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,8 @@ public class UsersAccountActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setTitle("My Account");
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("  My Account");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -58,14 +64,18 @@ public class UsersAccountActivity extends AppCompatActivity {
         textfildid = findViewById(R.id.commisiontextid);
         withdrawbtn = findViewById(R.id.account_btn_Withdraw);
         commissionModelList = new ArrayList<>();
+        commissionWithdrawModelList = new ArrayList<>();
 
 
         withdrawbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(balance>0){
+
+
+
+                if(netBalance>0){
                     Intent intent = new Intent(UsersAccountActivity.this, CommissionWithdrawActivity.class);
-                    intent.putExtra("balance",String.valueOf(balance));
+                    intent.putExtra("balance",String.valueOf(netBalance));
                     startActivity(intent);
 
                 }else{
@@ -78,13 +88,12 @@ public class UsersAccountActivity extends AppCompatActivity {
 
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor =  sqLiteDB.getUserInfo();
-
+        String user = null;
         if (cursor != null && cursor.moveToFirst()) {
-            String user = cursor.getString(1);
+            user = cursor.getString(1);
             getusercommission(user);
+            getuserWithdrawcommission(user);
         }
-
-
 
     }
 
@@ -99,30 +108,33 @@ public class UsersAccountActivity extends AppCompatActivity {
 
                     BaseResponse baseResponse = response.body();
                     commissionModelList = baseResponse.getItems();
-                    List<OrderMasterModel> ordermodel = new ArrayList<>();
-
                     Gson gson = new Gson();
                     String json = gson.toJson(commissionModelList);
                     Type typeMyType = new TypeToken<ArrayList<CommissionModel>>(){}.getType();
                     ArrayList<CommissionModel> myObject = gson.fromJson(json, typeMyType);
+                    ArrayList<CommissionModel> myObject1 = gson.fromJson(json, typeMyType);
                     for (int i= 0 ;i<myObject.size();i++){
-                        balance += myObject.get(i).getComBlance();
+
+                        commissionBalance += myObject.get(i).getComBlance();
 
                     }
+                    netBalance = commissionBalance;
 
-                    balancetext.setText("Balance RM  "+String.valueOf(balance));
-                    textfildid.setText("Available");
-
-                   /* if(balance>=500.00){
-
-                        balancetext.setText("Balance RM  "+String.valueOf(balance-500));
+                  /*  if(netBalance>0){
+                        balancetext.setText("Balance RM  "+String.valueOf(doubleResult));
                         textfildid.setText("Available");
-                    }else {
 
+
+                    }else {
                         balancetext.setText("RM  0.0");
                         textfildid.setText("You have no Available Commission Balance. please Refer this app to your friends and purchase product useing this app for getting your commission.");
+
+
+
                     }*/
-                    Log.d("Response",response.body().toString());
+
+
+                    //Log.d("Response",response.body().toString());
                 }
             }
 
@@ -135,6 +147,64 @@ public class UsersAccountActivity extends AppCompatActivity {
     }
 
 
+    public void getuserWithdrawcommission(String uname){
+        CommissionService commissionService = ApiClient.getRetrofit().create(CommissionService.class);
+        Call<BaseResponse> call = commissionService.getuserWithdrawCommission(uname);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if(response.isSuccessful()){
+
+                    BaseResponse baseResponse = response.body();
+                    commissionWithdrawModelList = baseResponse.getItems();
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(commissionWithdrawModelList);
+                    Type typeMyType = new TypeToken<ArrayList<CommissionWithdrawModel>>(){}.getType();
+                    ArrayList<CommissionWithdrawModel> myObject = gson.fromJson(json, typeMyType);
+                    for (int i= 0 ;i<myObject.size();i++){
+                        withdrawBalance += myObject.get(i).getTransAmount();
+
+                    }
+
+                    netBalance = commissionBalance - withdrawBalance;
+
+                    double doubleResult = Float.valueOf(netBalance);
+                    DecimalFormat d = new DecimalFormat("#.00");
+                    d.setRoundingMode(RoundingMode.CEILING);
+                    String v = d.format(doubleResult);
+
+
+
+                    if(netBalance>0){
+                        balancetext.setText("Balance RM  "+ v);
+                        textfildid.setText("Available");
+
+
+                    }else {
+                        balancetext.setText("RM  0.0");
+                        textfildid.setText("You have no Available Commission Balance. please Refer this app to your friends and purchase product useing this app for getting your commission.");
+
+
+
+                    }
+
+                   // Log.d("Response",response.body().toString());
+                }
+                else{
+                    Toast.makeText(UsersAccountActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+
+                Toast.makeText(UsersAccountActivity.this, "Server Not found,root cause"+ t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

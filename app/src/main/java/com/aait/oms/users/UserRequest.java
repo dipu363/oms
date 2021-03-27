@@ -5,6 +5,7 @@ import java.util.Date;
 public class UserRequest {
 
     private String userName;
+    private String otpUID;
     private String roleId;
     private String password;
     private String  referencedBy;
@@ -12,9 +13,11 @@ public class UserRequest {
     private String fname;
     private String  lname;
     private String mobiPassword;
+    private boolean login_status;
 
-    public UserRequest(String userName, String roleId, String password, String referencedBy, String active, String fname, String lname, String mobiPassword) {
+    public UserRequest(String userName, String otpUID, String roleId, String password, String referencedBy, String active, String fname, String lname, String mobiPassword, boolean login_status) {
         this.userName = userName;
+        this.otpUID = otpUID;
         this.roleId = roleId;
         this.password = password;
         this.referencedBy = referencedBy;
@@ -22,6 +25,7 @@ public class UserRequest {
         this.fname = fname;
         this.lname = lname;
         this.mobiPassword = mobiPassword;
+        this.login_status = login_status;
     }
 
     public UserRequest() {
@@ -93,5 +97,21 @@ public class UserRequest {
 
     public void setMobiPassword(String mobiPassword) {
         this.mobiPassword = mobiPassword;
+    }
+
+    public String getOtpUID() {
+        return otpUID;
+    }
+
+    public void setOtpUID(String otpUID) {
+        this.otpUID = otpUID;
+    }
+
+    public boolean isLogin_status() {
+        return login_status;
+    }
+
+    public void setLogin_status(boolean login_status) {
+        this.login_status = login_status;
     }
 }

@@ -3,6 +3,8 @@ package com.aait.oms.users;
 import com.aait.oms.model.BaseResponse;
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -11,8 +13,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserService {
+    /*@POST("user/save")
+    Call<String> saveUser(@Body JsonObject json);*/
+
     @POST("user/save")
-    Call<String> saveUser(@Body JsonObject json);
+    Call<String> userSave(@Body JsonObject jsonObject);
 
 
  /*   @GET("user/findByUser")

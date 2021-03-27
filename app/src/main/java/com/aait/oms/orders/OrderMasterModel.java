@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrderMasterModel {
+public class OrderMasterModel extends BaseModel {
 
 
           /*  "items":[{"ssCreator":"admin","ssCreatedOn":"2021-02-07T00:00:00.000+0000","ssModifier":null,"ssModifiedOn":"2021-02-07T00:00:00.000+0000",

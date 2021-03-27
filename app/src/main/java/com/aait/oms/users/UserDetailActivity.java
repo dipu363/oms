@@ -1,12 +1,14 @@
 package com.aait.oms.users;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.aait.oms.R;
@@ -25,6 +27,12 @@ public class UserDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.logopng40);
+        actionBar.setTitle("   Profile");
         fname = findViewById(R.id.user_detail_userfnameid);
         lname = findViewById(R.id.user_detail_userlnameid);
         status = findViewById(R.id.user_detail_statusid);
@@ -75,5 +83,15 @@ public class UserDetailActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()== android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
