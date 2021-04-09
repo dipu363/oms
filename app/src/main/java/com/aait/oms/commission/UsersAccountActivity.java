@@ -3,6 +3,7 @@ package com.aait.oms.commission;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,10 +36,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UsersAccountActivity extends AppCompatActivity {
+public class UsersAccountActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView balancetext,textfildid;
-    Button withdrawbtn;
+    CardView card1,card2;
 
     List<CommissionModel> commissionModelList;
     List<CommissionWithdrawModel> commissionWithdrawModelList;
@@ -54,7 +55,6 @@ public class UsersAccountActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  My Account");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -62,30 +62,13 @@ public class UsersAccountActivity extends AppCompatActivity {
 
         balancetext = findViewById(R.id.account_balanceid);
         textfildid = findViewById(R.id.commisiontextid);
-        withdrawbtn = findViewById(R.id.account_btn_Withdraw);
+        card1 = findViewById(R.id.cardview_account_Optino1);
+        card2 = findViewById(R.id.cardview_account_Optino2);
         commissionModelList = new ArrayList<>();
         commissionWithdrawModelList = new ArrayList<>();
 
-
-        withdrawbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-                if(netBalance>0){
-                    Intent intent = new Intent(UsersAccountActivity.this, CommissionWithdrawActivity.class);
-                    intent.putExtra("balance",String.valueOf(netBalance));
-                    startActivity(intent);
-
-                }else{
-                    Toast.makeText(UsersAccountActivity.this, "You have not available balance for withdraw", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-
+        card1.setOnClickListener(this);
+        card2.setOnClickListener(this);
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor =  sqLiteDB.getUserInfo();
         String user = null;
@@ -94,6 +77,34 @@ public class UsersAccountActivity extends AppCompatActivity {
             getusercommission(user);
             getuserWithdrawcommission(user);
         }
+
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.cardview_account_Optino1:
+                Intent intent1 = new Intent(UsersAccountActivity.this, TransactionHistoryActivity.class);
+                startActivity(intent1);
+
+
+                break;
+            case R.id.cardview_account_Optino2:
+
+                if(netBalance>0){
+                    Intent intent2 = new Intent(UsersAccountActivity.this, CommissionWithdrawActivity.class);
+                    intent2.putExtra("balance",String.valueOf(netBalance));
+                    startActivity(intent2);
+
+                }else{
+                    Toast.makeText(UsersAccountActivity.this, "You have not available balance for withdraw", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
 
     }
 
@@ -118,6 +129,7 @@ public class UsersAccountActivity extends AppCompatActivity {
                         commissionBalance += myObject.get(i).getComBlance();
 
                     }
+                    netBalance = commissionBalance;
                     netBalance = commissionBalance;
 
                   /*  if(netBalance>0){
@@ -215,4 +227,5 @@ public class UsersAccountActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

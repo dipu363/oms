@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1014407631670",
+    "firebase_url": "https://aborong-oms-default-rtdb.firebaseio.com",
     "project_id": "aborong-oms",
     "storage_bucket": "aborong-oms.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1014407631670-bl3ndebo2tpt33pmn2pa8bvclf0dqskt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aait.oms",
+            "certificate_hash": "5d42704351aea15652cddb2094a254de3251b399"
+          }
+        },
         {
           "client_id": "1014407631670-ev7efnv1s5h63binml1gatdj13aefc8l.apps.googleusercontent.com",
           "client_type": 3

@@ -83,7 +83,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(USER_ID,1);
         values.put(USER_NAME,userRequest.getUserName());
-        values.put(OTP_UID,userRequest.getOtpUID());
+        //values.put(OTP_UID,userRequest.getOtpUID());
         values.put(USER_PASSWORD,userRequest.getMobiPassword());
         values.put(LOGIN_STATUS,userRequest.isLogin_status());
         db.insert(TABLE_USER_INFO,null,values);

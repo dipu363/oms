@@ -110,7 +110,7 @@ public class OtpActivity extends AppCompatActivity {
         SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
         sqLiteDBHelper.updateuserotp(user.getUid(),1);
 
-        Toast.makeText(OtpActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
+        Toast.makeText(OtpActivity.this,"Congratulation, your registration has been completed ",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(OtpActivity.this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

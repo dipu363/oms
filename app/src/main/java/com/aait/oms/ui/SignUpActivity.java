@@ -169,14 +169,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         }*/
 
-        SQLiteDB sqLiteDB = new SQLiteDB(this);
+      /*  SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor =  sqLiteDB.getUserInfo();
 
         if (cursor != null && cursor.moveToFirst()){
             Toast.makeText(this, "Please Logging Out first", Toast.LENGTH_SHORT).show();
             sendToMain();
 
-        }
+        }*/
 
 
     }
@@ -318,16 +318,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         userModel.setSsCreator(uname);
         userModel.setSsModifier(uname);
 
-
-       /* SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
-        UserRequest request = new UserRequest();
-        request.setUserName(uname);
-        request.setMobiPassword(password);
-        request.setLogin_status(false);
-        sqLiteDBHelper.insertUserinfo(request);*/
-
-
-
     /*  Gson gson = new Gson();
         String json = gson.toJson(userModel);
         JsonObject jsonObject = null;
@@ -352,7 +342,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 sqLiteDBHelper.insertUserinfo(request);
 
                 Toast.makeText(SignUpActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SignUpActivity.this, SendOtpActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

@@ -27,8 +27,8 @@
              <ListView
                  android:id="@+id/productlist_id"
                  android:layout_width="match_parent"
+                 android:divider="@color/white"
                  android:dividerHeight="3dp"
-                 android:divider="@color/off_white"
                  android:layout_height="match_parent">
              </ListView>
 

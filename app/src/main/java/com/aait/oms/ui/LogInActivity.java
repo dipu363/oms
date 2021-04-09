@@ -87,8 +87,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         String currentuser =null;
         int loginstatus = 0;
 
-      FirebaseUser  user = mAuth.getCurrentUser();
-        currentuser = user.getUid();
+     // FirebaseUser  user = mAuth.getCurrentUser();
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         //sqLiteDB.updateuserotp(currentuser,1);
         Cursor cursor =  sqLiteDB.getUserInfo();
@@ -96,17 +95,22 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             username = cursor.getString(1);
              otpcode = cursor.getString(2);
              loginstatus = cursor.getInt(4);
+        }
 
-
+        if (loginstatus == 1){
+            Intent intent =new Intent(LogInActivity.this,HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
+            startActivity(intent);
         }
 
 
 
-        if(user != null && otpcode.equals(user.getUid())) {
+     /*   if(user != null) {
             //user is already login  so we need to redirect him to home pag
-          /* String usern= user.getPhoneNumber();
+          *//* String usern= user.getPhoneNumber();
             String uid = user.getUid();
-            mAuth.signOut();*/
+            mAuth.signOut();*//*
 
 
             if (loginstatus == 1){
@@ -124,7 +128,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             finish();
             startActivity(intent);
 
-        }
+        }*/
 
 
     }
@@ -189,8 +193,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         String upass = userpasswordid.getText().toString();
 
         int pass = upass.length();
-
-
         if(TextUtils.isEmpty(uemail)){
             useremail.setError("Please Type valid Email Address");
             useremail.requestFocus();
@@ -211,8 +213,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     public void signIn(String uname ,String pass){
 
         UserService userService = ApiClient.getRetrofit().create(UserService.class);
-        Call<BaseResponse> call= userService.getuser(uname);
-        call.enqueue(new Callback<BaseResponse>() {
+        Call <BaseResponse> usercall = userService.getuser(uname);
+        usercall.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.isSuccessful()) {
@@ -233,10 +235,22 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         String  userPassword = user.getMobiPassword();
                         if (userPassword != null && userPassword.equals(pass)) {
                             //save username to sqlite db  for getting session;
-                                SQLiteDB sqLiteDBHelper = new SQLiteDB(getApplicationContext());
-                                sqLiteDBHelper.updateuserunamepassstatus(uname,pass,true,1);
 
-                            Toast.makeText(LogInActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
+                            SQLiteDB sqLiteDB = new SQLiteDB(getApplicationContext());
+                            Cursor cursor =  sqLiteDB.getUserInfo();
+
+                            if (cursor != null && cursor.moveToFirst()){
+                                sqLiteDB.updateuserunamepassstatus(uname,pass,true,1);
+                            }else{
+
+                                UserRequest userRequest = new UserRequest();
+                                userRequest.setUserName(uname);
+                                userRequest.setMobiPassword(pass);
+                                userRequest.setLogin_status(true);
+                                sqLiteDB.insertUserinfo(userRequest);
+
+                            }
+                            Toast.makeText(LogInActivity.this,"Congratulation",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(LogInActivity.this,HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -253,12 +267,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                 }
-
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Toast.makeText(LogInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -266,6 +278,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         login.setVisibility(View.INVISIBLE);
 
         if (username.equals("admin")&& pass.equals("admin") ){
+
             Toast.makeText(LogInActivity.this,"Congratulation ",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(LogInActivity.this,HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);

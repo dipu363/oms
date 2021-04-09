@@ -20,14 +20,22 @@ import android.widget.Toast;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
+import com.aait.oms.model.BaseResponse;
+import com.aait.oms.orders.ConfirmOrderActivity;
+import com.aait.oms.orders.OrderInvoiceActivity;
+import com.aait.oms.orders.OrderMasterModel;
 import com.aait.oms.ui.HomeActivity;
 import com.aait.oms.ui.LogInActivity;
+import com.aait.oms.util.CommonFunctions;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.math.RoundingMode;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -39,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommissionWithdrawActivity extends AppCompatActivity implements View.OnClickListener {
+public class CommissionWithdrawActivity extends AppCompatActivity implements View.OnClickListener, CommonFunctions {
 
     EditText transectionamount,transectionpassword;
     TextView massagetextview ,balancetextview;
@@ -99,7 +107,9 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
                 }
                 else {
                     float reqbalance = Float.parseFloat(req_amount);
-                    if (reqbalance > ablebalance){
+                    float tax = reqbalance*2/100;
+                    float totalrequst = reqbalance + tax;
+                    if (totalrequst > ablebalance){
                         transectionamount.setError(" You have not Enough amount available");
                         transectionamount.requestFocus();
 
@@ -128,12 +138,12 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
                     if (cursor != null && cursor.moveToFirst()){
                         String password = cursor.getString(3);
                         if (password.equals(pass)){
-                            transectionpassword.setVisibility(View.INVISIBLE);
+                         /*   transectionpassword.setVisibility(View.INVISIBLE);
                             btn_send.setVisibility(View.INVISIBLE);
                             massagetextview.setVisibility(View.VISIBLE);
                             massagetextview.setText("Your Request has been sent Please Wait a moment for processing");
                             massagetextview.setTextColor(Color.DKGRAY);
-                            Toast.makeText(CommissionWithdrawActivity.this, "Request Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CommissionWithdrawActivity.this, "Request Successful", Toast.LENGTH_SHORT).show();*/
                             saveWithdrawCommission();
 
                         }else {
@@ -161,8 +171,15 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
         @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("yyyy-MM-dd");
         String reqdate=formeter.format(date);
 
+        long trsecid = date.getTime();
+        String transecid = String.valueOf(trsecid).substring(4,13);
+
         String withtype ="Cash";
         float req_amount= Float.parseFloat(transectionamount.getText().toString().trim()) ;
+        float tax = req_amount*2/100;
+        float totalrequestamount = req_amount + tax;
+
+
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor =  sqLiteDB.getUserInfo();
         if (cursor != null && cursor.moveToFirst()) {
@@ -172,7 +189,7 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
 
 
 
-        CommissionWithdrawModel commissionWithdrawModel = new CommissionWithdrawModel(username,reqdate,req_amount,withtype);
+        CommissionWithdrawModel commissionWithdrawModel = new CommissionWithdrawModel(username,reqdate,totalrequestamount,withtype,"1",req_amount,tax,transecid);
         CommissionService service = ApiClient.getRetrofit().create(CommissionService.class);
         Gson gson = new Gson();
         String json = gson.toJson(commissionWithdrawModel);
@@ -184,10 +201,31 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
 
-
+                    assert response.body() != null;
                     String um = response.body();
+                    // Log.d("um",um);
+                    BaseResponse baseResponse = objectMapperReadValue(um,BaseResponse.class);
+
+                    Object row= baseResponse.getObj();
+
+                    String jsons = new Gson().toJson(row);
+                    Type listType = new TypeToken<CommissionWithdrawModel>() {}.getType();
+                    CommissionWithdrawModel comwithmodel   = new Gson().fromJson(jsons , listType);
+                    String comtranid = comwithmodel.transectionId;
+                    String reqamount = String.valueOf(comwithmodel.getAfterTexBalance());
+                    String charge = String.valueOf(comwithmodel.getTexAmount());
+                    String total = String.valueOf(comwithmodel.getTransAmount());
+
+                    Intent intent = new Intent(CommissionWithdrawActivity.this, CommissionWithdrawSuccessActivity.class);
+                    intent.putExtra("comtranid", comtranid);
+                    intent.putExtra("reqamount", reqamount);
+                    intent.putExtra("charge", charge);
+                    intent.putExtra("total", total);
+                    startActivity(intent);
+                    finish();
+
                     Log.d("Success","Balance Withdraw Request Success");
-                    Log.d("Success",um);
+                    Log.d("save data",um);
                 }
 
 
