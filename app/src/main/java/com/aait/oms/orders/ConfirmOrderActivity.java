@@ -104,7 +104,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         senddatatoinvoice = new ArrayList<>();
 
         //for spinner
-        String[] payoption = {"Select Payment Option","Cash On Delivery","Online Banking"};
+        String[] payoption = {"Select","Cash On Delivery","Online Banking"};
         ArrayAdapter<CharSequence> payAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, payoption );
         payAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         paymentspinner.setAdapter(payAdapter);
@@ -115,13 +115,13 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 if(option.equals("Online Banking")){
                     paytextviewmassage.setVisibility(View.VISIBLE);
                     paytextviewmassage.setText("Please sent your payment at PUBLIC BANK, Account no 3145263227, if you have any queries please Contact +60 95135005");
-                    paytextviewmassage.setTextColor(Color.RED);
+                    paytextviewmassage.setTextColor(Color.WHITE);
                 }else if(option.equals("Cash On Delivery")){
                     paytextviewmassage.setVisibility(View.VISIBLE);
                     paytextviewmassage.setText("Please give your payment to our service provider. if you have any queries please Contact +60 95135005");
-                    paytextviewmassage.setTextColor(Color.RED);
+                    paytextviewmassage.setTextColor(Color.WHITE);
                 }else{
-                    option="Cash on Delivery";
+                    option="Select";
                     paytextviewmassage.setText("");
                     paytextviewmassage.setVisibility(View.INVISIBLE);
                 }
@@ -156,7 +156,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             case R.id.radiobtn1:
                 if (checked)
                     selectdelioption.setText(R.string.selectbranch);
-                     selectdelioption.setTextColor(Color.BLACK);
+                     selectdelioption.setTextColor(Color.WHITE);
                      selectdelioption.setVisibility(View.VISIBLE);
                      shipaddress.setVisibility(View.INVISIBLE);
                      cmobile.setVisibility(View.INVISIBLE);
@@ -168,7 +168,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 if (checked)
                     getbrnachList(this);
                     selectdelioption.setText(R.string.selecthome);
-                    selectdelioption.setTextColor(Color.RED);
+                    selectdelioption.setTextColor(Color.WHITE);
                     selectdelioption.setVisibility(View.VISIBLE);
                     shipaddress.setVisibility(View.VISIBLE);
                     cmobile.setVisibility(View.VISIBLE);
@@ -212,7 +212,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                                                  ". Contact Please " + branchModel.getMobile1()
                                  );
                                  branchadd.setVisibility(View.VISIBLE);
-                                 branchadd.setTextColor(Color.RED);
+                                 branchadd.setTextColor(Color.WHITE);
                                  branchid=branchModel.getBranchID();
                                  bname = branchModel.getBname();
                                  baddress= branchModel.getAddress();
@@ -255,7 +255,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             if(deliverty.equals("")){
                 Toast.makeText(this, "Please Choose a Delivery Option", Toast.LENGTH_LONG).show();
 
-            }else{
+            }else if (option.equals("Select")){
+                Toast.makeText(this, "Please Choose a Payment Option", Toast.LENGTH_LONG).show();
+
+            } else{
 
                 String shipadd;
                 String mobile;

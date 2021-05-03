@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/DarkSlateGray"
     tools:context=".orders.ConfirmOrderActivity">
 
     <ScrollView
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -23,16 +25,16 @@
             android:layout_marginRight="12dp"
             android:orientation="vertical">
             <TextView
-                android:background="@drawable/edit_text_shape"
-                android:textColor="@color/Black"
+
+                android:textColor="@color/white"
                 android:layout_marginTop="20dp"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:gravity="center"
                 android:text="Choose a Delivery Option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <LinearLayout
-                android:background="@drawable/edit_text_shape"
+
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -44,7 +46,7 @@
                     android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:textColor="#000000"
+                        android:textColor="@color/white"
                         android:id="@+id/radiobtn1"
                         android:textSize="18sp"
                         android:text="From Branch"
@@ -52,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <RadioButton
-                        android:textColor="#000000"
+                        android:textColor="@color/white"
                         android:id="@+id/radiobtn2"
                         android:textSize="18sp"
                         android:onClick="onRadioButtonClicked"
@@ -81,16 +83,15 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight=".28"
-                android:background="@drawable/spinner_border"
                 android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/spinner_delivary_optionid"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:background="@android:color/transparent"
+                    android:background="@color/white"
                     android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:spinnerMode="dropdown" />
@@ -121,7 +122,8 @@
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
                 android:maxLines="3"
-                android:background="@drawable/edit_text_shape"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:layout_marginTop="20dp"
                 android:hint="Enter Shipping Address"
                 android:inputType="text" />
@@ -130,8 +132,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:background="@drawable/edit_text_shape"
+                android:textColor="@color/white"
                 android:layout_marginTop="5dp"
+                android:textColorHint="@color/white"
                 android:hint="Enter Mobile no"
                 android:inputType="text" />
 
@@ -149,16 +152,15 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="3dp"
                     android:layout_weight=".28"
-                    android:background="@drawable/spinner_border"
                     android:orientation="horizontal">
 
                     <Spinner
                         android:id="@+id/spinner_payment_optionid"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
+                        android:background="@color/white"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
                         android:spinnerMode="dropdown" />

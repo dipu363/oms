@@ -2,6 +2,8 @@ package com.aait.oms.orders;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +68,12 @@ public class CartAdapter extends BaseAdapter {
         EditText editText = convertView.findViewById(R.id.cartproduct_qty);
         cartincreasebtn = convertView.findViewById(R.id.btn_increase);
         cartdecreasebtn = convertView.findViewById(R.id.btn_decrease);
+        editText.setClickable(false);
 
         cartincreasebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuantity(position,editText,1);
+                updateQuantity(position,editText,5);
             }
         });
         cartdecreasebtn.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +85,10 @@ public class CartAdapter extends BaseAdapter {
             }
         });
 
-
         serial.setText(String.valueOf(listWithSerialNumber.get(position)+"."));
         prodname.setText(cardModel.getProductname());
         price.setText("RM :"+cardModel.getSalesrate());
+        editText.setText(String.valueOf(cardModel.getQty()));
         editText.setText(String.valueOf(cardModel.getQty()));
 
 
@@ -97,11 +100,10 @@ public class CartAdapter extends BaseAdapter {
 
     private void updateQuantity(int position, EditText editText, int value) {
 
-       // Product products = getItem(position);
         CardModel cardModel = prodlist.get(position);
         if(value > 0)
         {
-            cardModel.setQty(cardModel.getQty()+1);
+            cardModel.setQty(cardModel.getQty()+value);
         }
         else
         {
