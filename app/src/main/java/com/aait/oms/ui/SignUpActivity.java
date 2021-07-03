@@ -314,9 +314,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Date date = new Date();
         String regdate= formeter.format(date);
 
-        UserModel userModel = new UserModel(uname,fname,lname,112,password,4,ref,gender);
+        UserModel userModel = new UserModel(uname,fname,lname,102,password,4,ref,gender);
         userModel.setSsCreator(uname);
         userModel.setSsModifier(uname);
+        userModel.setPhone1(uname);
 
     /*  Gson gson = new Gson();
         String json = gson.toJson(userModel);

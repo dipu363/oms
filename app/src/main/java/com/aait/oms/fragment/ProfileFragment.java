@@ -97,7 +97,7 @@ public class ProfileFragment extends Fragment {
                     int role = user.getRoleId();
                     String stat = user.getStatus();
 
-                    if (role ==112){
+                    if (role ==102){
                         roleId.setText("General Customer");
                     }else {
                         roleId.setText("Role Not define");
