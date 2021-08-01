@@ -102,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
+        //actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Registration");
         loadingProgress = findViewById(R.id.regProgressBar);
         fname= findViewById(R.id.edit_firstname);

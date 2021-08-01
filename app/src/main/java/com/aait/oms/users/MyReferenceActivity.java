@@ -52,7 +52,7 @@ public class MyReferenceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_reference);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar !=null;
-        actionBar.setIcon(R.drawable.logopng40);
+        //actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  My References");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

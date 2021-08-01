@@ -21,7 +21,13 @@
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".commission.TransactionHistoryActivity"></activity>
+        <activity
+            android:name=".ui.Trams_Condition_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.Privacy_PolicyActivity"
+            android:exported="true" />
+        <activity android:name=".commission.TransactionHistoryActivity" />
         <activity android:name=".commission.CommissionWithdrawSuccessActivity" />
         <activity android:name=".commission.CommissionWithdrawActivity" />
         <activity android:name=".orders.OrderDetailsActivity" />

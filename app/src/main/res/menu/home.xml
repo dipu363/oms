@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+<item
+    app:showAsAction="always"
+    android:icon="@drawable/ic_baseline_more_vert_24"
+    android:title="">
+    <menu>
+
+        <item
+            android:id="@+id/action_settings"
+            android:orderInCategory="100"
+            android:title="@string/action_settings"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/share"
+            android:orderInCategory="100"
+            android:title="Share"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText" />
+        <item
+            android:id="@+id/rating"
+            android:orderInCategory="100"
+            android:title="Rating"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText" />
+        <item
+            android:id="@+id/privacyid"
+            android:orderInCategory="100"
+            android:title="Privacy &amp; Policy"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText" />
+        <item
+            android:id="@+id/termsid"
+            android:orderInCategory="100"
+            android:title="Terms &amp; Conditions"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText" />
+    </menu>
+</item>
+
 </menu>

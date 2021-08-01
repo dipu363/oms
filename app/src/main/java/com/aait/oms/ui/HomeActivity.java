@@ -1,8 +1,11 @@
 package com.aait.oms.ui;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -32,6 +35,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.File;
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -55,8 +60,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mAuth = FirebaseAuth.getInstance();
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+       drawerLayout.addDrawerListener(toggle);
+       toggle.syncState();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
@@ -78,21 +83,52 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         userprfileupdate();
     }
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home, menu);
+
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
         if (toggle.onOptionsItemSelected(item)) {
             return true;
+        } else if(id == R.id.action_settings){
+            Toast.makeText(this , "Unable to Reset this app", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.share) {
+
+            try {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Status Background");
+                intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.taagidtech.statusbackground");
+                startActivity(Intent.createChooser(intent, "Share With"));
+            }catch (Exception e) {
+
+                 Toast.makeText(this , "Unable to share this app.\n"+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.rating) {
+            try {
+                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.taagidtech.statusbackground");
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
+            }catch (Exception e) {
+                Toast.makeText(this, "Unable to Rete this app.\n"+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.privacyid) {
+            Intent intent = new Intent(HomeActivity.this,Privacy_PolicyActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.termsid) {
+            Intent intent = new Intent(HomeActivity.this,Trams_Condition_Activity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+
 
 
 
@@ -209,7 +245,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
 
-        showAlartDialog();
+            showAlartDialog();
+
+
     }
 
    /* @Override

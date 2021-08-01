@@ -31,7 +31,7 @@ public class UserDetailActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
+        //actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("   Profile");
         fname = findViewById(R.id.user_detail_userfnameid);
         lname = findViewById(R.id.user_detail_userlnameid);
