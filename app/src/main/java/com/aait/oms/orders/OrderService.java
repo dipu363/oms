@@ -32,6 +32,12 @@ public interface OrderService {
     //http://aborong.com/orderapi/orderapi/prodmaster/findByl2Code?l2Code=1 // product list under catagori and subcatagori list
    @GET("prodmaster/findByl2Code")
     Call<BaseResponse> getproductbyl2id(@Query("l2Code") int id);
+
+    //http://localhost:8080/orderapi/orderapi/prodmaster/findByl1Code?l1Code=1
+    // http://aborong.com/orderapi/orderapi/prodmaster/findByl1Code?l1Code=6
+    @GET("prodmaster/findByl1Code")
+    Call<BaseResponse> getproductbyl1id(@Query("l1Code") int id);
+
     // http://aborong.com/orderapi/orderapi/order/findByIdUserId?userName=dipu123 // individual user orders list
 
     @GET("order/findByIdUserId")

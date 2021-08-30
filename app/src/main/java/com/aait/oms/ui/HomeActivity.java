@@ -20,6 +20,7 @@ import com.aait.oms.fragment.HomePragment;
 import com.aait.oms.fragment.ProfileFragment;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
+import com.aait.oms.product.ProductInGridViewActivity;
 import com.aait.oms.product.ProductListActivity;
 import com.aait.oms.users.MyReferenceActivity;
 import com.aait.oms.commission.UsersAccountActivity;
@@ -149,7 +150,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, OrderActivity.class);
             startActivity(intent);
         }else if (menuItem.getItemId() == R.id.nav_product) {
-            Intent intent = new Intent(this, ProductListActivity.class);
+            Intent intent = new Intent(this, ProductInGridViewActivity.class);
             startActivity(intent);
 
         } else if (menuItem.getItemId() == R.id.nav_myorders) {

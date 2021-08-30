@@ -22,6 +22,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".product.CategoryWiseProductViewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".product.Product_Details_view_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".product.ProductInGridViewActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.Trams_Condition_Activity"
             android:exported="true" />
         <activity
