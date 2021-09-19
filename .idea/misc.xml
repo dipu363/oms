@@ -21,6 +21,12 @@
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_product_in_grid_view.xml" value="0.15520833333333334" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_sign_up.xml" value="0.1537037037037037" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_trams_condition.xml" value="0.19947916666666668" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/cardlist.xml" value="0.1" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/fragment_root_catagory.xml" value="0.19947916666666668" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/fragment_sub_catagory.xml" value="0.19947916666666668" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/fragment_subcat.xml" value="0.19947916666666668" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/fragment_subcat_list.xml" value="0.19947916666666668" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/product_view_semple.xml" value="0.15520833333333334" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/root_catagory_sample_layout.xml" value="0.19947916666666668" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/supplier_samplelist_layout.xml" value="0.19947916666666668" />

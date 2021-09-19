@@ -3,26 +3,13 @@ package com.aait.oms.ui;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
@@ -41,14 +26,13 @@ import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.users.UsersModel;
+import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
-import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,9 +41,6 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -92,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String existingUser;
+    AppUtils appUtils;
 
 
     @Override
@@ -122,6 +104,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("UsersInfo");
+        appUtils = new AppUtils(this);
         //for spinner
         spinner = (Spinner) findViewById(R.id.spinner_gender);
         String[] gen = {"Select Gender","Male","Female","Others"};
@@ -197,12 +180,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.regUserPhoto:
                 if (Build.VERSION.SDK_INT >= 22) {
-
-                    checkAndRequestForPermission();
-
-
+                    appUtils.checkAndRequestForPermission(this,PReqCode,REQUESCODE);
                 } else {
-                    openGallery();
+                   appUtils. openGallery(this,REQUESCODE);
                 }
 
 
@@ -212,43 +192,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-
-    private void sendToMain(){
-        startActivity(new Intent(SignUpActivity.this , HomeActivity.class));
-        finish();
-    }
-
-
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void netWorkCheck(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
-
+        if(appUtils.deviceNetwork() != null && appUtils.deviceNetwork().isConnectedOrConnecting()){
            checkValidity();
-        }
-        else {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(" NO NetWork")
-                    .setMessage("Enable Mobile Network")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    dialogInterface.cancel();
-                }
-            });
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-
+        } else {
+           appUtils.networkAlertDialog();
         }
 
     }
@@ -342,15 +292,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 request.setLogin_status(false);
                 sqLiteDBHelper.insertUserinfo(request);
 
-                Toast.makeText(SignUpActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                appUtils.appToast("Registration success");
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(SignUpActivity.this, "Registration fail", Toast.LENGTH_SHORT).show();
+                appUtils.appToast("Registration fail");
             }
         });
 
@@ -387,16 +337,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                         uname.setText("");
                         uname.requestFocus();
-                        //Toast.makeText(SignUpActivity.this, "User Name All ready Used Please Choose Another", Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(SignUpActivity.this, "User Name has been available", Toast.LENGTH_LONG).show();
+                        appUtils.appToast("User Name has been available");
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.d("Failure massage",t.getMessage());
+               // Log.d("Failure massage",t.getMessage());
+                appUtils.appToast("Failure "+t.getMessage());
 
             }
         });
@@ -406,13 +356,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Call<BaseResponse> call = service.getuser(userid);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
                 if (response.isSuccessful()){
                     BaseResponse baseResponse = response.body();
                     //String massage = baseResponse.getMessage();
+                    assert baseResponse != null;
                     if(baseResponse.getObj()!=null){
-
-                        Toast.makeText(SignUpActivity.this, "Thank you for your reference", Toast.LENGTH_LONG).show();
+                        appUtils.appToast("Thank you for your reference");
                     }else{
                         reference.setText("");
                         reference.requestFocus();
@@ -423,7 +373,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.d("Failure massage",t.getMessage());
+               // Log.d("Failure massage",t.getMessage());
+                appUtils.appToast("Failure "+t.getMessage());
 
             }
         });
@@ -492,7 +443,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SignUpActivity.this, "Upload Failed!", Toast.LENGTH_SHORT).show();
+                    appUtils.appToast("Upload Failed!");
                 }
             });
         } else {
@@ -528,36 +479,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-
-
-
-    private void openGallery() {
-
-        //TODO: open gallery intent and wait for user to pick an image !
-
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, REQUESCODE);
-    }
-
-    private void checkAndRequestForPermission() {
-
-        if (ContextCompat.checkSelfPermission(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(SignUpActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                Toast.makeText(SignUpActivity.this, "Please accept for required permission", Toast.LENGTH_SHORT).show();
-
-            } else {
-                ActivityCompat.requestPermissions(SignUpActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        PReqCode);
-            }
-
-        } else
-            openGallery();
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

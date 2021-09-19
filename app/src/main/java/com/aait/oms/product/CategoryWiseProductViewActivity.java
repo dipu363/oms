@@ -4,6 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,12 +27,11 @@ import android.widget.Toast;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
+import com.aait.oms.fragment.RootCatagoryFragment;
+import com.aait.oms.fragment.SubCatagoryFragment;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.OrderService;
-import com.aait.oms.rootcategory.ItemClickListener;
-import com.aait.oms.rootcategory.Prod1L;
-import com.aait.oms.rootcategory.ProdCatagoryModel;
-import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
+import com.aait.oms.util.OnclickeventListener;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
 import com.aait.oms.subcategory.SubCategoryRecyclerAdapter;
 import com.google.gson.Gson;
@@ -45,13 +46,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CategoryWiseProductViewActivity extends AppCompatActivity  {
+public class CategoryWiseProductViewActivity extends AppCompatActivity implements OnclickeventListener {
 
-    //for grid view
-    GridView gridView;
-    ProductGridAdapter productgridAdapter;
-    List<ProductModel> allproductlist;
-    //for recycler view
+
+
     RecyclerView recyclerView;
     TextView subrecycletextid;
     RecyclerView.LayoutManager layoutManager;
@@ -61,15 +59,16 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
 
 
     int rootcatid=0;
-    int subcatid=0;
+
     String rootcatname="  Category Item";
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_wise_product_view);
-        Bundle bundle = getIntent().getExtras();
 
+        Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
             rootcatid = bundle.getInt("catid");
             rootcatname = bundle.getString("catname");
@@ -84,24 +83,34 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
 
 
         allsubcatgorylist = new ArrayList<>();
-        gridView = findViewById(R.id.subcat_product_grid_view_id);
+       // gridView = findViewById(R.id.subcat_product_grid_view_id);
         recyclerView = findViewById(R.id.subcatrecyclerView_id);
-        subrecycletextid = findViewById(R.id.subcattextHaddingname_id);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        //subrecycletextid.setText("All "+rootcatname+" 's");
-        netWorkCheck(this);
-    }
 
+
+
+        //subrecycletextid.setText("All "+rootcatname+" 's");
+        netWorkCheck(this,this);
+    }
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void netWorkCheck(Context context){
+    public void netWorkCheck(Context context ,OnclickeventListener onclickeventListener){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
-            //getsubcatList(context);
-            getproduct(context);
+            getsubcatList(context ,onclickeventListener);
+
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("rootcatid",rootcatid);
+            Fragment fragment = RootCatagoryFragment.newInstance();
+            fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.prodctfragmentontainer,fragment);
+        transaction.commit();
+           // getproduct(context);
 
 
         } else {
@@ -134,7 +143,7 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
     // check category item click or not
     // if category item click then call category wise product method ;
     //if category item not click then call  get all products method ;
-    private void getproduct(Context context) {
+    private void getproduct(Context context,OnclickeventListener onclickeventListener) {
         int subcat = 0;
         String subcatname="Sub Category Items";
         Bundle extras = getIntent().getExtras();
@@ -146,17 +155,17 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
 
         if (subcat != 0){
             //getsubcatList(context);
-            allsubCatWiseProductlist(context,subcat);
+           // allsubCatWiseProductlist(context,subcat);
             subrecycletextid.setText("All "+subcatname +"'s");
         } else{
-            getsubcatList(context);
-            getcatagorywiseproduct(context);
+            getsubcatList(context ,onclickeventListener);
+            //getcatagorywiseproduct(context);
             subrecycletextid.setText("All "+rootcatname+" 's");
         }
     }
 
     // getting product subcategory list
-    private  void getsubcatList(Context context){
+    private  void getsubcatList(Context context,OnclickeventListener onclickeventListener){
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.getSubCatList(rootcatid);
@@ -174,8 +183,10 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
                             Type listType = new TypeToken<ProdSubCatagoryModel[]>() {}.getType();
                             subcatagory = new Gson().fromJson(jsons, listType);
                             subcatagory = new Gson().fromJson(jsons, listType);
-                            subrecycleradapter = new SubCategoryRecyclerAdapter(subcatagory,context);
+                            subrecycleradapter = new SubCategoryRecyclerAdapter(subcatagory,context,onclickeventListener);
                             recyclerView.setAdapter(subrecycleradapter);
+
+
                             Log.d("good", "onResponse: " + subcatagory);
                         }
                     }
@@ -197,146 +208,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
         }
     }
 
-
-    //getting all products
-    private void allsubCatWiseProductlist(Context context,int subcatid){
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getproductbyl2id(subcatid);
-        productlist.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                BaseResponse baseResponse = response.body();
-
-                if(baseResponse.getMessage().equals("") ) {
-                    showMaseage("Data Note found");
-                } else{
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
-                    assert baseResponse != null;
-                    allproductlist = baseResponse.getItems();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod;
-
-
-                    for(int i = 0 ; i<allproductlist.size(); i++){
-                        Object getrow =allproductlist.get(i);
-                        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
-
-                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-
-
-                        // if call stockviewmodel class than set as below type
-
-                      /*  String pcode = String.valueOf(t.get("pcode"));
-                        String uomName = String.valueOf(t.get("uomName"));
-                        String soldQty = String.valueOf(t.get("soldQty"));
-                        String totalQty = String.valueOf(t.get("totalQty"));
-                        String currentQty = String.valueOf(t.get("currentQty"));
-                        String avgPurRate = String.valueOf(t.get("avgPurRate"));
-                        String salesRate = String.valueOf(t.get("salesRate"));
-                        String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
-                        String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
-
-                        // prod = new StockViewModel(pcode,uomName,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername);
-                        prodname.add(prod);
-                    }
-
-                    Log.d("prodname",prodname.toString());
-
-                    productgridAdapter = new ProductGridAdapter(context,prodname);
-                    gridView.setAdapter(productgridAdapter);
-
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(CategoryWiseProductViewActivity.this,Product_Details_view_Activity.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
-
-            }
-        });
-
-    }
-    //getting category wise products
-    private void getcatagorywiseproduct(Context context){
-
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getproductbyl1id(rootcatid);
-        productlist.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                BaseResponse baseResponse = response.body();
-
-                if(baseResponse.getMessage().equals("") ) {
-                    showMaseage("Data Note found");
-                } else{
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
-                    assert baseResponse != null;
-                    allproductlist = baseResponse.getItems();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod;
-
-
-                    for(int i = 0 ; i<allproductlist.size(); i++){
-                        Object getrow =allproductlist.get(i);
-                        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
-
-                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername);
-                        prodname.add(prod);
-
-                    }
-
-                    // Log.d("prodname",prodname.toString());
-
-                    productgridAdapter = new ProductGridAdapter(context,prodname);
-                    gridView.setAdapter(productgridAdapter);
-
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(CategoryWiseProductViewActivity.this,Product_Details_view_Activity.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
-
-            }
-        });
-    }
-
     // for toast massage showing
     private void showMaseage( String msg){
 
@@ -352,6 +223,34 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View view, int position, boolean isLongClick) {
+        if(isLongClick){
+            Toast.makeText(this, "LongClick", Toast.LENGTH_SHORT).show();
+        }else{
+            Bundle bundle = new Bundle();
+            bundle.putInt("subcatcatid",subcatagory[position].getL2Code());
+
+            Fragment fragment = SubCatagoryFragment.newInstance();
+            fragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.prodctfragmentontainer,fragment);
+            transaction.commit();
+        }
 
 
+
+    }
+
+
+/*    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "click" +position, Toast.LENGTH_SHORT).show();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.prodcontainer,new HomePragment())
+                .commit();
+
+    }*/
 }

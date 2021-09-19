@@ -1,14 +1,11 @@
 package com.aait.oms.ui;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.MenuItem;
 
 import android.view.Menu;
@@ -21,9 +18,9 @@ import com.aait.oms.fragment.ProfileFragment;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.product.ProductInGridViewActivity;
-import com.aait.oms.product.ProductListActivity;
 import com.aait.oms.users.MyReferenceActivity;
 import com.aait.oms.commission.UsersAccountActivity;
+import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +34,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -45,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
     FirebaseAuth mAuth;
+    AppUtils appUtils;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -59,6 +56,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.navigationviewId);
         navigationView.setNavigationItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
+        appUtils = new AppUtils(this);
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
        drawerLayout.addDrawerListener(toggle);
@@ -215,40 +213,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void showAlartDialog(){
-        SQLiteDB sqLiteDB = new SQLiteDB(this);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("EXIT")
-                .setMessage("Are you sure you want to close the app ?")
-                .setCancelable(false)
-                .setIcon(R.drawable.logopng40)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        sqLiteDB.updateuserloginstatus(false,1);
-                        finish();
-
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                dialogInterface.cancel();
-            }
-        });
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-
-    }
 
     @Override
     public void onBackPressed() {
-
-            showAlartDialog();
-
-
+            appUtils.showExitAlartDialog(HomeActivity.this);
     }
 
    /* @Override
