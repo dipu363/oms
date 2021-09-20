@@ -25,8 +25,11 @@ public class ProductModel {
     String productname;
     String activeStatus;
     String ledgername;
+    String productphoto;
+    String picByte;
+    String imagetype;
 
-    public ProductModel(String l1code, String l2code, String l3code, String l4code, String salesrate, String uomid, String productname, String activeStatus, String ledgername) {
+    public ProductModel(String l1code, String l2code, String l3code, String l4code, String salesrate, String uomid, String productname, String activeStatus, String ledgername, String productphoto, String picByte, String imagetype) {
         this.l1code = l1code;
         this.l2code = l2code;
         this.l3code = l3code;
@@ -36,6 +39,9 @@ public class ProductModel {
         this.productname = productname;
         this.activeStatus = activeStatus;
         this.ledgername = ledgername;
+        this.productphoto = productphoto;
+        this.picByte = picByte;
+        this.imagetype = imagetype;
     }
 
     public ProductModel() {
@@ -113,6 +119,30 @@ public class ProductModel {
         this.ledgername = ledgername;
     }
 
+    public String getProductphoto() {
+        return productphoto;
+    }
+
+    public void setProductphoto(String productphoto) {
+        this.productphoto = productphoto;
+    }
+
+    public String getPicByte() {
+        return picByte;
+    }
+
+    public void setPicByte(String picByte) {
+        this.picByte = picByte;
+    }
+
+    public String getImagetype() {
+        return imagetype;
+    }
+
+    public void setImagetype(String imagetype) {
+        this.imagetype = imagetype;
+    }
+
     @Override
     public String toString() {
         return "ProductModel{" +
@@ -125,8 +155,9 @@ public class ProductModel {
                 ", productname='" + productname + '\'' +
                 ", activeStatus='" + activeStatus + '\'' +
                 ", ledgername='" + ledgername + '\'' +
+                ", productphoto='" + productphoto + '\'' +
+                ", picByte='" + picByte + '\'' +
+                ", imagetype='" + imagetype + '\'' +
                 '}';
     }
-
-
 }

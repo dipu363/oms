@@ -115,6 +115,9 @@ public class SubCatagoryFragment extends Fragment {
                         String productname = String.valueOf(t.get("productname"));
                         String activeStatus = String.valueOf(t.get("activeStatus"));
                         String ledgername = String.valueOf(t.get("ledgername"));
+                        String producPhoto = String.valueOf(t.get("productPhoto"));
+                        String picbyte =   String.valueOf(t.get("picByte"));
+                        String imagetypt = String.valueOf(t.get("imageType"));
 
 
                         // if call stockviewmodel class than set as below type
@@ -131,7 +134,7 @@ public class SubCatagoryFragment extends Fragment {
                         String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
 
                         // prod = new StockViewModel(pcode,uomName,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername);
+                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
                         prodname.add(prod);
                     }
 

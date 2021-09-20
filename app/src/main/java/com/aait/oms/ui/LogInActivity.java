@@ -33,7 +33,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private EditText useremail, userpasswordid;
     private Button login, signup;
     private ProgressBar loginProgress;
-    private FirebaseAuth mAuth;
+   // private FirebaseAuth mAuth;
     private String username = null;
     private AppUtils appUtils;
 
@@ -63,7 +63,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
         loginProgress.setVisibility(View.INVISIBLE);
-        mAuth = FirebaseAuth.getInstance();
+       // mAuth = FirebaseAuth.getInstance();
     }
 
 

@@ -344,6 +344,9 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                     String productname = String.valueOf(t.get("productname"));
                     String activeStatus = String.valueOf(t.get("activeStatus"));
                     String ledgername = String.valueOf(t.get("ledgername"));
+                    String producPhoto = String.valueOf(t.get("productPhoto"));
+                    String picbyte =   String.valueOf(t.get("picByte"));
+                    String imagetypt = String.valueOf(t.get("imageType"));
 
                  /*   String pcode = String.valueOf(t.get("pcode"));
                     String uomName = String.valueOf(t.get("uomName"));
@@ -356,7 +359,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                     String pname = String.valueOf(t.get("pname"));
                     String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
 
-                    prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername);
+                    prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
 
                     prodname.add(prod);
 
