@@ -155,6 +155,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
         }catch (Exception e){
             Log.d("Exception", "onResponse: " + e);
+
         }
     }
 
