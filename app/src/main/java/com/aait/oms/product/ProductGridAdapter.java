@@ -58,7 +58,7 @@ public class ProductGridAdapter extends BaseAdapter {
         if(convertView==null){
 
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.product_view_semple,null);
+            convertView = layoutInflater.inflate(R.layout.productgridviewsample,null);
 
         }
 

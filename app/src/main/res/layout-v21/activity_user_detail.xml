@@ -19,21 +19,20 @@
         <LinearLayout
             android:id="@+id/linear_view"
             android:background="@color/white"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical">
             <FrameLayout
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/profile_image_id"
                     android:scaleType="fitXY"
+                    android:padding="5dp"
                     android:layout_gravity="center"
                     android:src="@drawable/userphoto"
-                    android:layout_marginTop="20dp"
-
                     android:layout_width="150dp"
                     android:layout_height="150dp" />
 
