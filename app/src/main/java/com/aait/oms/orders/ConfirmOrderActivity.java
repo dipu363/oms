@@ -1,13 +1,9 @@
 package com.aait.oms.orders;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,36 +14,29 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.branch.BranchAdapter;
 import com.aait.oms.branch.BranchModel;
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.product.ProductModel;
-import com.aait.oms.rootcategory.ProdCatagoryModel;
-import com.aait.oms.users.UserModel;
-import com.aait.oms.users.UserService;
 import com.aait.oms.util.CommonFunctions;
 import com.aait.oms.util.SQLiteDB;
-import com.google.android.gms.common.internal.Asserts;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -115,11 +104,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 if(option.equals("Online Banking")){
                     paytextviewmassage.setVisibility(View.VISIBLE);
                     paytextviewmassage.setText("Please sent your payment at PUBLIC BANK, Account no 3145263227, if you have any queries please Contact +60 95135005");
-                    paytextviewmassage.setTextColor(Color.WHITE);
+                    //paytextviewmassage.setTextColor(Color.WHITE);
                 }else if(option.equals("Cash On Delivery")){
                     paytextviewmassage.setVisibility(View.VISIBLE);
                     paytextviewmassage.setText("Please give your payment to our service provider. if you have any queries please Contact +60 95135005");
-                    paytextviewmassage.setTextColor(Color.WHITE);
+                    //   paytextviewmassage.setTextColor(Color.WHITE);
                 }else{
                     option="Select";
                     paytextviewmassage.setText("");
@@ -156,7 +145,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             case R.id.radiobtn1:
                 if (checked)
                     selectdelioption.setText(R.string.selectbranch);
-                     selectdelioption.setTextColor(Color.WHITE);
+                //  selectdelioption.setTextColor(Color.WHITE);
                      selectdelioption.setVisibility(View.VISIBLE);
                      shipaddress.setVisibility(View.INVISIBLE);
                      cmobile.setVisibility(View.INVISIBLE);
@@ -168,7 +157,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 if (checked)
                     getbrnachList(this);
                     selectdelioption.setText(R.string.selecthome);
-                    selectdelioption.setTextColor(Color.WHITE);
+                // selectdelioption.setTextColor(Color.WHITE);
                     selectdelioption.setVisibility(View.VISIBLE);
                     shipaddress.setVisibility(View.VISIBLE);
                     cmobile.setVisibility(View.VISIBLE);
@@ -212,7 +201,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                                                  ". Contact Please " + branchModel.getMobile1()
                                  );
                                  branchadd.setVisibility(View.VISIBLE);
-                                 branchadd.setTextColor(Color.WHITE);
+                                //  branchadd.setTextColor(Color.WHITE);
                                  branchid=branchModel.getBranchID();
                                  bname = branchModel.getBname();
                                  baddress= branchModel.getAddress();

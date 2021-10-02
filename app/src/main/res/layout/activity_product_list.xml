@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/off_white"
+    android:background="@color/app_background_white"
     android:orientation="vertical"
     tools:context=".product.ProductListActivity">
 
@@ -27,7 +26,7 @@
              <ListView
                  android:id="@+id/productlist_id"
                  android:layout_width="match_parent"
-                 android:divider="@color/white"
+                 android:divider="@color/app_background_white"
                  android:dividerHeight="3dp"
                  android:layout_height="match_parent">
              </ListView>

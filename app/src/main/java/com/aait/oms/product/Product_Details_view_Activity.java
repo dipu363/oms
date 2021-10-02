@@ -1,10 +1,10 @@
 package com.aait.oms.product;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
 
@@ -16,11 +16,16 @@ public class Product_Details_view_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_product_details_view);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Products Details");
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            Object product = bundle.get("product");
+
+        }
     }
 
 

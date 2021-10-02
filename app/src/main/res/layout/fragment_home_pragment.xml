@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/off_white"
+    android:background="@color/app_background_white"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".fragment.HomePragment">
@@ -47,7 +47,7 @@
                             android:src="@drawable/logo"
                             app:civ_border="true"
                             android:layout_margin="5dp"
-                            app:civ_border_color="@color/white"
+                            app:civ_border_color="@color/app_background_white"
                             app:civ_border_width="1dp"
                              />
 
@@ -67,7 +67,7 @@
                             android:textSize="24sp"
                             android:text="@string/company_name"
                             android:layout_toRightOf="@+id/deshboardid"
-                            android:textColor="@color/DarkGreen"
+                            android:textColor="@color/text_color_green"
                             android:textStyle="bold"
                             android:layout_toEndOf="@+id/deshboardid" />
                         <TextView
@@ -77,7 +77,7 @@
                             android:textSize="12sp"
                             android:layout_toRightOf="@+id/deshboardid"
                             android:layout_below="@+id/dashboard_comnameid"
-                            android:textColor="@color/DarkGreen"
+                            android:textColor="@color/text_color_green"
                             android:text="@string/company_address1"
                             android:textAppearance="?android:textAppearanceLarge"
                             android:textStyle="italic"
@@ -89,7 +89,7 @@
                             android:textSize="12sp"
                             android:layout_toRightOf="@+id/deshboardid"
                             android:layout_below="@+id/dashboard_comadd"
-                            android:textColor="@color/DarkGreen"
+                            android:textColor="@color/text_color_green"
                             android:text="@string/company_address2"
                             android:textAppearance="?android:textAppearanceLarge"
                             android:textStyle="italic"
@@ -100,7 +100,7 @@
                             android:textSize="12sp"
                             android:layout_toRightOf="@+id/deshboardid"
                             android:layout_below="@+id/dashboard_compostid"
-                            android:textColor="@color/DarkGreen"
+                            android:textColor="@color/text_color_green"
                             android:text="@string/company_address3"
                             android:textAppearance="?android:textAppearanceLarge"
                             android:textStyle="italic"
@@ -113,7 +113,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="@color/Green" />
+                        android:background="@color/app_background_dark_blue" />
                     <LinearLayout
                         android:layout_marginTop="3dp"
                         android:orientation="horizontal"
@@ -132,7 +132,7 @@
 
                             android:textSize="18sp"
                             android:layout_weight="4"
-                            android:textColor="@color/Black"
+                            android:textColor="@color/text_color_black"
                             android:text="@string/company_email"
                             android:layout_marginLeft="10dp"
                             android:layout_width="0dp"
@@ -159,7 +159,7 @@
 
                             android:textSize="18sp"
                             android:layout_weight="4"
-                            android:textColor="@color/Black"
+                            android:textColor="@color/text_color_black"
                             android:text="@string/company_phone2"
                             android:layout_marginLeft="10dp"
                             android:layout_width="0dp"
@@ -185,7 +185,7 @@
                         <TextView
                             android:textSize="18sp"
                             android:layout_weight="4"
-                            android:textColor="@color/Black"
+                            android:textColor="@color/text_color_black"
                             android:text="@string/company_phone3"
                             android:layout_marginLeft="10dp"
                             android:layout_width="0dp"

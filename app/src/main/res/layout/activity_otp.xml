@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,7 +35,7 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:textColor="@color/gray"
+            android:textColor="@color/text_color_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="You will get an One Time Password to Your Phone Number "/>
@@ -52,14 +51,14 @@
         android:orientation="vertical">
 
 
-
         <EditText
             android:id="@+id/verify_code_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_shape"
             android:hint="Type Your OTP"
-            android:inputType="number" />
+            android:inputType="number"
+            android:minHeight="48dp" />
         <TextView
             android:id="@+id/verify_otp_textid"
             android:layout_width="match_parent"
@@ -77,6 +76,7 @@
             android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <Button
             android:id="@+id/verifycode_btn"
             android:layout_width="250dp"
@@ -86,7 +86,7 @@
             android:background="@drawable/submit_button_shape"
             android:text="verify"
             android:textAllCaps="true"
-            android:textColor="@color/color_white" />
+            android:textColor="@color/text_color_white" />
 
         <TextView
             android:id="@+id/resend_otp_id"

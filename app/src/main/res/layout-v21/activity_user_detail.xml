@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/off_white"
+    android:background="@color/app_background_white"
     tools:context=".users.UserDetailActivity">
 
     <androidx.cardview.widget.CardView
@@ -18,7 +17,7 @@
 
         <LinearLayout
             android:id="@+id/linear_view"
-            android:background="@color/white"
+            android:background="@color/app_background_white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -48,7 +47,7 @@
                 <TextView
                     android:id="@+id/user_detail_userfnameid"
                     android:textSize="32sp"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:text="Giyas"
                     android:textStyle="bold"
                     android:layout_marginRight="2.5dp"
@@ -59,7 +58,7 @@
                 <TextView
                     android:id="@+id/user_detail_userlnameid"
                     android:textSize="32sp"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:text="Uddin"
                     android:textStyle="bold"
                     android:layout_marginLeft="2.5dp"
@@ -86,7 +85,7 @@
                 <TextView
                     android:id="@+id/user_detail_roleid"
                     android:textSize="18sp"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:layout_marginTop="5dp"
                     android:layout_weight="4"
                     android:textStyle="bold"
@@ -115,7 +114,7 @@
                 <TextView
                     android:id="@+id/user_detail_statusid"
                     android:textSize="18sp"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:text="Status not found"
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"
@@ -145,7 +144,7 @@
                     android:id="@+id/user_detail_addressid"
                     android:textSize="18sp"
                     android:layout_weight="4"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:text="address not found"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
@@ -174,7 +173,7 @@
                    android:id="@+id/user_detail_phoneid"
                     android:textSize="18sp"
                     android:layout_weight="4"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:text="phone not found"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
@@ -203,7 +202,7 @@
                    android:id="@+id/user_detail_emailid"
                     android:textSize="18sp"
                     android:layout_weight="4"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:text="email not found"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
@@ -232,7 +231,7 @@
                     android:id="@+id/user_detail_levelid"
                     android:textSize="18sp"
                     android:layout_weight="4"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:text="level not found"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"
@@ -262,7 +261,7 @@
                     android:id="@+id/user_detail_promossiondateid"
                     android:textSize="18sp"
                     android:layout_weight="4"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:text="promossion date not found"
                     android:textStyle="bold"
                     android:layout_marginTop="5dp"

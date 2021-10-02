@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/off_white"
+    android:background="@color/app_background_white"
     android:orientation="vertical"
     tools:context=".commission.CommissionWithdrawSuccessActivity">
     <androidx.cardview.widget.CardView
@@ -47,7 +46,7 @@
                         android:layout_marginLeft="10dp"
                         android:textSize="24sp"
                         android:layout_toRightOf="@+id/invoiceimageid"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color_white"
                         android:text="@string/company_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -61,7 +60,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_below="@+id/companiid"
                         android:layout_toRightOf="@+id/invoiceimageid"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color_white"
                         android:text="@string/company_address1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,7 +74,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_below="@+id/companyaddress1"
                         android:layout_toRightOf="@+id/invoiceimageid"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color_white"
                         android:text="@string/company_address2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -89,7 +88,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_below="@+id/companyaddress2"
                         android:layout_toRightOf="@+id/invoiceimageid"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color_white"
                         android:text="@string/company_address3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -118,7 +117,7 @@
                     android:textAlignment="center"
                     android:padding="10dp"
                     android:text="@string/commissionwithdrawsuccess"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:textSize="20sp"
                     android:gravity="center_horizontal" />
 

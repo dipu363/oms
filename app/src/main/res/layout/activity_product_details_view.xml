@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     tools:context=".product.Product_Details_view_Activity">
-
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +42,7 @@
                     android:padding="5dp"
                     android:textAlignment="center"
                     android:text=" product detailsApple Red this is the red apple this is the ted apple erp system is the path  product detailsApple Red this is the red apple this is the ted apple erp system is the path"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:textSize="20sp"
                     android:gravity="center_horizontal" />
 
@@ -71,7 +70,7 @@
                         android:layout_alignParentTop="true"
                         android:padding="5dp"
                         android:text="Stock Available"
-                        android:textColor="@color/DarkGreen"
+                        android:textColor="@color/text_color_green"
                         android:textSize="14sp" />
 
                     <TextView
@@ -93,7 +92,7 @@
                         android:layout_alignParentRight="true"
                         android:padding="5dp"
                         android:text="TK. 500.00"
-                        android:textColor="@color/DarkGreen"
+                        android:textColor="@color/text_color_green"
                         android:textSize="24sp" />
 
                     <TextView
@@ -112,7 +111,7 @@
                         android:layout_height="60dp"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/white"
+                        android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"
@@ -124,7 +123,7 @@
                         android:layout_height="60dp"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-                        android:background="@color/white"
+                        android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"
@@ -134,7 +133,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/white"
+                        android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"

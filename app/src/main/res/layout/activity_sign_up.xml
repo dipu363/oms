@@ -138,7 +138,7 @@
                 android:background="@drawable/submit_button_shape"
                 android:text="@string/signup"
                 android:textAllCaps="true"
-                android:textColor="@color/color_white" />
+                android:textColor="@color/text_color_white" />
             <TextView
                 android:id="@+id/docLogin"
                 android:layout_width="match_parent"
