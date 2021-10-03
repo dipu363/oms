@@ -251,9 +251,9 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                             Intent intent = new Intent(ProductInGridViewActivity.this,Product_Details_view_Activity.class);
                             intent.putExtra("product" , product);
 
-                            Object product = productgridAdapter.getItem(position);
+                       /*     Object product = productgridAdapter.getItem(position);
 
-                            Intent intent = new Intent(ProductInGridViewActivity.this, Product_Details_view_Activity.class);
+                            Intent intent = new Intent(ProductInGridViewActivity.this, Product_Details_view_Activity.class);*/
                             // intent.putExtra("product", (Bundle) product);
                             startActivity(intent);
                         }

@@ -41,14 +41,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
                     android:padding="5dp"
-                    android:textAlignment="center"
-                    android:text=" product detailsApple Red this is the red apple this is the ted apple erp system is the path  product detailsApple Red this is the red apple this is the ted apple erp system is the path"
-                    android:textColor="@color/text_color_green"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:text=" Rad Apple 100"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:textSize="20sp"
                      />
 
@@ -74,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Stock Available"
-                        android:textColor="@color/DarkGreen"
+                        android:textColor="@color/text_color_green"
                         android:textSize="14sp" />
 
                     <TextView
@@ -83,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/cardproductinStockid"
                         android:text="500gm"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color_black"
                         android:textSize="14sp" />
 
                     <TextView
@@ -101,10 +97,10 @@
                         android:id="@+id/cardproductdetailsid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/produ_detailsid"
+                        android:layout_below="@+id/cardproductpriceid"
                         android:layout_marginTop="5dp"
                         android:text="details Apple Red this is the red apple this is the ted apple erp system is the path"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color_black"
                         android:textSize="14sp" />
 
                     <ImageButton
@@ -125,7 +121,7 @@
                         android:layout_height="60dp"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-                        android:background="@color/white"
+                        android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"
@@ -135,7 +131,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/white"
+                        android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"
