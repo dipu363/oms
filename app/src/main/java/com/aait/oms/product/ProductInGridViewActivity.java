@@ -1,12 +1,5 @@
 package com.aait.oms.product;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,11 +16,16 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.orders.CatSpinnerAdapter;
-import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.orders.OrderService;
 import com.aait.oms.product.common.CommonFunction;
 import com.aait.oms.rootcategory.Prod1L;
@@ -39,7 +37,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -253,6 +250,11 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                             //System.out.println(product);
                             Intent intent = new Intent(ProductInGridViewActivity.this,Product_Details_view_Activity.class);
                             intent.putExtra("product" , product);
+
+                            Object product = productgridAdapter.getItem(position);
+
+                            Intent intent = new Intent(ProductInGridViewActivity.this, Product_Details_view_Activity.class);
+                            // intent.putExtra("product", (Bundle) product);
                             startActivity(intent);
                         }
                     });

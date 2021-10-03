@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/DarkSlateGray"
+    android:background="@color/app_background_white"
     tools:context=".orders.ConfirmOrderActivity">
 
     <ScrollView
@@ -26,7 +25,7 @@
             android:orientation="vertical">
             <TextView
 
-                android:textColor="@color/white"
+                android:textColor="@color/app_background_dark_blue"
                 android:layout_marginTop="20dp"
                 android:textSize="24sp"
                 android:gravity="center"
@@ -46,7 +45,7 @@
                     android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color_black"
                         android:id="@+id/radiobtn1"
                         android:textSize="18sp"
                         android:text="From Branch"
@@ -54,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <RadioButton
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_color_black"
                         android:id="@+id/radiobtn2"
                         android:textSize="18sp"
                         android:onClick="onRadioButtonClicked"
@@ -69,6 +68,7 @@
                     android:id="@+id/redioselecttextid"
                     android:layout_marginTop="5dp"
                     android:textSize="14sp"
+                    android:textColor="@color/text_color_black"
                     android:visibility="invisible"
                     android:textAlignment="textStart"
                     android:layout_width="wrap_content"
@@ -88,10 +88,10 @@
                 <Spinner
                     android:id="@+id/spinner_delivary_optionid"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:background="@color/white"
+                    android:background="@drawable/edit_text_shape"
                     android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:spinnerMode="dropdown" />
@@ -110,6 +110,7 @@
                 android:id="@+id/branch_add_id"
                 android:layout_marginTop="5dp"
                 android:textSize="12sp"
+                android:textColor="@color/text_color_black"
                 android:visibility="invisible"
                 android:textAlignment="textStart"
                 android:layout_width="wrap_content"
@@ -122,8 +123,8 @@
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
                 android:maxLines="3"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColor="@color/text_color_black"
+                android:textColorHint="@color/text_color_black"
                 android:layout_marginTop="20dp"
                 android:hint="Enter Shipping Address"
                 android:inputType="text" />
@@ -132,9 +133,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:textColor="@color/white"
+                android:textColor="@color/text_color_black"
                 android:layout_marginTop="5dp"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/text_color_black"
                 android:hint="Enter Mobile no"
                 android:inputType="text" />
 
@@ -157,12 +158,12 @@
                     <Spinner
                         android:id="@+id/spinner_payment_optionid"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        android:background="@color/white"
-                        android:gravity="center"
                         android:layout_marginLeft="5dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:gravity="center"
                         android:spinnerMode="dropdown" />
 
                     <ImageView
@@ -178,6 +179,7 @@
                     android:id="@+id/select_paymentsystem_textmassege_id"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp"
+                    android:textColor="@color/text_color_black"
                     android:text="Cash On delivery"
                     android:visibility="visible"
                     android:textAlignment="textStart"
@@ -215,7 +217,7 @@
                     android:text="@string/signup"
                     android:layout_marginBottom="20dp"
                     android:textAllCaps="true"
-                    android:textColor="@color/color_white" />
+                    android:textColor="@color/text_color_white" />
 
             </LinearLayout>
         </LinearLayout>

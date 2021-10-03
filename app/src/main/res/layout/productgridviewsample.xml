@@ -34,10 +34,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="productname"
-                android:textAllCaps="true"
-                android:textColor="@color/DarkGreen"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textAlignment="center"
+                android:textColor="@color/text_color_green"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/cardproductUMLcodeid"
@@ -59,6 +58,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="TK. 500.00"
+                android:textColor="@color/app_background_dark_blue"
+                android:textSize="20sp" />
                 android:textColor="@color/RoyalBlue"
                 android:textSize="20sp"
                 android:textStyle="bold" />

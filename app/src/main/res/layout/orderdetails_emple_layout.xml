@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:padding="5dp"
     android:descendantFocusability="blocksDescendants">
+
     <TextView
         android:id="@+id/detail_prod_sl_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_black"
         android:text="1"
         android:textSize="16sp"
          />
@@ -23,7 +22,7 @@
         android:layout_toRightOf="@+id/detail_prod_sl_id"
         android:maxLines="2"
         android:layout_marginLeft="5dp"
-        android:textColor="@color/DarkGreen"
+        android:textColor="@color/text_color_green"
         android:text="Medium Text"
         android:textSize="16sp"
         android:layout_toEndOf="@+id/detail_prod_sl_id" />
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_black"
             android:textSize="16sp"
             android:text="QTY "
             android:gravity="center" />
@@ -58,7 +57,7 @@
             android:textAlignment="center"
             android:textSize="16sp"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_black"
             android:text="0.0"
             android:gravity="center" />
         <TextView
@@ -68,7 +67,7 @@
             android:textSize="16sp"
             android:textAlignment="textEnd"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_black"
             android:text="0.0"
             android:gravity="end" />
 

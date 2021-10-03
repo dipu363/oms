@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +18,7 @@
                     <TextView
                         android:id="@+id/withdrawbalancetextid"
                         android:background="@drawable/edit_text_shape"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/app_background_dark_blue"
                         android:layout_marginTop="20dp"
                         android:textSize="20sp"
                         android:gravity="center"
@@ -70,6 +69,7 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <Button
             android:id="@+id/withdraw_btn_next1"
             android:layout_width="150dp"
@@ -78,7 +78,7 @@
             android:background="@drawable/submit_button_shape"
             android:text="next"
             android:textAllCaps="true"
-            android:textColor="@color/color_white" />
+            android:textColor="@color/text_color_white" />
   <!--      <Button
             android:id="@+id/withdraw_btn_next2"
             android:layout_width="150dp"
@@ -98,7 +98,7 @@
             android:background="@drawable/submit_button_shape"
             android:text="send request"
             android:textAllCaps="true"
-            android:textColor="@color/color_white" />
+            android:textColor="@color/text_color_white" />
 
 
     </FrameLayout>

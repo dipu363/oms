@@ -16,6 +16,7 @@
         card_view:cardElevation="5dp"
         android:orientation="vertical">
 
+
         <LinearLayout
             android:weightSum="2"
             android:orientation="vertical"
@@ -39,6 +40,10 @@
                     android:id="@+id/cardproductnameid"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:text=" product detailsApple Red this is the red apple this is the ted apple erp system is the path  product detailsApple Red this is the red apple this is the ted apple erp system is the path"
+                    android:textColor="@color/text_color_green"
                     android:layout_gravity="start"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
@@ -89,19 +94,8 @@
                         android:layout_alignParentRight="true"
                         android:padding="5dp"
                         android:text="TK. 500.00"
-                        android:textColor="@color/RoyalBlue"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/produ_detailsid"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/cardproductcodeCodeid"
-                        android:text="Product Details :"
-                        android:textColor="@color/DarkGreen"
-                        android:textSize="16sp" />
+                        android:textColor="@color/text_color_green"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/cardproductdetailsid"
@@ -119,7 +113,7 @@
                         android:layout_height="60dp"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/white"
+                        android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"

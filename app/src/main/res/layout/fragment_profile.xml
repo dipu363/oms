@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/screen_background_light_transparent"
+    android:background="@color/app_background_white"
     tools:context=".fragment.ProfileFragment">
 
     <androidx.cardview.widget.CardView
@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:id="@+id/linear_view"
-            android:background="@color/white"
+            android:background="@color/app_background_white"
             android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,7 +36,7 @@
                     android:layout_height="150dp" />
                 <ImageButton
                     android:id="@+id/cartbuttonid"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/app_background_white"
                     android:layout_gravity="right"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_baseline_edit_24"
@@ -57,7 +57,7 @@
                 <TextView
                     android:id="@+id/profile_userfnameid"
                     android:textSize="36sp"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:text="Giyas"
                     android:textStyle="italic"
                     android:layout_marginRight="2.5dp"
@@ -68,7 +68,7 @@
                 <TextView
                     android:id="@+id/profile_userlnameid"
                     android:textSize="32sp"
-                    android:textColor="@color/DarkGreen"
+                    android:textColor="@color/text_color_green"
                     android:text="Uddin"
                     android:textStyle="italic"
                     android:layout_marginLeft="2.5dp"
@@ -94,7 +94,7 @@
                     android:layout_weight="4"
                     android:id="@+id/profile_usernameid"
                     android:textSize="20sp"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/text_color_black"
                     android:textStyle="bold"
                     android:text="User Name"
                     android:layout_width="0dp"
@@ -116,7 +116,7 @@
             <TextView
                 android:id="@+id/profile_roleid"
                 android:textSize="20sp"
-                android:textColor="@color/Black"
+                android:textColor="@color/text_color_black"
                 android:layout_weight="4"
                 android:textStyle="bold"
                 android:text="Role Name"
@@ -143,7 +143,7 @@
             <TextView
                 android:id="@+id/profile_referenceid"
                 android:textSize="20sp"
-                android:textColor="@color/Black"
+                android:textColor="@color/text_color_black"
                 android:text="Reference By"
                 android:textStyle="bold"
                 android:layout_weight="4"
@@ -171,7 +171,7 @@
                 android:id="@+id/profile_statusid"
                 android:textSize="20dp"
                 android:layout_weight="4"
-                android:textColor="@color/Black"
+                android:textColor="@color/text_color_black"
                 android:text="Status"
                 android:textStyle="bold"
                 android:layout_width="0dp"

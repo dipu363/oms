@@ -33,7 +33,7 @@
             <TextView
                 android:id="@+id/trhis_textviewid1"
                 android:textSize="20dp"
-                android:textColor="@color/DarkGreen"
+                android:textColor="@color/text_color_green"
                 android:text="Transaction ID"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -58,7 +58,7 @@
             <TextView
                 android:id="@+id/tr_his_amount_id"
                 android:textSize="18sp"
-                android:textColor="@color/red"
+                android:textColor="@color/text_color_red"
                 android:text="RM 5000"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"

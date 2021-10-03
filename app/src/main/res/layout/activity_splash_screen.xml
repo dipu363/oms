@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/white"
+    android:background="@color/app_background_white"
     tools:context=".ui.SplashScreenActivity">
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/deshboardid"
@@ -23,7 +22,7 @@
         android:textAllCaps="true"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:textColor="@color/DarkGreen"
+        android:textColor="@color/text_color_green"
         android:textSize="36sp"
         android:text="@string/company_name"
         android:layout_width="wrap_content"

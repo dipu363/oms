@@ -1,13 +1,13 @@
 package com.aait.oms.product;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
 import com.aait.oms.product.common.CommonFunction;
@@ -25,7 +25,7 @@ public class Product_Details_view_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_product_details_view);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Products Details");
@@ -58,6 +58,11 @@ public class Product_Details_view_Activity extends AppCompatActivity {
         Gson gsonf = new Gson();
         //System.out.println(prodmodel.toString());
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            Object product = bundle.get("product");
+
+        }
     }
 
 

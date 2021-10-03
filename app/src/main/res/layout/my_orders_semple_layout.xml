@@ -26,7 +26,7 @@
                      android:padding="5dp"
                      android:text="1"
                      android:textStyle="bold"
-                     android:textColor="@color/white"
+                     android:textColor="@color/text_color_white"
                      android:textSize="20sp"
                      android:id="@+id/my_orders_order_serialid"
                      android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/order_sample_text1"
                 android:textSize="20sp"
-                android:textColor="@color/DarkGreen"
+                android:textColor="@color/text_color_green"
                 android:text="Order ID :"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -54,7 +54,7 @@
             <TextView
                 android:id="@+id/my_orders_orderid"
                 android:textSize="20sp"
-                android:textColor="@color/DarkGreen"
+                android:textColor="@color/text_color_green"
                 android:text="Apple Red"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -79,7 +79,7 @@
             <TextView
                 android:id="@+id/my_orders_order_date"
                 android:textSize="16sp"
-                android:textColor="@color/Black"
+                android:textColor="@color/text_color_black"
                 android:text="24/02/2021"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -105,7 +105,7 @@
             <TextView
                 android:id="@+id/my_orders_order_status"
                 android:textSize="16sp"
-                android:textColor="@color/Green"
+                android:textColor="@color/text_color_green"
                 android:text="Ordered"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -120,7 +120,7 @@
             <TextView
                 android:id="@+id/my_orders_delivery_status"
                 android:textSize="20sp"
-                android:textColor="@color/DarkGreen"
+                android:textColor="@color/text_color_green"
                 android:text="Delibered"
                 android:layout_marginRight="30dp"
                 android:layout_alignParentRight="true"
@@ -131,7 +131,7 @@
             <TextView
                 android:id="@+id/order_sample_text4"
                 android:textSize="14sp"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/text_color_black"
                 android:text="Shipping Address :"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
@@ -143,7 +143,7 @@
             <TextView
                 android:id="@+id/my_orders_delivery_ship_add"
                 android:textSize="14sp"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/text_color_black"
                 android:text="Shipping Address"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp"
