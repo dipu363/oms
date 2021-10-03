@@ -26,6 +26,7 @@ import com.aait.oms.product.ProductModel;
 import com.aait.oms.product.Product_Details_view_Activity;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
 import com.aait.oms.subcategory.SubCategoryRecyclerAdapter;
+import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
@@ -146,7 +147,16 @@ public class SubCatagoryFragment extends Fragment {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), Product_Details_view_Activity.class);
+
+                            ProductModel productModel =   prodname.get(position);
+                            Gson gson = new Gson();
+                            String product = gson.toJson(productModel);
+
+                            // String Productstring = productModel.toString();
+
+                            System.out.println(product);
+                            Intent intent = new Intent(getActivity(),Product_Details_view_Activity.class);
+                            intent.putExtra("product" , product);
                             startActivity(intent);
                         }
                     });

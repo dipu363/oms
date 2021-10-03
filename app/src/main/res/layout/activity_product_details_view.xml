@@ -16,7 +16,6 @@
         card_view:cardElevation="5dp"
         android:orientation="vertical">
 
-
         <LinearLayout
             android:weightSum="2"
             android:orientation="vertical"
@@ -40,12 +39,13 @@
                     android:id="@+id/cardproductnameid"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:padding="5dp"
-                    android:textAlignment="center"
-                    android:text=" product detailsApple Red this is the red apple this is the ted apple erp system is the path  product detailsApple Red this is the red apple this is the ted apple erp system is the path"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:text=" Rad Apple 100"
                     android:textColor="@color/DarkGreen"
                     android:textSize="20sp"
-                    android:gravity="center_horizontal" />
+                     />
 
 
 
@@ -68,19 +68,15 @@
                         android:id="@+id/cardproductinStockid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:padding="5dp"
                         android:text="Stock Available"
                         android:textColor="@color/DarkGreen"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/cardproductUMLcodeid"
+                        android:id="@+id/cardproductcodeCodeid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/cardproductinStockid"
-                        android:padding="5dp"
+                        android:layout_below="@+id/cardproductinStockid"
                         android:text="500gm"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -93,15 +89,26 @@
                         android:layout_alignParentRight="true"
                         android:padding="5dp"
                         android:text="TK. 500.00"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/produ_detailsid"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardproductcodeCodeid"
+                        android:text="Product Details :"
                         android:textColor="@color/DarkGreen"
-                        android:textSize="24sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/cardproductdetailsid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/cardproductpriceid"
-                        android:padding="5dp"
+                        android:layout_below="@+id/produ_detailsid"
+                        android:layout_marginTop="5dp"
                         android:text="details Apple Red this is the red apple this is the ted apple erp system is the path"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
@@ -149,6 +156,8 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
 
     </androidx.cardview.widget.CardView>
 

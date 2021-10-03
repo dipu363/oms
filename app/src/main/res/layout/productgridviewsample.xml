@@ -31,24 +31,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_below="@+id/productimageid"
-                android:layout_centerInParent="true"
-                android:gravity="center_horizontal"
-                android:padding="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="productname"
-                android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/DarkGreen"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/cardproductUMLcodeid"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardproductnameid"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="500gm"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/cardproductpriceid"
                 android:layout_width="wrap_content"
@@ -56,12 +57,11 @@
                 android:layout_below="@+id/cardproductUMLcodeid"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-
-                android:paddingRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="TK. 500.00"
                 android:textColor="@color/RoyalBlue"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

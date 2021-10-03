@@ -32,6 +32,8 @@ public interface ProductInterface {
 
     @GET("prodltwo/list")
     Call<BaseResponse> getallsubcatagory();
+    @GET("uom/findById")
+    Call<BaseResponse> getumlname(@Query("id")int id);
 
 
 

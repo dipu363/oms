@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.CatSpinnerAdapter;
 import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.orders.OrderService;
+import com.aait.oms.product.common.CommonFunction;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
@@ -55,6 +57,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     RootCatagoryRecyclerAdapter adapter;
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
+    String umlname ;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -216,7 +219,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
                         // if call stockviewmodel class than set as below type
 
-                      /*  String pcode = String.valueOf(t.get("pcode"));
+                   /*     String pcode = String.valueOf(t.get("pcode"));
                         String uomName = String.valueOf(t.get("uomName"));
                         String soldQty = String.valueOf(t.get("soldQty"));
                         String totalQty = String.valueOf(t.get("totalQty"));
@@ -240,7 +243,16 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            ProductModel productModel =   prodname.get(position);
+                            Gson gson = new Gson();
+                            String product = gson.toJson(productModel);
+
+                           // String Productstring = productModel.toString();
+
+                            //System.out.println(product);
                             Intent intent = new Intent(ProductInGridViewActivity.this,Product_Details_view_Activity.class);
+                            intent.putExtra("product" , product);
                             startActivity(intent);
                         }
                     });
@@ -306,7 +318,15 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            ProductModel productModel =   prodname.get(position);
+                            Gson gson = new Gson();
+                            String product = gson.toJson(productModel);
+
+                            // String Productstring = productModel.toString();
+
+                           // System.out.println(product);
                             Intent intent = new Intent(ProductInGridViewActivity.this,Product_Details_view_Activity.class);
+                            intent.putExtra("product" , product);
                             startActivity(intent);
                         }
                     });
