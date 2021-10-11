@@ -21,8 +21,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "sqlite_oms.db";
 
     //  table name
-    private static final String TABLE_USER_INFO = "userinfo";
-    private static final String TABLE_FAVORITE_PRODUCT = "favoriteproduct";
+    private static final String TABLE_USER_INFO= "userinfo";
+    private static final String TABLE_FAVORITE_PRODUCT= "favoriteProduct";
 
 
     //  User info Table Columns names
@@ -33,22 +33,20 @@ public class SQLiteDB extends SQLiteOpenHelper {
     private static final String USER_PASSWORD = "userPassword";
     private static final String LOGIN_STATUS = "login_status";
 
-    //user favorite product table
-    private static final String PRODUCT_CODE = "login_status";
-    private static final String PRODUCT_RATE = "login_status";
-    private static final String PRODUCT_STATUS = "login_status";
-    private static final String PRODUCT_PICBYTE = "";
-    String uomid;
-    String productname;
-    String activeStatus;
-    String ledgername;
-    String productphoto;
-    String picByte;
-    String imagetype;
 
+    //  favorite product Table Columns names
+
+    private static final String FAV_PRODUCT_ID = "Id";
+    private static final String L4CODE = "l4code";
 
     public static final String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO + "("
-            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN " + ")";
+            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN " +")";
+
+// table create string;
+    public static final String CREATE_TABLE_MY_FAVORITE_PRODUCT = "CREATE TABLE " + TABLE_FAVORITE_PRODUCT + "("
+            + L4CODE + " TEXT )";
+
+
 
     public SQLiteDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -71,6 +69,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_INFO_TABLE);
+        db.execSQL(CREATE_TABLE_MY_FAVORITE_PRODUCT);
 
 
     }
@@ -80,6 +79,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " +TABLE_USER_INFO);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_FAVORITE_PRODUCT);
         // Create tables again
         onCreate(db);
 
@@ -138,5 +138,21 @@ public class SQLiteDB extends SQLiteOpenHelper {
         value.put(LOGIN_STATUS,loginstatus);
         db.update(TABLE_USER_INFO,value,USER_ID +" = ?",new String[]{String.valueOf(id)});
         db.close();
+    }
+
+
+    // insert data on the user info table
+    public void insertProduct(String  prodcode) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(L4CODE,prodcode);
+        db.insert(TABLE_FAVORITE_PRODUCT,null,values);
+        db.close();
+    }
+
+    public Cursor getallfavoriteProduct(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from favoriteProduct",null);
+        return cursor ;
     }
 }
