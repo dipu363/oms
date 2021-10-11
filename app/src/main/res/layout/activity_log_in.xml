@@ -1,123 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.LogInActivity">
 
 
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background_dark_blue"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/haveanaccid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:text="Have an Account ? "
+                android:textColor="@color/text_color_white"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/plealoinid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/haveanaccid"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="cursive"
+                android:text="  Sign In Now ."
+                android:textColor="@color/text_color_white"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/vgnupoinid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/plealoinid"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="cursive"
+                android:text="Please Registration first !"
+                android:textColor="@color/text_color_white"
+                android:textSize="32sp" />
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/ic_background_header"
+            android:orientation="vertical">
+
+
+        </FrameLayout>
 
         <LinearLayout
 
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!--        <TextView-->
+            <!--            android:background="@drawable/edit_text_shape"-->
+            <!--            android:textColor="@color/Black"-->
+            <!--            android:textSize="28dp"-->
+            <!--            android:gravity="center"-->
+            <!--            android:text="OWING SHOP"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"/>-->
+
+            <!-- <com.mikhaellopez.circularimageview.CircularImageView
+                 android:layout_gravity="center"
+                 android:id="@+id/login_photo"
+                 android:layout_width="140dp"
+                 android:layout_height="140dp"
+                 android:src="@drawable/login"
+                 app:civ_border_color="@color/off_white"
+                 app:civ_border_width="2dp"
+                 app:civ_shadow="true"
+                 app:civ_shadow_radius="7"
+                 app:civ_shadow_color="#1E223E"/>-->
 
 
-
-            <LinearLayout
-
-                android:orientation="vertical"
+            <EditText
+                android:id="@+id/emailedittextid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:src="@drawable/login_touchscreen"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="50dp"
-                    android:scaleType="fitXY"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"/>
-            </LinearLayout>
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:hint="User Name"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="14dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
+            <ProgressBar
+                android:id="@+id/login_progress"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <!--     <Button
+                     android:id="@+id/btn_login"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:background="@drawable/submit_button_shape"
+                     android:text="Log In"
+                     android:textAllCaps="true"
+                     android:textColor="@color/text_color_white" />-->
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_login"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+
+
+                android:layout_marginRight="30dp"
+
+                android:contentDescription="TODO"
+                android:src="@drawable/ic__east_60"
+                app:backgroundTint="@color/app_background_white"
+                app:rippleColor="@color/app_background_dark_blue" />
+
+            <Button
+                android:id="@+id/btn_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-                android:orientation="vertical">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text_shape"
+                android:text=" Registration to hare"
+                android:textAllCaps="true"
+                android:textColor="@color/text_color_green" />
 
-                <!--        <TextView-->
-                <!--            android:background="@drawable/edit_text_shape"-->
-                <!--            android:textColor="@color/Black"-->
-                <!--            android:textSize="28dp"-->
-                <!--            android:gravity="center"-->
-                <!--            android:text="OWING SHOP"-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="wrap_content"/>-->
-
-                <!-- <com.mikhaellopez.circularimageview.CircularImageView
-                     android:layout_gravity="center"
-                     android:id="@+id/login_photo"
-                     android:layout_width="140dp"
-                     android:layout_height="140dp"
-                     android:src="@drawable/login"
-                     app:civ_border_color="@color/off_white"
-                     app:civ_border_width="2dp"
-                     app:civ_shadow="true"
-                     app:civ_shadow_radius="7"
-                     app:civ_shadow_color="#1E223E"/>-->
-
-
-
-
-
-                <EditText
-                    android:id="@+id/emailedittextid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/edit_text_shape"
-                    android:textColor="@color/black"
-                    android:hint="User Name"
-                    android:inputType="textEmailAddress" />
-
-                <EditText
-                    android:id="@+id/edtPassword"
-                    android:background="@drawable/edit_text_shape"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:layout_below="@id/emailedittextid"
-                    android:layout_marginTop="14dp"
-                    android:ems="10"
-                    android:hint="Password"
-                    android:inputType="textPassword" />
-
-                <ProgressBar
-                    android:id="@+id/login_progress"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <Button
-                    android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/submit_button_shape"
-                    android:text="Log In"
-                    android:textAllCaps="true"
-                    android:textColor="@color/text_color_white" />
-
-                <Button
-                    android:id="@+id/btn_signup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:background="@drawable/submit_button_shape"
-                    android:text="Sign Up"
-                    android:textAllCaps="true"
-                    android:textColor="@color/text_color_white" />
-
-
-            </LinearLayout>
 
         </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/ic_background_footer">
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/app_background_dark_blue" />
+
+    </LinearLayout>
 
 
 </ScrollView>

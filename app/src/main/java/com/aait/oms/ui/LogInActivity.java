@@ -18,7 +18,7 @@ import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,9 +31,10 @@ import retrofit2.Response;
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText useremail, userpasswordid;
-    private Button login, signup;
+    private Button signup;
+    private FloatingActionButton login;
     private ProgressBar loginProgress;
-   // private FirebaseAuth mAuth;
+    // private FirebaseAuth mAuth;
     private String username = null;
     private AppUtils appUtils;
 

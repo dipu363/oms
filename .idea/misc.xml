@@ -8,12 +8,16 @@
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/card_background_border_shape.xml" value="0.17135416666666667" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/circlebacground_greencolor.xml" value="0.1175925925925926" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/edit_text_shape.xml" value="0.1515625" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/ic__east_60.xml" value="0.13240740740740742" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/ic_background_footer.xml" value="0.1814814814814815" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/ic_background_header.xml" value="0.1814814814814815" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/ic_baseline_active_run_40.xml" value="0.14444444444444443" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.14444444444444443" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/serial_no_shap.xml" value="0.17135416666666667" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/side_nav_bar.xml" value="0.1515625" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/spinner_border.xml" value="0.17135416666666667" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/drawable/submit_button_shape.xml" value="0.17135416666666667" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/font/fontfam.xml" value="0.19444444444444445" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout-v21/activity_user_detail.xml" value="0.1638888888888889" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout-v21/product_view_semple.xml" value="0.19947916666666668" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_cart.xml" value="0.16614583333333333" />
@@ -22,7 +26,7 @@
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_commission_withdraw_success.xml" value="0.19641025641025642" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_confirm_order.xml" value="0.17407407407407408" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_home.xml" value="0.1046875" />
-        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_log_in.xml" value="0.17407407407407408" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_log_in.xml" value="0.16" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_main.xml" value="0.17407407407407408" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_my_orders.xml" value="0.17407407407407408" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_my_reference.xml" value="0.17407407407407408" />
@@ -36,7 +40,7 @@
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_product_list.xml" value="0.1" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_send_otp.xml" value="0.1" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_sign_up.xml" value="0.1537037037037037" />
-        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_summary.xml" value="0.22" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_supplier_list.xml" value="0.1638888888888889" />
         <entry key="..\:/15.ANDROID/Running Android Projects/oms/app/src/main/res/layout/activity_trams_condition.xml" value="0.19947916666666668" />

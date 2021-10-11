@@ -9,13 +9,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.aait.oms.R;
-import com.aait.oms.ui.SignUpActivity;
 
 
 public class AppUtils {
@@ -25,9 +25,13 @@ public class AppUtils {
     public AppUtils(Context context) {
         this.context = context;
     }
+
+
     public  void appToast(String message){
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
+
+
     public NetworkInfo deviceNetwork() {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return connectivityManager.getActiveNetworkInfo();

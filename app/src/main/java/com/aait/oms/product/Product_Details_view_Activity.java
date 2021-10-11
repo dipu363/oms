@@ -2,6 +2,7 @@ package com.aait.oms.product;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,14 +11,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
-import com.aait.oms.product.common.CommonFunction;
 import com.google.gson.Gson;
 
-public class Product_Details_view_Activity extends AppCompatActivity {
+public class Product_Details_view_Activity extends AppCompatActivity implements View.OnClickListener {
 
-    private  TextView prodname, prodcode,prodprice,proddetails ,prodstock;
+    private TextView prodname, prodcode, prodprice, proddetails, prodstock;
     private ImageView prodimageview;
-    private ImageButton addcard,favorite,feedback;
+    private ImageButton addcard, favorite, feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,9 @@ public class Product_Details_view_Activity extends AppCompatActivity {
         addcard = findViewById(R.id.cardproductAddtTocartbottonId);
         favorite = findViewById(R.id.productFavouritebottonId);
         feedback = findViewById(R.id.productfeedbackbottonId);
+        addcard.setOnClickListener(this);
+        addcard.setOnClickListener(this);
+        addcard.setOnClickListener(this);
 
         Gson gson = new Gson();
         ProductModel prodmodel = gson.fromJson(getIntent().getStringExtra("product"), ProductModel.class);
@@ -48,7 +51,7 @@ public class Product_Details_view_Activity extends AppCompatActivity {
         String uomname = commonFunction.getuomname(Integer.parseInt(stringid));*/
 
         prodname.setText(prodmodel.getProductname());
-        prodcode.setText("Code : "+prodmodel.getL4code());
+        prodcode.setText("Code : " + prodmodel.getL4code());
         prodprice.setText(" TK. "+prodmodel.getSalesrate());
         proddetails.setText(prodmodel.getLedgername());
         prodstock.setText("Stock Available  ");
@@ -69,10 +72,27 @@ public class Product_Details_view_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()== android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.cardproductAddtTocartbottonId:
+
+
+                break;
+            case R.id.productFavouritebottonId:
+
+                break;
+            case R.id.productfeedbackbottonId:
+
+                break;
+        }
+    }
+
+
 }

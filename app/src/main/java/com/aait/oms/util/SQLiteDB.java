@@ -21,7 +21,8 @@ public class SQLiteDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "sqlite_oms.db";
 
     //  table name
-    private static final String TABLE_USER_INFO= "userinfo";
+    private static final String TABLE_USER_INFO = "userinfo";
+    private static final String TABLE_FAVORITE_PRODUCT = "favoriteproduct";
 
 
     //  User info Table Columns names
@@ -32,11 +33,22 @@ public class SQLiteDB extends SQLiteOpenHelper {
     private static final String USER_PASSWORD = "userPassword";
     private static final String LOGIN_STATUS = "login_status";
 
-
+    //user favorite product table
+    private static final String PRODUCT_CODE = "login_status";
+    private static final String PRODUCT_RATE = "login_status";
+    private static final String PRODUCT_STATUS = "login_status";
+    private static final String PRODUCT_PICBYTE = "";
+    String uomid;
+    String productname;
+    String activeStatus;
+    String ledgername;
+    String productphoto;
+    String picByte;
+    String imagetype;
 
 
     public static final String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO + "("
-            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN " +")";
+            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN " + ")";
 
     public SQLiteDB(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
