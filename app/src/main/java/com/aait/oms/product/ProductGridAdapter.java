@@ -1,11 +1,15 @@
 package com.aait.oms.product;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +83,9 @@ public class ProductGridAdapter extends BaseAdapter {
         TextView productname = convertView.findViewById(R.id.cardproductnameid);
         TextView productumlcode = convertView.findViewById(R.id.cardproductUMLcodeid);
         TextView productprice = convertView.findViewById(R.id.cardproductpriceid);
+        ImageView productImage = convertView.findViewById(R.id.productimageid);
+
+
 /*        CommonFunction commonFunction = new CommonFunction(mContext);
         long uodid = Math.round(Float.parseFloat(product.uomid));
         String stringid = String.valueOf(uodid);
@@ -89,6 +96,14 @@ public class ProductGridAdapter extends BaseAdapter {
         productname.setText(product.getProductname());
         productumlcode.setText(product.l4code);
         productprice.setText("TK. "+ product.getSalesrate());
+
+
+        byte[] bytes = Base64.decode(product.getPicByte(),Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        productImage.setImageBitmap(bitmap);
+
+
+
 
         return convertView;
     }

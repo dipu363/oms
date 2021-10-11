@@ -1,6 +1,9 @@
 package com.aait.oms.product;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -52,6 +55,10 @@ public class Product_Details_view_Activity extends AppCompatActivity {
         prodprice.setText(" TK. "+prodmodel.getSalesrate());
         proddetails.setText(prodmodel.getLedgername());
         prodstock.setText("Stock Available  ");
+
+        byte[] bytes = Base64.decode(prodmodel.getPicByte(),Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        prodimageview.setImageBitmap(bitmap);
 
 
 
