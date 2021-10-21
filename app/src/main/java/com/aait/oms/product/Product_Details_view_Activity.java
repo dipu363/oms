@@ -1,10 +1,12 @@
 package com.aait.oms.product;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -25,15 +27,16 @@ import java.util.List;
 
 public class Product_Details_view_Activity extends AppCompatActivity implements View.OnClickListener {
 
-    private  TextView prodname, prodcode,prodprice,proddetails ,prodstock;
+    private  TextView prodname, prodcode,prodprice,proddetails ,prodstock ,textcardlist;
     private ImageView prodimageview;
     private ImageButton addcard,favorite,feedback;
 
     ProductModel prodmodel;
     SQLiteDB sqLiteDB;
-
+    ArrayList<String> cardList ;
     AppUtils appUtils;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         proddetails = findViewById(R.id.cardproductdetailsid);
         prodstock = findViewById(R.id.cardproductinStockid);
         prodimageview = findViewById(R.id.productimageid);
+        textcardlist = findViewById(R.id.cardlistproductid);
         addcard = findViewById(R.id.cardproductAddtTocartbottonId);
         favorite = findViewById(R.id.productFavouritebottonId);
         feedback = findViewById(R.id.productfeedbackbottonId);
@@ -73,6 +77,17 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
         prodimageview.setImageBitmap(bitmap);
 
+        Cursor cursor = sqLiteDB.getAllCardProduct();
+        cardList = new ArrayList<>();
+
+
+        if (cursor.moveToFirst()){
+          do {
+              cardList.add(cursor.getString(0));
+          }  while (cursor.moveToNext());
+        }
+        textcardlist.setText(String.valueOf(cardList.size()));
+
     }
 
 
@@ -90,32 +105,40 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.productFavouritebottonId:
-               Cursor cursor = sqLiteDB.getallfavoriteProduct();
-                List<String> productlist = new ArrayList<>();
-               if (cursor.moveToFirst()){
-                   productlist.add(cursor.getString(1));
-                   for (int i = 0 ; i<productlist.size(); i++){
-                       if (productlist.get(i) == prodmodel.l4code){
 
-                           appUtils.appToast("This Product already added as your favorite Product ");
-                       }
-                       else {
-                           sqLiteDB.insertProduct(prodmodel.getL4code());
-                           appUtils.appToast("A New Product added as your favorite Product");
-                       }
+                String prodId = prodmodel.l4code;
+               Cursor cursor1 = sqLiteDB.getSingleFavProduct(prodId);
 
-                   }
-               }else {
-                   sqLiteDB.insertProduct(prodmodel.getL4code());
-                   appUtils.appToast("A New Product added as your favorite Product");
-               }
+                if (cursor1.moveToFirst()) {
+                    appUtils.appToast("This product already added to favorite list");
 
-
-            //    sqLiteDB.insertProduct(prodmodel.getL4code());
-
+                }else {
+                    sqLiteDB.insertProduct(prodId);
+                    appUtils.appToast("A New Product added as your favorite Product");
+                }
 
                 break;
             case R.id.cardproductAddtTocartbottonId:
+                String pId = prodmodel.l4code;
+                Cursor cursor2 = sqLiteDB.getSingleProduct(pId);
+
+                if (cursor2.moveToFirst()) {
+                    appUtils.appToast("This product already added to your Card");
+
+                }else {
+                    sqLiteDB.insertCardProduct(pId);
+
+                    Cursor cursor = sqLiteDB.getAllCardProduct();
+                    cardList.clear();
+                    if (cursor.moveToFirst()){
+                        do {
+                            cardList.add(cursor.getString(0));
+                        }  while (cursor.moveToNext());
+                    }
+                    textcardlist.setText(String.valueOf(cardList.size()));
+                    appUtils.appToast("A New Product added in your Card");
+                }
+
                 break;
             case R.id.productfeedbackbottonId:
                 break;

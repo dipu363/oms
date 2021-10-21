@@ -367,8 +367,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 public void onResponse(Call<String> call, Response<String> response) {
 
                   /*  //when send post request
-                    //if error faced Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
-                    //Error say's you want to get result in String body.
+                     //if error faced Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
+                     //Error say's you want to get result in String body.
+                     //Or this problem occur for response type .
+                     // solution : please see your response type in your api
                     //If you want to do this, Just add ScalarsConverterFactory.create() in your Retrofit.Builder.
                     //Use retrofit Implementation in app level build.gradle.
                     //implementation 'com.squareup.retrofit2:converter-scalars:2.1.0' update version

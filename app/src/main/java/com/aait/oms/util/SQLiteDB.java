@@ -23,6 +23,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
     //  table name
     private static final String TABLE_USER_INFO= "userinfo";
     private static final String TABLE_FAVORITE_PRODUCT= "favoriteProduct";
+    private static final String TABLE_ADD_CARD_PRODUCT= "addCardProduct";
 
 
     //  User info Table Columns names
@@ -36,7 +37,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     //  favorite product Table Columns names
 
-    private static final String FAV_PRODUCT_ID = "Id";
+
     private static final String L4CODE = "l4code";
 
     public static final String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO + "("
@@ -44,6 +45,9 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
 // table create string;
     public static final String CREATE_TABLE_MY_FAVORITE_PRODUCT = "CREATE TABLE " + TABLE_FAVORITE_PRODUCT + "("
+            + L4CODE + " TEXT )";
+    // table create string;
+    public static final String CREATE_TABLE_ADD_CARD_PRODUCT = "CREATE TABLE " + TABLE_ADD_CARD_PRODUCT + "("
             + L4CODE + " TEXT )";
 
 
@@ -70,6 +74,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_INFO_TABLE);
         db.execSQL(CREATE_TABLE_MY_FAVORITE_PRODUCT);
+        db.execSQL(CREATE_TABLE_ADD_CARD_PRODUCT);
 
 
     }
@@ -80,6 +85,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " +TABLE_USER_INFO);
         db.execSQL("DROP TABLE IF EXISTS " +TABLE_FAVORITE_PRODUCT);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_ADD_CARD_PRODUCT);
         // Create tables again
         onCreate(db);
 
@@ -154,5 +160,43 @@ public class SQLiteDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from favoriteProduct",null);
         return cursor ;
+    }
+
+    // insert data on the user info table
+    public void insertCardProduct(String  prodcode) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(L4CODE,prodcode);
+        db.insert (TABLE_ADD_CARD_PRODUCT,null,values);
+        db.close();
+    }
+
+    public Cursor getAllCardProduct(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from addCardProduct",null);
+        return cursor ;
+    }
+
+    public Cursor getSingleFavProduct(String prodid){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from " +
+                TABLE_FAVORITE_PRODUCT + " where " + L4CODE + " = ? ", new String[]{prodid});
+
+        return c ;
+    }
+
+    public Cursor getSingleProduct(String prodid){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from " +
+                TABLE_ADD_CARD_PRODUCT + " where " + L4CODE + " = ? ", new String[]{prodid});
+
+        return c ;
+    }
+
+    public void deleteAllCard()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_ADD_CARD_PRODUCT);
+        db.close();
     }
 }

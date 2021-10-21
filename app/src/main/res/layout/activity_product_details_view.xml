@@ -59,10 +59,10 @@
                 android:layout_height="0dp">
 
                 <RelativeLayout
-                    android:padding="10dp"
                     android:id="@+id/linear_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
 
                     <TextView
@@ -103,18 +103,32 @@
                         android:textColor="@color/text_color_black"
                         android:textSize="14sp" />
 
+                    <TextView
+                        android:id="@+id/cardlistproductid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_toStartOf="@+id/cardproductAddtTocartbottonId"
+                        android:layout_toLeftOf="@+id/cardproductAddtTocartbottonId"
+                        android:text="12"
+                        android:textColor="@color/text_color_green"
+                        android:textSize="24sp" />
+
                     <ImageButton
                         android:id="@+id/cardproductAddtTocartbottonId"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="12dp"
                         android:background="@color/app_background_white"
                         android:foregroundGravity="center"
                         android:padding="5dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_add_shopping_cart_black_24dp"
-                        android:layout_alignParentEnd="true" />
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
+
                     <ImageButton
                         android:id="@+id/productFavouritebottonId"
                         android:layout_width="60dp"
@@ -126,6 +140,7 @@
                         android:padding="5dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_baseline_favorite_botton_40" />
+
                     <ImageButton
                         android:id="@+id/productfeedbackbottonId"
                         android:layout_width="60dp"
@@ -139,8 +154,6 @@
 
 
                 </RelativeLayout>
-
-
 
 
             </LinearLayout>
