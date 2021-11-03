@@ -28,7 +28,7 @@ public class AppUtils {
 
 
     public  void appToast(String message){
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 

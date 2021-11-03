@@ -3,6 +3,7 @@ package com.aait.oms.product;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -10,10 +11,12 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -26,11 +29,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.orders.CartActivity;
 import com.aait.oms.orders.OrderService;
 import com.aait.oms.product.common.CommonFunction;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
+import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
@@ -54,7 +60,9 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     RootCatagoryRecyclerAdapter adapter;
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
-    String umlname ;
+    SQLiteDB sqLiteDB;
+    AppUtils appUtils;
+    ArrayList<String> cardList ;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -67,7 +75,8 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("  Products");
-
+        sqLiteDB = new SQLiteDB(this);
+        appUtils = new AppUtils(this);
         allcatgorylist = new ArrayList<>();
         gridView = findViewById(R.id.product_grid_view_id);
         recyclerView = findViewById(R.id.recyclerView);
@@ -76,6 +85,18 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
+
+        Cursor cursor = sqLiteDB.getAllCardProduct();
+        cardList = new ArrayList<>();
+
+
+        if (cursor.moveToFirst()){
+            do {
+                cardList.add(cursor.getString(0));
+            }  while (cursor.moveToNext());
+        }
+
+        invalidateOptionsMenu();
        //all time call net work check method as last line in hare ;
         netWorkCheck(this);
     }
@@ -348,12 +369,50 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+       getMenuInflater().inflate(R.menu.card_menu,menu);
+
+      final MenuItem menuItem = menu.findItem(R.id.tabCartId);
+       View actionView = menuItem.getActionView();
+
+
+        TextView textView = actionView.findViewById(R.id.cart_badge_text_view);
+        textView.setText(String.valueOf(cardList.size()));
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
+
+        return  true;
+
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId()== android.R.id.home)
         {
             finish();
+        }
+        else if(item.getItemId() == R.id.tabCartId){
+
+            int cartsize = cardList.size();
+            if (cartsize>0){
+                Intent intent = new Intent(ProductInGridViewActivity.this, CartActivity.class);
+                intent.putExtra("SQ","SQ");
+                startActivity(intent);
+            }else {
+                appUtils.appToast("Cart is Empty");
+            }
+
         }
         return super.onOptionsItemSelected(item);
     }

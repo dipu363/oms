@@ -193,6 +193,12 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return c ;
     }
 
+    public  void deleteSingleProduct(String prodId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ADD_CARD_PRODUCT,L4CODE + "=?",new String[]{String.valueOf(prodId)});
+        db.close();
+    }
+
     public void deleteAllCard()
     {
         SQLiteDatabase db = this.getWritableDatabase();

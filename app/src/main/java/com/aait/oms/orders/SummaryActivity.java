@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aait.oms.R;
+import com.aait.oms.util.SQLiteDB;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,6 +36,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<OrderDetailsModel> orderDetailsModels = new ArrayList<>();
 
     SummaryAdapter  summaryAdapter;
+    SQLiteDB sqLiteDB;
 
 
     @Override
@@ -52,6 +54,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
         tvTotal = findViewById(R.id.summarytotalpaytextid);
         btnnext = findViewById(R.id.btnsummrynextid);
         btnnext.setOnClickListener(this);
+        sqLiteDB = new SQLiteDB(this);
         getOrderItemData();
 
 
@@ -139,6 +142,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(this,"please Enter Quantity at lest 1 item",Toast.LENGTH_LONG).show();
                 }else {
 
+                    sqLiteDB.deleteAllCard();
                     Intent intent2 = new Intent(SummaryActivity.this, ConfirmOrderActivity.class);
                     intent2.putExtra("myObj", orderDetailsModels);
                     intent2.putExtra("Total",tot);

@@ -66,9 +66,9 @@
 
 
     <FrameLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/withdraw_btn_next1"
@@ -79,26 +79,17 @@
             android:text="next"
             android:textAllCaps="true"
             android:textColor="@color/text_color_white" />
-  <!--      <Button
-            android:id="@+id/withdraw_btn_next2"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/submit_button_shape"
-            android:text="send request"
-            android:visibility="invisible"
-            android:textAllCaps="true"
-            android:textColor="@color/color_white" />-->
+
         <Button
             android:id="@+id/withdraw_btn_send"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:layout_gravity="center"
             android:background="@drawable/submit_button_shape"
             android:text="send request"
             android:textAllCaps="true"
-            android:textColor="@color/text_color_white" />
+            android:textColor="@color/text_color_white"
+            android:visibility="invisible" />
 
 
     </FrameLayout>

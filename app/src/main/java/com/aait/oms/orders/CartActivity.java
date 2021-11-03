@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +22,8 @@ import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
+import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.internal.LinkedTreeMap;
 
 import org.json.JSONArray;
@@ -34,19 +37,18 @@ import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayAdapter arrayAdapter;
-    ImageButton previusbtn,nextbtn;
+    SQLiteDB sqLiteDB;
+    AppUtils appUtils;
+    ImageButton nextbtn;
     ListView listView;
     List <CardModel>cardproductlist;
     CartAdapter cartAdapter;
     CardModel cardprod ;
     ArrayList<String> lOrderItems=new ArrayList<>();
-
-
-    ArrayList<CardModel> products = new ArrayList<>();
-
     ArrayList<CardModel> productOrders = new ArrayList<>();
     ArrayList <String> prodidlist =new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,42 +68,39 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         nextbtn = findViewById(R.id.btncartnextid);
         cardproductlist = new ArrayList<>();
         cardprod = new CardModel();
+        sqLiteDB = new SQLiteDB(this);
+        appUtils = new AppUtils(this);
 
 
         Bundle bundle = getIntent().getExtras();
         if(bundle!= null){
+
             prodidlist.clear();
-             prodidlist = bundle.getStringArrayList("checkvalue");
-            for (int i = 0 ;i< prodidlist.size();i++){
-                getsingleproduct(this,prodidlist.get(i));
-            }
+             String dataFromSqlite = bundle.getString("SQ");
+             if(dataFromSqlite.equals("")){
+                 prodidlist = bundle.getStringArrayList("checkvalue");
+                 for (int i = 0 ;i< prodidlist.size();i++){
+                     getsingleproduct(this,prodidlist.get(i));
+                 }
+
+             }else{
+                 Cursor cursor = sqLiteDB.getAllCardProduct();
+                 if (cursor.moveToFirst()){
+                     do {
+                         prodidlist.add(cursor.getString(0));
+                     }  while (cursor.moveToNext());
+
+                     for (int i = 0 ;i< prodidlist.size();i++){
+                         getsingleproduct(this,prodidlist.get(i));
+                     }
+                 }else{
+                  appUtils.appToast("Cart Is Empty");
+                 }
+             }
+
         }
 
         nextbtn.setOnClickListener(this);
-
-
-
-
-/*      listView= findViewById(R.id.ordercartlistid);
-        ArrayList<String> categories = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
-        Log.d("catagory",categories.toString());
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
-        listView.setAdapter(arrayAdapter);// for list view or Recycler view .
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
-        // Drop down layout style - list view with radio button
-        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        listView.setAdapter(dataAdapter);*/
-
-
-      
     }
 
 
@@ -145,13 +144,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d("name",cardprod.getProductname());
                         cardproductlist.add(cardprod);
 
-
-
                 }
 
                 cartAdapter = new CartAdapter(context,cardproductlist);
                 listView.setAdapter(cartAdapter);
-
 
             }
 
@@ -162,10 +158,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
-
-
-
     }
 
 
@@ -174,8 +166,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.btncartnextid:
-            // Intent intent2 = new Intent(CartActivity.this,SummaryActivity.class);
-            // startActivity(intent2);
                 placeOrder();
                 break;
 
@@ -207,8 +197,6 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-       // showMessage("Total Item : "+ productOrders.size());//for cheack plach orderlist size;
-
         /* Convert String ArrayList into JSON Array */
         JSONArray jsonArray = new JSONArray(lOrderItems);
         /* Open Summary with JSONArray String */
@@ -216,13 +204,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void showMessage(String message)
-    {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
-    }
-
     public void openSummary(String orderItems)
     {
+
+
+
             Intent summaryIntent = new Intent(this,SummaryActivity.class);
             summaryIntent.putExtra("orderItems",orderItems);
             startActivity(summaryIntent);

@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,10 +32,13 @@ import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.fragment.RootCatagoryFragment;
 import com.aait.oms.fragment.SubCatagoryFragment;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.orders.CartActivity;
 import com.aait.oms.orders.OrderService;
+import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.OnclickeventListener;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
 import com.aait.oms.subcategory.SubCategoryRecyclerAdapter;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
@@ -49,18 +54,17 @@ import retrofit2.Response;
 public class CategoryWiseProductViewActivity extends AppCompatActivity implements OnclickeventListener {
 
 
-
     RecyclerView recyclerView;
     TextView subrecycletextid;
     RecyclerView.LayoutManager layoutManager;
     SubCategoryRecyclerAdapter subrecycleradapter;
     List<ProdSubCatagoryModel> allsubcatgorylist;
     ProdSubCatagoryModel[] subcatagory;
-
-
-    int rootcatid=0;
-
-    String rootcatname="  Category Item";
+    SQLiteDB sqLiteDB;
+    AppUtils appUtils;
+    ArrayList<String> cardList;
+    int rootcatid = 0;
+    String rootcatname = "  Category Item";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -69,48 +73,57 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
         setContentView(R.layout.activity_category_wise_product_view);
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle !=null){
+        if (bundle != null) {
             rootcatid = bundle.getInt("catid");
             rootcatname = bundle.getString("catname");
 
         }
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(rootcatname);
 
 
-
+        sqLiteDB = new SQLiteDB(this);
+        appUtils = new AppUtils(this);
         allsubcatgorylist = new ArrayList<>();
-       // gridView = findViewById(R.id.subcat_product_grid_view_id);
+        // gridView = findViewById(R.id.subcat_product_grid_view_id);
         recyclerView = findViewById(R.id.subcatrecyclerView_id);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        Cursor cursor = sqLiteDB.getAllCardProduct();
+        cardList = new ArrayList<>();
 
+        if (cursor.moveToFirst()) {
+            do {
+                cardList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
 
-
+        invalidateOptionsMenu();
         //subrecycletextid.setText("All "+rootcatname+" 's");
-        netWorkCheck(this,this);
+        netWorkCheck(this, this);
     }
+
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void netWorkCheck(Context context ,OnclickeventListener onclickeventListener){
+    public void netWorkCheck(Context context, OnclickeventListener onclickeventListener) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
-            getsubcatList(context ,onclickeventListener);
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            getsubcatList(context, onclickeventListener);
 
 
             Bundle bundle = new Bundle();
-            bundle.putInt("rootcatid",rootcatid);
+            bundle.putInt("rootcatid", rootcatid);
             Fragment fragment = RootCatagoryFragment.newInstance();
             fragment.setArguments(bundle);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.prodctfragmentontainer,fragment);
-        transaction.commit();
-           // getproduct(context);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.prodctfragmentontainer, fragment);
+            transaction.commit();
+            // getproduct(context);
 
 
         } else {
@@ -143,29 +156,29 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
     // check category item click or not
     // if category item click then call category wise product method ;
     //if category item not click then call  get all products method ;
-    private void getproduct(Context context,OnclickeventListener onclickeventListener) {
+    private void getproduct(Context context, OnclickeventListener onclickeventListener) {
         int subcat = 0;
-        String subcatname="Sub Category Items";
+        String subcatname = "Sub Category Items";
         Bundle extras = getIntent().getExtras();
-        if (extras != null){
+        if (extras != null) {
             subcat = extras.getInt("subcatid");
             subcatname = extras.getString("subcatname");
 
         }
 
-        if (subcat != 0){
+        if (subcat != 0) {
             //getsubcatList(context);
-           // allsubCatWiseProductlist(context,subcat);
-            subrecycletextid.setText("All "+subcatname +"'s");
-        } else{
-            getsubcatList(context ,onclickeventListener);
+            // allsubCatWiseProductlist(context,subcat);
+            subrecycletextid.setText("All " + subcatname + "'s");
+        } else {
+            getsubcatList(context, onclickeventListener);
             //getcatagorywiseproduct(context);
-            subrecycletextid.setText("All "+rootcatname+" 's");
+            subrecycletextid.setText("All " + rootcatname + " 's");
         }
     }
 
     // getting product subcategory list
-    private  void getsubcatList(Context context,OnclickeventListener onclickeventListener){
+    private void getsubcatList(Context context, OnclickeventListener onclickeventListener) {
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.getSubCatList(rootcatid);
@@ -173,24 +186,22 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
 
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         BaseResponse baseResponse = response.body();
                         allsubcatgorylist = baseResponse.getItems();
-                        if(allsubcatgorylist.size() == 0){
+                        if (allsubcatgorylist.size() == 0) {
                             showMaseage("Data Not Found");
-                        }else {
+                        } else {
                             String jsons = new Gson().toJson(allsubcatgorylist);
-                            Type listType = new TypeToken<ProdSubCatagoryModel[]>() {}.getType();
+                            Type listType = new TypeToken<ProdSubCatagoryModel[]>() {
+                            }.getType();
                             subcatagory = new Gson().fromJson(jsons, listType);
                             subcatagory = new Gson().fromJson(jsons, listType);
-                            subrecycleradapter = new SubCategoryRecyclerAdapter(subcatagory,context,onclickeventListener);
+                            subrecycleradapter = new SubCategoryRecyclerAdapter(subcatagory, context, onclickeventListener);
                             recyclerView.setAdapter(subrecycleradapter);
-
-
                             Log.d("good", "onResponse: " + subcatagory);
                         }
-                    }
-                    else{
+                    } else {
 
                         showMaseage("Request Not Response");
 
@@ -203,54 +214,78 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Exception", "onResponse: " + e);
         }
     }
 
     // for toast massage showing
-    private void showMaseage( String msg){
+    private void showMaseage(String msg) {
 
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.card_menu, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.tabCartId);
+        View actionView = menuItem.getActionView();
+
+        TextView textView = actionView.findViewById(R.id.cart_badge_text_view);
+        textView.setText(String.valueOf(cardList.size()));
+
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
+
+        return true;
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()== android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
+        } else if (item.getItemId() == R.id.tabCartId) {
+
+            int cartsize = cardList.size();
+            if (cartsize > 0) {
+                Intent intent = new Intent(CategoryWiseProductViewActivity.this, CartActivity.class);
+                intent.putExtra("SQ", "SQ");
+                startActivity(intent);
+            } else {
+                appUtils.appToast("Cart is Empty");
+            }
+
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View view, int position, boolean isLongClick) {
-        if(isLongClick){
+        if (isLongClick) {
             Toast.makeText(this, "LongClick", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Bundle bundle = new Bundle();
-            bundle.putInt("subcatcatid",subcatagory[position].getL2Code());
+            bundle.putInt("subcatcatid", subcatagory[position].getL2Code());
 
             Fragment fragment = SubCatagoryFragment.newInstance();
             fragment.setArguments(bundle);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.prodctfragmentontainer,fragment);
+            transaction.replace(R.id.prodctfragmentontainer, fragment);
             transaction.commit();
         }
-
 
 
     }
 
 
-/*    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "click" +position, Toast.LENGTH_SHORT).show();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.prodcontainer,new HomePragment())
-                .commit();
-
-    }*/
 }

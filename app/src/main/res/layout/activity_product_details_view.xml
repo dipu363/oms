@@ -8,8 +8,8 @@
     tools:context=".product.Product_Details_view_Activity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:padding="10dp"
         card_view:cardCornerRadius="15dp"
@@ -18,13 +18,13 @@
 
 
         <LinearLayout
-            android:weightSum="2"
+            android:weightSum="12"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_weight="1"
+                android:layout_weight="6"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
 
             </LinearLayout>
             <LinearLayout
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
@@ -103,64 +103,81 @@
                         android:textColor="@color/text_color_black"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/cardlistproductid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="20dp"
-                        android:layout_toStartOf="@+id/cardproductAddtTocartbottonId"
-                        android:layout_toLeftOf="@+id/cardproductAddtTocartbottonId"
-                        android:text="12"
-                        android:textColor="@color/text_color_green"
-                        android:textSize="24sp" />
-
-                    <ImageButton
-                        android:id="@+id/cardproductAddtTocartbottonId"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="12dp"
-                        android:background="@color/app_background_white"
-                        android:foregroundGravity="center"
-                        android:padding="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_add_shopping_cart_black_24dp" />
-
-                    <ImageButton
-                        android:id="@+id/productFavouritebottonId"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/app_background_white"
-                        android:foregroundGravity="center"
-                        android:padding="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_baseline_favorite_botton_40" />
-
-                    <ImageButton
-                        android:id="@+id/productfeedbackbottonId"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/app_background_white"
-                        android:foregroundGravity="center"
-                        android:padding="5dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_baseline_feedback_40" />
-
-
                 </RelativeLayout>
 
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <FrameLayout
+                    android:layout_marginRight="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp">
+
+                    <ImageButton
+                        android:id="@+id/productfeedbackbottonId"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@color/app_background_white"
+                        android:foregroundGravity="center"
+                        android:padding="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_baseline_feedback_40" />
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageButton
+                        android:id="@+id/productFavouritebottonId"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@color/app_background_white"
+                        android:foregroundGravity="center"
+                        android:padding="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_baseline_favorite_botton_40" />
+                </FrameLayout>
+
+
+
+                <FrameLayout
+                   android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp">
+
+                    <Button
+                        android:id="@+id/add_to_cart_id"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/submit_button_shape"
+                        android:text="Add to cart"
+                        android:textAllCaps="true"
+                        android:visibility="visible"
+                        android:textColor="@color/text_color_white" />
+
+                    <Button
+                        android:id="@+id/remove_cart_prod_id"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/submit_button_shape"
+                        android:text="remove cart"
+                        android:textAllCaps="true"
+                        android:textColor="@color/text_color_white"
+                        android:visibility="invisible" />
+                </FrameLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
-
-
 
     </androidx.cardview.widget.CardView>
 
