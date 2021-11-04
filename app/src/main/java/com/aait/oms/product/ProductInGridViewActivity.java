@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
@@ -31,11 +30,9 @@ import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.CartActivity;
 import com.aait.oms.orders.OrderService;
-import com.aait.oms.product.common.CommonFunction;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
-import com.aait.oms.ui.HomeActivity;
 import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
@@ -406,8 +403,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         }
         else if(item.getItemId() == R.id.tabCartId){
 
-            String otpcode = null;
-            String currentuser = null;
+
             int loginstatus = 0;
 
             // FirebaseUser  user = mAuth.getCurrentUser();

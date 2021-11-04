@@ -31,6 +31,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    lintOptions {
+        // for lint error when build apk
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {

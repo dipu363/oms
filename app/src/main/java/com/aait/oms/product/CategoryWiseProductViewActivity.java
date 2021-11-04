@@ -1,14 +1,5 @@
 package com.aait.oms.product;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,10 +13,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
@@ -34,13 +32,13 @@ import com.aait.oms.fragment.SubCatagoryFragment;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.CartActivity;
 import com.aait.oms.orders.OrderService;
-import com.aait.oms.util.AppUtils;
-import com.aait.oms.util.OnclickeventListener;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
 import com.aait.oms.subcategory.SubCategoryRecyclerAdapter;
+import com.aait.oms.ui.LogInActivity;
+import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.OnclickeventListener;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -256,13 +254,31 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
             finish();
         } else if (item.getItemId() == R.id.tabCartId) {
 
-            int cartsize = cardList.size();
-            if (cartsize > 0) {
-                Intent intent = new Intent(CategoryWiseProductViewActivity.this, CartActivity.class);
-                intent.putExtra("SQ", "SQ");
-                startActivity(intent);
+
+            int loginstatus = 0;
+
+            // FirebaseUser  user = mAuth.getCurrentUser();
+            SQLiteDB sqLiteDB = new SQLiteDB(this);
+            //sqLiteDB.updateuserotp(currentuser,1);
+            Cursor cursor = sqLiteDB.getUserInfo();
+            if (cursor.moveToFirst()) {
+                loginstatus = cursor.getInt(4);
+            }
+
+            if (loginstatus == 1) {
+                int cartsize = cardList.size();
+                if (cartsize > 0) {
+                    Intent intent = new Intent(CategoryWiseProductViewActivity.this, CartActivity.class);
+                    intent.putExtra("SQ", "SQ");
+                    startActivity(intent);
+                } else {
+                    appUtils.appToast("Cart is Empty");
+                }
             } else {
-                appUtils.appToast("Cart is Empty");
+                Intent intent = new Intent(CategoryWiseProductViewActivity.this, LogInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
 
         }

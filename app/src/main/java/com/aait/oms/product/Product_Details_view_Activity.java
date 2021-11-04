@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
 import com.aait.oms.orders.CartActivity;
-import com.aait.oms.product.common.CommonFunction;
+import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Product_Details_view_Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -190,15 +188,32 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.tabCartId) {
-            int cartsize = cardList.size();
-            if (cartsize>0){
-                Intent intent = new Intent(Product_Details_view_Activity.this, CartActivity.class);
-                intent.putExtra("SQ", "SQ");
-                startActivity(intent);
-            }else {
-                appUtils.appToast("Cart is Empty");
+
+            int loginstatus = 0;
+
+            // FirebaseUser  user = mAuth.getCurrentUser();
+            SQLiteDB sqLiteDB = new SQLiteDB(this);
+            //sqLiteDB.updateuserotp(currentuser,1);
+            Cursor cursor = sqLiteDB.getUserInfo();
+            if (cursor.moveToFirst()) {
+                loginstatus = cursor.getInt(4);
             }
 
+            if (loginstatus == 1) {
+                int cartsize = cardList.size();
+                if (cartsize > 0) {
+                    Intent intent = new Intent(Product_Details_view_Activity.this, CartActivity.class);
+                    intent.putExtra("SQ", "SQ");
+                    startActivity(intent);
+                } else {
+                    appUtils.appToast("Cart is Empty");
+                }
+            } else {
+                Intent intent = new Intent(Product_Details_view_Activity.this, LogInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
 
 
         }
