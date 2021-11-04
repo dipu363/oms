@@ -24,12 +24,15 @@
         tools:targetApi="m">
         <activity
             android:name=".product.CategoryWiseProductViewActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".product.Product_Details_view_Activity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".product.ProductInGridViewActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.Trams_Condition_Activity"
@@ -40,16 +43,22 @@
         <activity android:name=".commission.TransactionHistoryActivity" />
         <activity android:name=".commission.CommissionWithdrawSuccessActivity" />
         <activity android:name=".commission.CommissionWithdrawActivity" />
-        <activity android:name=".orders.OrderDetailsActivity" />
+        <activity android:name=".orders.OrderDetailsActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".users.UserDetailActivity" />
         <activity android:name=".commission.UsersAccountActivity" />
         <activity android:name=".users.MyReferenceActivity" />
         <activity android:name=".orders.MyOrdersActivity" />
-        <activity android:name=".orders.OrderInvoiceActivity" />
-        <activity android:name=".orders.ConfirmOrderActivity" />
-        <activity android:name=".orders.SummaryActivity" />
-        <activity android:name=".orders.CartActivity" />
-        <activity android:name=".orders.OrderActivity" />
+        <activity android:name=".orders.OrderInvoiceActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".orders.ConfirmOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".orders.SummaryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".orders.CartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".orders.OrderActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.SendOtpActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
@@ -60,12 +69,15 @@
             android:name=".ui.LogInActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
         <activity android:name=".product.ProductListActivity" />
-        <activity android:name=".ui.HomeActivity" />
+        <activity android:name=".ui.HomeActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".supplier.SupplierListActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".ui.SplashScreenActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.Oms.NoActionBar"
             tools:ignore="IntentFilterExportedReceiver">

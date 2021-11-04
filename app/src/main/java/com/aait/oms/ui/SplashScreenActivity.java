@@ -9,6 +9,7 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
+import com.aait.oms.product.ProductInGridViewActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             try {
 
 
-                Intent intent = new Intent(SplashScreenActivity.this, LogInActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, ProductInGridViewActivity.class);
                 startActivity(intent);
             } catch (Exception e) {
                 // Log.d("sss", "error: ");

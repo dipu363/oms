@@ -35,6 +35,8 @@ import com.aait.oms.product.common.CommonFunction;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
+import com.aait.oms.ui.HomeActivity;
+import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
@@ -404,14 +406,37 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         }
         else if(item.getItemId() == R.id.tabCartId){
 
-            int cartsize = cardList.size();
-            if (cartsize>0){
-                Intent intent = new Intent(ProductInGridViewActivity.this, CartActivity.class);
-                intent.putExtra("SQ","SQ");
-                startActivity(intent);
-            }else {
-                appUtils.appToast("Cart is Empty");
+            String otpcode = null;
+            String currentuser = null;
+            int loginstatus = 0;
+
+            // FirebaseUser  user = mAuth.getCurrentUser();
+            SQLiteDB sqLiteDB = new SQLiteDB(this);
+            //sqLiteDB.updateuserotp(currentuser,1);
+            Cursor cursor = sqLiteDB.getUserInfo();
+            if (cursor.moveToFirst()) {
+                loginstatus = cursor.getInt(4);
             }
+
+            if (loginstatus == 1) {
+                int cartsize = cardList.size();
+                if (cartsize>0){
+                    Intent intent = new Intent(ProductInGridViewActivity.this, CartActivity.class);
+                    intent.putExtra("SQ","SQ");
+                    startActivity(intent);
+                }else {
+                    appUtils.appToast("Cart is Empty");
+                }
+            }else{
+                Intent intent = new Intent(ProductInGridViewActivity.this, LogInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+
+
+
+
 
         }
         return super.onOptionsItemSelected(item);
