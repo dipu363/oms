@@ -42,7 +42,7 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
     ListView listView;
     //RecyclerView recyclerView;
     ProductAdapter productAdapter;
-    List<StockViewModel> allproductlist;
+    List<ProductModel> allproductlist;
 
     AppUtils appUtils;
 
@@ -76,7 +76,7 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
 
     private void getallproduct(Context context) {
         ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getstockview();
+        Call<BaseResponse> productlist = apiService.getallproduct();
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -91,25 +91,28 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
                     // BaseResponse baseResponse = response.body();
                     assert baseResponse != null;
                     allproductlist = baseResponse.getData();
-                    List<StockViewModel> prodname = new ArrayList();
-                    StockViewModel prod;
+                    List<ProductModel> prodname = new ArrayList();
+                    ProductModel prod;
 
 
                     for (int i = 0; i < allproductlist.size(); i++) {
                         Object getrow = allproductlist.get(i);
                         LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
-                   /* String l1code = String.valueOf(t.get("l1code"));
-                    String l2code = String.valueOf(t.get("l2code"));
-                    String l3code = String.valueOf(t.get("l3code"));
-                    String l4code = String.valueOf(t.get("l4code"));
-                    String salesrate = String.valueOf(t.get("salesrate"));
-                    String uomid = String.valueOf(t.get("uomid"));
-                    String productname = String.valueOf(t.get("productname"));
-                    String activeStatus = String.valueOf(t.get("activeStatus"));
-                    String ledgername = String.valueOf(t.get("ledgername"));*/
+                        String l1code = String.valueOf(t.get("l1code"));
+                        String l2code = String.valueOf(t.get("l2code"));
+                        String l3code = String.valueOf(t.get("l3code"));
+                        String l4code = String.valueOf(t.get("l4code"));
+                        String salesrate = String.valueOf(t.get("salesrate"));
+                        String uomid = String.valueOf(t.get("uomid"));
+                        String productname = String.valueOf(t.get("productname"));
+                        String activeStatus = String.valueOf(t.get("activeStatus"));
+                        String ledgername = String.valueOf(t.get("ledgername"));
+                        String producPhoto = String.valueOf(t.get("productPhoto"));
+                        String picbyte =   String.valueOf(t.get("picByte"));
+                        String imagetypt = String.valueOf(t.get("imageType"));
 
-                        String pcode = String.valueOf(t.get("pcode"));
+            /*            String pcode = String.valueOf(t.get("pcode"));
                         String uomName = String.valueOf(t.get("uomName"));
                         String soldQty = String.valueOf(t.get("soldQty"));
                         String totalQty = String.valueOf(t.get("totalQty"));
@@ -118,31 +121,31 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
                         String salesRate = String.valueOf(t.get("salesRate"));
                         String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
                         String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
+                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
+                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
 
-                        prod = new StockViewModel(pcode, uomName, soldQty, totalQty, currentQty, avgPurRate, salesRate, currentTotalPrice, pname, cumTotalPrice);
+                        //  prod = new StockViewModel(pcode, uomName, soldQty, totalQty, currentQty, avgPurRate, salesRate, currentTotalPrice, pname, cumTotalPrice);
                         prodname.add(prod);
+
+
 
                     }
 
-                    Log.d("prodname", prodname.toString());
+                   // Log.d("prodname", prodname.toString());
 
                     productAdapter = new ProductAdapter(context, prodname);
                     listView.setAdapter(productAdapter);
 
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure", t.getLocalizedMessage());
+
+
 
             }
         });
-
-
     }
 
     @Override

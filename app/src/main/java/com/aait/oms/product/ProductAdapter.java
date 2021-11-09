@@ -2,12 +2,16 @@ package com.aait.oms.product;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aait.oms.R;
@@ -20,16 +24,16 @@ import java.util.Locale;
 public class ProductAdapter extends BaseAdapter implements Filterable {
 
     Context mContext;
-    List<StockViewModel> stockViewModels;
-    List<StockViewModel> itemsModelListFiltered;
-    private final ArrayList<StockViewModel> arraylist;
+    List<ProductModel> productModels;
+    List<ProductModel> itemsModelListFiltered;
+    private final ArrayList<ProductModel> arraylist;
 
-    public ProductAdapter(Context mContext, List<StockViewModel> stockViewModels) {
+    public ProductAdapter(Context mContext, List<ProductModel> productModels) {
         this.mContext = mContext;
-        this.stockViewModels = stockViewModels;
-        this.itemsModelListFiltered = stockViewModels;
-        this.arraylist = new ArrayList<StockViewModel>();
-        this.arraylist.addAll(stockViewModels);
+        this.productModels = productModels;
+        this.itemsModelListFiltered = productModels;
+        this.arraylist = new ArrayList<ProductModel>();
+        this.arraylist.addAll(productModels);
 
     }
 
@@ -54,7 +58,7 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
 
       /*  Object getrow =productModelList.get(position);
         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;*/
-        StockViewModel stok = itemsModelListFiltered.get(position);
+        ProductModel product = itemsModelListFiltered.get(position);
 
         // for get serial no of list item
         ArrayList<String> listWithSerialNumber = new ArrayList<>();
@@ -69,20 +73,23 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
 
         }
 
-        TextView serialid = convertView.findViewById(R.id.prodserialid);
+
         TextView productname = convertView.findViewById(R.id.cardproductnameid);
         TextView prodcode = convertView.findViewById(R.id.productcodeid2);
-        TextView price = convertView.findViewById(R.id.propriceid);
+        TextView price = convertView.findViewById(R.id.prodPriceid);
         TextView stock = convertView.findViewById(R.id.stockstatusid);
-        TextView unit = convertView.findViewById(R.id.unitid);
-        //productname.setText(String.valueOf(t.get("productname")));
-        serialid.setText(listWithSerialNumber.get(position)+".");
+        ImageView productImage = convertView.findViewById(R.id.prodListView_productImageid);
 
-        productname.setText(stok.getPname());
-        prodcode.setText(stok.getPcode());
-        stock.setText(stok.getCurrentQty());
-        price.setText(stok.getSalesRate());
-        unit.setText(stok.getUomName());
+
+        productname.setText(product.getProductname());
+        prodcode.setText(product.getL4code());
+        stock.setText("Available");
+        price.setText("TK. "+product.getSalesrate());
+
+        byte[] bytes = Base64.decode(product.getPicByte(),Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        productImage.setImageBitmap(bitmap);
+
         return convertView;
     }
 
@@ -94,17 +101,17 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
 
                 FilterResults filterResults = new FilterResults();
                 if(constraint.length() == 0){
-                    filterResults.count = stockViewModels.size();
-                    filterResults.values = stockViewModels;
+                    filterResults.count = productModels.size();
+                    filterResults.values = productModels;
 
                 }else{
-                    List<StockViewModel> resultsModel = new ArrayList<>();
+                    List<ProductModel> resultsModel = new ArrayList<>();
                     String searchStr = constraint.toString().toLowerCase();
 
-                    for(StockViewModel stockView:stockViewModels){
+                    for(ProductModel prod:productModels){
 
-                        if(stockView.getPname().toLowerCase().contains(searchStr)){
-                            resultsModel.add(stockView);
+                        if(prod.getProductname().toLowerCase().contains(searchStr)){
+                            resultsModel.add(prod);
 
                         }
                         filterResults.count = resultsModel.size();
@@ -120,7 +127,7 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                itemsModelListFiltered = (List<StockViewModel>) results.values;
+                itemsModelListFiltered = (List<ProductModel>) results.values;
                 notifyDataSetChanged();
 
             }
@@ -132,13 +139,13 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
     // Filter Class
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-        stockViewModels.clear();
+        productModels.clear();
         if (charText.length() == 0) {
-            stockViewModels.addAll(arraylist);
+            productModels.addAll(arraylist);
         } else {
-            for (StockViewModel sp : arraylist) {
-                if (sp.getPname().toLowerCase(Locale.getDefault()).contains(charText)) {
-                    stockViewModels.add(sp);
+            for (ProductModel sp : arraylist) {
+                if (sp.getProductname().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    productModels.add(sp);
                 }
             }
         }

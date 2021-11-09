@@ -33,6 +33,7 @@ import com.aait.oms.orders.OrderService;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
+import com.aait.oms.ui.HomeActivity;
 import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
@@ -49,6 +50,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductInGridViewActivity extends AppCompatActivity {
+
+    TextView textView;
 //for grid view
     GridView gridView;
     ProductGridAdapter productgridAdapter;
@@ -71,8 +74,6 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar .setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("  Products");
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
@@ -95,10 +96,12 @@ public class ProductInGridViewActivity extends AppCompatActivity {
             }  while (cursor.moveToNext());
         }
 
-        invalidateOptionsMenu();
+       // invalidateOptionsMenu();
        //all time call net work check method as last line in hare ;
         netWorkCheck(this);
     }
+
+
 
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -378,7 +381,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
        View actionView = menuItem.getActionView();
 
 
-        TextView textView = actionView.findViewById(R.id.cart_badge_text_view);
+        textView = actionView.findViewById(R.id.cart_badge_text_view);
         textView.setText(String.valueOf(cardList.size()));
 
         actionView.setOnClickListener(new View.OnClickListener() {
@@ -396,12 +399,9 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(item.getItemId()== android.R.id.home)
-        {
-            finish();
-        }
-        else if(item.getItemId() == R.id.tabCartId){
+        if (item.getItemId() == android.R.id.home) {
+             invalidateOptionsMenu();
+        } else if(item.getItemId() == R.id.tabCartId){
 
 
             int loginstatus = 0;

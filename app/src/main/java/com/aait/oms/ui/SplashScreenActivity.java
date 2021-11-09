@@ -2,6 +2,7 @@ package com.aait.oms.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aait.oms.R;
 import com.aait.oms.product.ProductInGridViewActivity;
+import com.aait.oms.util.SQLiteDB;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
@@ -33,8 +35,25 @@ public class SplashScreenActivity extends AppCompatActivity {
             try {
 
 
-                Intent intent = new Intent(SplashScreenActivity.this, ProductInGridViewActivity.class);
-                startActivity(intent);
+                int loginstatus = 0;
+                // FirebaseUser  user = mAuth.getCurrentUser();
+                SQLiteDB sqLiteDB = new SQLiteDB(this);
+                //sqLiteDB.updateuserotp(currentuser,1);
+                Cursor cursor = sqLiteDB.getUserInfo();
+                if (cursor.moveToFirst()) {
+                    loginstatus = cursor.getInt(4);
+                }
+
+                if (loginstatus == 1) {
+                    Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(SplashScreenActivity.this, ProductInGridViewActivity.class);
+                    startActivity(intent);
+                }
+
+
+
             } catch (Exception e) {
                 // Log.d("sss", "error: ");
 

@@ -81,6 +81,7 @@
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/drawable/submit_button_shape.xml" value="0.24537037037037038" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout-v21/activity_user_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout-v21/product_view_semple.xml" value="0.15074309978768577" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout-v21/supplier_samplelist_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_commission_withdraw.xml" value="0.11927083333333334" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_confirm_order.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_home.xml" value="0.12360688956433637" />
@@ -91,8 +92,10 @@
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_trams_condition.xml" value="0.13541666666666666" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_user_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_users_account.xml" value="0.25416666666666665" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/cardlist.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/cart_budge_layout.xml" value="0.6" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/order_productlist_sample_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/orderdetails_emple_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/ordersemplelistitem.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/product_view_semple.xml" value="0.25416666666666665" />
@@ -108,7 +111,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
