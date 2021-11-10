@@ -11,15 +11,18 @@
     <color name="app_border">#5000CA</color>
 
     <color name="text_color_white">#FFFFFF</color>
+    <color name="text_color_default">#5000CA</color>
     <color name="text_color_black">#000000</color>
     <color name="text_color_green">#5000CA</color>
     <color name="text_color_gold">#FF5500</color>
+    <color name="text_color_red">#FF0000</color>
 
     <color name="circle_backgroundcolor_green">#5000CA</color>
     <color name="circle_backgroundcolor_white">#FFFFFF</color>
-    <color name="text_color_red">#FF0000</color>
-    <color name="color_white">#FFF</color>
 
+
+
+    <!--<color name="color_white">#FFF</color>
     <color name="red">#FF0000</color>
     <color name="dark_red">#A5FF0000</color>
     <color name="neon_pink">#FF55D4</color>
@@ -27,7 +30,7 @@
     <color name="ao_green">#1C5C0C</color>
     <color name="ao_green_1">#1C9800</color>
 
-    <!-- gray scale -->
+    &lt;!&ndash; gray scale &ndash;&gt;
     <color name="white">#FFFFFF</color>
     <color name="gray_light">#DBDBDB</color>
     <color name="gray">#939393</color>
@@ -80,7 +83,7 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
-    <color name="Transparent">#00000000</color>
+    <color name="Transparent">#00000000</color>-->
 
     <!--add color to dipu below-->
 

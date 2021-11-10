@@ -14,9 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.orders.CartActivity;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.ApplicationData;
 import com.aait.oms.util.SQLiteDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -37,6 +39,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     // private FirebaseAuth mAuth;
     private String username = null;
     private AppUtils appUtils;
+    private ApplicationData applicationData;
+
+
 
 
     @Override
@@ -54,6 +59,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         actionBar.setTitle("K And T Trading");*/
 
         appUtils = new AppUtils(this);
+        applicationData= new ApplicationData(this);
 
 
         login = findViewById(R.id.btn_login);
@@ -85,6 +91,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             otpcode = cursor.getString(2);
             loginstatus = cursor.getInt(4);
         }
+
+
 
         if (loginstatus == 1) {
             Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
@@ -184,11 +192,23 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                 sqLiteDB.insertUserinfo(userRequest);
 
                             }
-                            appUtils.appToast("Congratulation");
-                            Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            clear();
+
+                            String page = applicationData.getPageState("prodgridview");
+                            if (page != null && page.equals("p1")){
+                                appUtils.appToast("Congratulation");
+                                Intent intent = new Intent(LogInActivity.this, CartActivity.class);
+                                intent.putExtra("SQ","SQ");
+                                startActivity(intent);
+                                clear();
+                            }else {
+                                appUtils.appToast("Congratulation");
+                                Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                                clear();
+                            }
+
 
                         } else {
                             appUtils.appToast("Password or Role not mach");

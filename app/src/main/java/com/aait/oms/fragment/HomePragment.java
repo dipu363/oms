@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.aait.oms.R;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
+import com.aait.oms.product.ProductInGridViewActivity;
 import com.aait.oms.product.ProductListActivity;
 import com.aait.oms.users.MyReferenceActivity;
 
@@ -56,7 +57,7 @@ public class HomePragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
 
             case R.id.cardviewadmin_Optino1:
-                Intent intent1 = new Intent(getContext(),ProductListActivity.class);
+                Intent intent1 = new Intent(getContext(), ProductInGridViewActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.cardviewadmin_Optino2:

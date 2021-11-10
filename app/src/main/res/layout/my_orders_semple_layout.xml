@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="5dp"
             android:orientation="vertical">
                  <TextView
                      android:background="@drawable/serial_no_shap"
@@ -31,14 +31,6 @@
                      android:id="@+id/my_orders_order_serialid"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content" />
-            <!--<ImageView
-                android:id="@+id/productimageid"
-                android:scaleType="fitXY"
-                android:src="@drawable/fruits"
-                android:layout_width="match_parent"
-                android:layout_height="250dp" />-->
-
-
             <TextView
                 android:id="@+id/order_sample_text1"
                 android:textSize="20sp"
@@ -89,18 +81,19 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/order_sample_text2"
                 android:layout_marginStart="5dp" />
+
             <TextView
                 android:id="@+id/order_sample_text3"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:text="Order Status :"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@id/order_sample_text2"
-                android:layout_toRightOf="@+id/my_orders_order_serialid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp" />
+                android:layout_below="@id/order_sample_text2"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/my_orders_order_serialid"
+                android:text="Order Status :"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/my_orders_order_status"
@@ -115,45 +108,62 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/order_sample_text3"
                 android:layout_marginStart="5dp" />
-
+            <TextView
+                android:id="@+id/order_sample_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/order_sample_text3"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/my_orders_order_serialid"
+                android:text="Delivery Status :"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_toEndOf="@+id/my_orders_order_serialid" />
 
             <TextView
                 android:id="@+id/my_orders_delivery_status"
-                android:textSize="20sp"
-                android:textColor="@color/text_color_green"
-                android:text="Delibered"
-                android:layout_marginRight="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/order_sample_text3"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/order_sample_text4"
+                android:layout_toRightOf="@+id/order_sample_text4"
+                android:text="processing"
+                android:textColor="@color/text_color_green"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/order_sample_text4"
-                android:textSize="14sp"
-                android:textColor="@color/text_color_black"
-                android:text="Shipping Address :"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@id/order_sample_text3"
-                android:layout_toRightOf="@+id/my_orders_order_serialid"
+                android:id="@+id/order_sample_text5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp" />
+                android:layout_below="@id/order_sample_text4"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/my_orders_order_serialid"
+                android:layout_toRightOf="@+id/my_orders_order_serialid"
+                android:text="Shipping Address :"
+                android:textColor="@color/text_color_black"
+                android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/my_orders_delivery_ship_add"
-                android:textSize="14sp"
-                android:textColor="@color/text_color_black"
-                android:text="Shipping Address"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@id/my_orders_order_status"
-                android:layout_toRightOf="@+id/order_sample_text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/order_sample_text4"
-                android:layout_marginStart="5dp" />
+                android:layout_below="@id/order_sample_text5"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/my_orders_order_serialid"
+                android:layout_toRightOf="@+id/my_orders_order_serialid"
+                android:text="Shipping Address"
+                android:textColor="@color/text_color_black"
+                android:textSize="14sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

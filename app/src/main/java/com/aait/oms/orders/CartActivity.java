@@ -77,7 +77,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
             prodidlist.clear();
              String dataFromSqlite = bundle.getString("SQ");
-             if(dataFromSqlite.equals("")){
+             if(dataFromSqlite == null){
                  prodidlist = bundle.getStringArrayList("checkvalue");
                  for (int i = 0 ;i< prodidlist.size();i++){
                      getsingleproduct(this,prodidlist.get(i));

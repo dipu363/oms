@@ -36,6 +36,7 @@ import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
 import com.aait.oms.ui.HomeActivity;
 import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.ApplicationData;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -52,18 +53,17 @@ import retrofit2.Response;
 public class ProductInGridViewActivity extends AppCompatActivity {
 
     TextView textView;
-//for grid view
-    GridView gridView;
-    ProductGridAdapter productgridAdapter;
-    List<ProductModel> allproductlist;
-//for recycler view
     RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    RootCatagoryRecyclerAdapter adapter;
-    List<Prod1L> allcatgorylist;
-    ProdCatagoryModel[] catagory;
+    GridView gridView;
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
+    ApplicationData applicationData;
+    ProductGridAdapter productgridAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    RootCatagoryRecyclerAdapter adapter;
+    List<ProductModel> allproductlist;
+    List<Prod1L> allcatgorylist;
+    ProdCatagoryModel[] catagory;
     ArrayList<String> cardList ;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -77,14 +77,13 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         actionBar.setTitle("  Products");
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
+        applicationData = new ApplicationData(this);
         allcatgorylist = new ArrayList<>();
         gridView = findViewById(R.id.product_grid_view_id);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
-
 
         Cursor cursor = sqLiteDB.getAllCardProduct();
         cardList = new ArrayList<>();
@@ -401,40 +400,35 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
              invalidateOptionsMenu();
-        } else if(item.getItemId() == R.id.tabCartId){
-
-
+        } else if(item.getItemId() == R.id.tabCartId) {
+            SQLiteDB sqLiteDB = new SQLiteDB(this);
+            Cursor cursor = sqLiteDB.getUserInfo();
+            int cartsize = cardList.size();
             int loginstatus = 0;
 
-            // FirebaseUser  user = mAuth.getCurrentUser();
-            SQLiteDB sqLiteDB = new SQLiteDB(this);
-            //sqLiteDB.updateuserotp(currentuser,1);
-            Cursor cursor = sqLiteDB.getUserInfo();
             if (cursor.moveToFirst()) {
                 loginstatus = cursor.getInt(4);
             }
-
-            if (loginstatus == 1) {
-                int cartsize = cardList.size();
-                if (cartsize>0){
+            if (cartsize > 0) {
+                if (loginstatus == 1) {
                     Intent intent = new Intent(ProductInGridViewActivity.this, CartActivity.class);
-                    intent.putExtra("SQ","SQ");
+                    intent.putExtra("SQ", "SQ");
                     startActivity(intent);
-                }else {
-                    appUtils.appToast("Cart is Empty");
+                } else {
+                    applicationData.savePageState("prodgridview", "p1"); // SharedPreferences
+                    Intent intent = new Intent(ProductInGridViewActivity.this, LogInActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+
                 }
-            }else{
-                Intent intent = new Intent(ProductInGridViewActivity.this, LogInActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+            } else {
+                appUtils.appToast("Cart is Empty");
             }
 
 
-
-
-
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

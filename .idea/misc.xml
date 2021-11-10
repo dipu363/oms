@@ -85,16 +85,21 @@
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_commission_withdraw.xml" value="0.11927083333333334" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_confirm_order.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_home.xml" value="0.12360688956433637" />
-        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_log_in.xml" value="0.13541666666666666" />
-        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_product_details_view.xml" value="0.264" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_log_in.xml" value="0.1595744680851064" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_my_orders.xml" value="0.16486486486486487" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_order.xml" value="0.190625" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_product_details_view.xml" value="0.176" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_product_in_grid_view.xml" value="0.25416666666666665" />
-        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_splash_screen.xml" value="0.14492753623188406" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_splash_screen.xml" value="0.20878623188405798" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_trams_condition.xml" value="0.13541666666666666" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_user_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/activity_users_account.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/cardlist.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/cart_budge_layout.xml" value="0.6" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/fragment_home_pragment.xml" value="0.190625" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/my_orders_semple_layout.xml" value="0.264" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/nav_header_main.xml" value="0.190625" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/order_productlist_sample_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/orderdetails_emple_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/oms/app/src/main/res/layout/ordersemplelistitem.xml" value="0.25416666666666665" />

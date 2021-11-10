@@ -10,7 +10,7 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -23,8 +23,13 @@
                 android:id="@+id/haveanaccid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
-                android:text="Have an Account ? "
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:fontFamily="serif-monospace"
+                android:gravity="center_horizontal"
+                android:text="Welcome "
+                android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/text_color_white"
                 android:textSize="32sp" />
 
@@ -33,24 +38,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/haveanaccid"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="cursive"
-                android:text="  Sign In Now ."
+                android:layout_centerHorizontal="true"
+                android:fontFamily="serif-monospace"
+                android:text="Have an Account?"
                 android:textColor="@color/text_color_white"
-                android:textSize="40sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/vgnupoinid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/plealoinid"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="cursive"
-                android:text="Please Registration first !"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="serif-monospace"
+                android:text="LogIn "
                 android:textColor="@color/text_color_white"
-                android:textSize="32sp" />
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
 
@@ -72,34 +76,12 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-            <!--        <TextView-->
-            <!--            android:background="@drawable/edit_text_shape"-->
-            <!--            android:textColor="@color/Black"-->
-            <!--            android:textSize="28dp"-->
-            <!--            android:gravity="center"-->
-            <!--            android:text="OWING SHOP"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"/>-->
-
-            <!-- <com.mikhaellopez.circularimageview.CircularImageView
-                 android:layout_gravity="center"
-                 android:id="@+id/login_photo"
-                 android:layout_width="140dp"
-                 android:layout_height="140dp"
-                 android:src="@drawable/login"
-                 app:civ_border_color="@color/off_white"
-                 app:civ_border_width="2dp"
-                 app:civ_shadow="true"
-                 app:civ_shadow_radius="7"
-                 app:civ_shadow_color="#1E223E"/>-->
-
-
             <EditText
                 android:id="@+id/emailedittextid"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:hint="User Name"
+                android:hint="Phone No"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -122,57 +104,46 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp" />
 
-            <!--     <Button
-                     android:id="@+id/btn_login"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_marginBottom="10dp"
-                     android:background="@drawable/submit_button_shape"
-                     android:text="Log In"
-                     android:textAllCaps="true"
-                     android:textColor="@color/text_color_white" />-->
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_login"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="30dp"
-
-
                 android:layout_marginRight="30dp"
-
+                android:layout_marginBottom="20dp"
                 android:contentDescription="TODO"
                 android:src="@drawable/ic__east_60"
                 app:backgroundTint="@color/app_background_white"
                 app:rippleColor="@color/app_background_dark_blue" />
 
-            <Button
-                android:id="@+id/btn_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/edit_text_shape"
-                android:text=" Registration to hare"
-                android:textAllCaps="true"
-                android:textColor="@color/text_color_green" />
 
 
         </LinearLayout>
 
         <FrameLayout
+
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@drawable/ic_background_footer">
 
         </FrameLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/app_background_dark_blue" />
+            android:layout_height="150dp"
+            android:gravity="center_vertical"
+            android:background="@color/app_background_dark_blue" >
+            <Button
+                android:id="@+id/btn_signup"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text_shape"
+                android:text=" Registration From hare"
+                android:textAllCaps="true"
+                android:textColor="@color/text_color_white" />
+        </LinearLayout>
 
     </LinearLayout>
 

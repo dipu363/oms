@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,11 +34,14 @@ import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductAdapter;
+import com.aait.oms.product.ProductInGridViewActivity;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
+import com.aait.oms.ui.LogInActivity;
+import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
@@ -50,8 +55,8 @@ import retrofit2.Response;
 
 public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     Spinner rootcat,subcat;
-   ImageButton cartbutton ,btnnext;
-   TextView textView;
+    ImageButton btnnext;
+    TextView textView;
     ListView orderlistView;
     List<ProductModel> allproductlist;
     List<Prod1L> allcatgorylist;
@@ -80,38 +85,17 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         actionBar.setTitle("    Order");
         rootcat = findViewById(R.id.catagoryid);
         subcat = findViewById(R.id.subcatagoryid);
-        cartbutton = findViewById(R.id.cartbuttonid);
         btnnext = findViewById(R.id.btnordernextid);
-        textView = findViewById(R.id.listsizeid);
         orderlistView = findViewById(R.id.order_productList_id);
         allproductlist = new ArrayList<>();
         allcatgorylist = new ArrayList<>();
         allsubcatlist = new ArrayList<>();
         checkedValue = new ArrayList<>();
 
-        cartbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(checkedValue.size()>0){
-
-                    Intent intent = new Intent(OrderActivity.this,CartActivity.class);
-                    intent.putExtra("checkvalue",checkedValue);
-                    startActivity(intent);
-                }else {
-
-                    Toast.makeText(OrderActivity.this, "Item Not Found", Toast.LENGTH_LONG).show();
-                }
-
-               // Toast.makeText(OrderActivity.this,"" + checkedValue,Toast.LENGTH_LONG).show();
-            }
-        });
-
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkedValue.size()>0){
-
                     Intent intent = new Intent(OrderActivity.this,CartActivity.class);
                     intent.putExtra("checkvalue",checkedValue);
                     startActivity(intent);
@@ -123,27 +107,13 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         });
 
         orderlistView.setOnItemClickListener(this);
-
-
-
-      //  getcatList(this);
-       // getSubcatList(this ,2);
-       // getallproduct(this,2);
-
-
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onStart() {
         super.onStart();
-
-        if(checkedValue.size()>0){
-            int size = checkedValue.size();
-            textView.setText(String.valueOf(size));
-        }
+        invalidateOptionsMenu();
         netWorkCheck( this);
 
     }
@@ -397,81 +367,16 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         if (cb.isChecked()) {
            // Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
             checkedValue.add(prodid.getText().toString());
-            // Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
-           String listsiz = String.valueOf(checkedValue.size());
-           textView.setText(listsiz);
-
-
-
+            invalidateOptionsMenu();
 
         } else if (!cb.isChecked()) {
             //Toast.makeText(this, "false", Toast.LENGTH_SHORT).show();
             checkedValue.remove(prodid.getText().toString());
-            String listsiz = String.valueOf(checkedValue.size());
-            textView.setText(listsiz);
+            invalidateOptionsMenu();
         }
 
 
     }
-
-/*    private  void getcatname(){
-
-        CatSpinnerAdapter dataAdapter = new CatSpinnerAdapter(this, android.R.layout.simple_spinner_item, catagory);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        rootcat.setAdapter(dataAdapter);
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, catagorylist);
-        catagoryAutotext.setAdapter(adapter);
-        catagoryAutotext.setThreshold(0);
-        catagoryAutotext.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//            getItemList();
-                catagoryAutotext.clearFocus();
-                catagoryAutotext.setEnabled(false);
-                subCatagoryAutotext.setText("");
-                subCatagoryAutotext.requestFocus();
-
-                //getSubCat();
-                //itemNameListAv.showDropDown();
-//             Toast.makeText(getContext(), "" + grouNameListAv.getText(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }*/
-
-/*    private void getSubCat() {
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subCatagorylist);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        subcat.setAdapter(dataAdapter);
-
-        String rootcat = catagoryAutotext.getText().toString().trim();
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, subCatagorylist);
-        subCatagoryAutotext.setAdapter(adapter);
-
-        subCatagoryAutotext.setThreshold(0);
-        subCatagoryAutotext.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//            getItemList();
-                subCatagoryAutotext.clearFocus();
-                subCatagoryAutotext.setEnabled(false);
-//                subCatagoryAutotext.setText("");
-//                subCatagoryAutotext.requestFocus();
-                //getSubCat();
-                //itemNameListAv.showDropDown();
-
-//             Toast.makeText(getContext(), "" + grouNameListAv.getText(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-    }*/
-
 
     private void  showMessege(String msg){
 
@@ -480,7 +385,26 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.card_menu,menu);
 
+        final MenuItem menuItem = menu.findItem(R.id.tabCartId);
+        View actionView = menuItem.getActionView();
+        textView = actionView.findViewById(R.id.cart_badge_text_view);
+        textView.setText(String.valueOf(checkedValue.size()));
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
+
+        return  true;
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -488,7 +412,20 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         if(item.getItemId()== android.R.id.home)
         {
             finish();
+        }else if(item.getItemId() == R.id.tabCartId){
+            if(checkedValue.size()>0){
+
+                Intent intent = new Intent(OrderActivity.this,CartActivity.class);
+                intent.putExtra("checkvalue",checkedValue);
+                startActivity(intent);
+            }else {
+
+                Toast.makeText(OrderActivity.this, "Item Not Found", Toast.LENGTH_LONG).show();
+            }
         }
+
+
+
         return super.onOptionsItemSelected(item);
     }
 }

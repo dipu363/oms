@@ -1,57 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/progressbarid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:weightSum="2"
     android:background="@color/app_background_white"
     tools:context=".ui.SplashScreenActivity">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/deshboardid"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        android:layout_gravity="top|center"
-        android:src="@drawable/logo"
+        <ImageView
+            android:id="@+id/deshboardid"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:text="@string/company_name"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/text_color_default"
+            android:textSize="32sp"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif-monospace"
+            android:text="@string/company_business"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color_black"
+            android:textSize="20sp"
+            android:gravity="center_horizontal" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.DeviceDefault.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:indeterminate="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif-monospace"
+            android:text="@string/app_version"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/text_color_default"
+            android:textSize="20sp"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
 
 
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:fontFamily="cursive"
-        android:text="@string/company_name"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/text_color_green"
-        android:textSize="40sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:fontFamily="serif-monospace"
-        android:text="Fruit wholesaler in Kuantan, Malaysia"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@android:style/Widget.DeviceDefault.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="80dp"
-        android:indeterminate="false" />
 
 
-</FrameLayout>
+
+
+</LinearLayout>

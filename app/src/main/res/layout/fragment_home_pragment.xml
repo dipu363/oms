@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/app_background_white"
-    android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".fragment.HomePragment">
 
 
 
         <LinearLayout
-            android:weightSum="3"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            android:gravity="center"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -33,23 +26,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="start"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <com.mikhaellopez.circularimageview.CircularImageView
+
+                        <ImageView
                             android:id="@+id/deshboardid"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/logo"
-                            app:civ_border="true"
-                            android:layout_margin="5dp"
-                            app:civ_border_color="@color/app_background_white"
-                            app:civ_border_width="1dp"
-                             />
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/logo" />
 
 
                      <!--   <ImageView
@@ -114,87 +108,95 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:background="@color/app_background_dark_blue" />
+
                     <LinearLayout
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:weightSum="5"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_mail_outline_40"
-                            android:layout_width="0dp"
-                            android:layout_height="24dp" />
+                        <LinearLayout
+                            android:layout_marginTop="3dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:weightSum="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_mail_outline_40"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp" />
 
-                        <TextView
+                            <TextView
 
-                            android:textSize="18sp"
-                            android:layout_weight="4"
-                            android:textColor="@color/text_color_black"
-                            android:text="@string/company_email"
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
+                                android:textSize="18sp"
+                                android:layout_weight="4"
+                                android:textColor="@color/text_color_black"
+                                android:text="@string/company_email"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content" />
 
 
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="3dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:weightSum="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_phone_40"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp" />
+
+                            <TextView
+
+                                android:textSize="18sp"
+                                android:layout_weight="4"
+                                android:textColor="@color/text_color_black"
+                                android:text="@string/company_phone2"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp" />
+
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:weightSum="5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_phone_40"
+                                android:layout_width="0dp"
+                                android:layout_height="24dp" />
+
+                            <TextView
+                                android:textSize="18sp"
+                                android:layout_weight="4"
+                                android:textColor="@color/text_color_black"
+                                android:text="@string/company_phone3"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp" />
+
+
+
+                        </LinearLayout>
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_marginTop="3dp"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:weightSum="5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_phone_40"
-                            android:layout_width="0dp"
-                            android:layout_height="24dp" />
 
-                        <TextView
-
-                            android:textSize="18sp"
-                            android:layout_weight="4"
-                            android:textColor="@color/text_color_black"
-                            android:text="@string/company_phone2"
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp" />
-
-
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:weightSum="5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_phone_40"
-                            android:layout_width="0dp"
-                            android:layout_height="24dp" />
-
-                        <TextView
-                            android:textSize="18sp"
-                            android:layout_weight="4"
-                            android:textColor="@color/text_color_black"
-                            android:text="@string/company_phone3"
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp" />
-
-
-
-                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -205,8 +207,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="200dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -228,7 +229,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_color"
+                        android:background="@drawable/circlebacground_greencolor"
                         android:padding="10dp"
                         android:src="@drawable/ic_baseline_product_40" />
 
@@ -263,7 +264,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_color"
+                        android:background="@drawable/circlebacground_greencolor"
                         android:padding="10dp"
                         android:src="@drawable/ic_add_shopping_cart_black_24dp" />
 
@@ -273,7 +274,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="ORDER"
+                        android:text="Easy ORDER"
                         android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
@@ -286,8 +287,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="200dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -309,7 +309,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_color"
+                        android:background="@drawable/circlebacground_greencolor"
                         android:padding="10dp"
                         android:src="@drawable/ic_baseline_people_outline_24" />
 
@@ -344,7 +344,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_color"
+                        android:background="@drawable/circlebacground_greencolor"
                         android:padding="10dp"
                         android:src="@drawable/ic_add_shopping_cart_black_24dp" />
 
@@ -364,9 +364,13 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+
+
         </LinearLayout>
 
 
-    </LinearLayout>
+
+
+    </ScrollView>
 
 
