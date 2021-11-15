@@ -9,8 +9,8 @@ import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aait.oms.MainActivity;
 import com.aait.oms.R;
-import com.aait.oms.product.ProductInGridViewActivity;
 import com.aait.oms.util.SQLiteDB;
 
 @SuppressLint("CustomSplashScreen")
@@ -48,7 +48,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }else{
-                    Intent intent = new Intent(SplashScreenActivity.this, ProductInGridViewActivity.class);
+                    Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
 

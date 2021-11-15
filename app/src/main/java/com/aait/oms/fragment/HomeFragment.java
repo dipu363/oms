@@ -3,29 +3,27 @@ package com.aait.oms.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+
 import com.aait.oms.R;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.product.ProductInGridViewActivity;
-import com.aait.oms.product.ProductListActivity;
 import com.aait.oms.users.MyReferenceActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class HomePragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    CardView card_option1,card_option2,card_option3,card_option4;
+    CardView card_option1, card_option2, card_option3, card_option4;
     TextView textView1;
 
     @SuppressLint("SetTextI18n")
@@ -34,7 +32,7 @@ public class HomePragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_home_pragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_fragment, container, false);
 
           card_option1 = view.findViewById(R.id.cardviewadmin_Optino1);
         card_option2 = view.findViewById(R.id.cardviewadmin_Optino2);

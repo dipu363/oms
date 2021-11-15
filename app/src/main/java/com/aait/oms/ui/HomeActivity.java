@@ -1,38 +1,35 @@
 package com.aait.oms.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
-
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import com.aait.oms.R;
-import com.aait.oms.fragment.HomePragment;
-import com.aait.oms.fragment.ProfileFragment;
-import com.aait.oms.orders.MyOrdersActivity;
-import com.aait.oms.orders.OrderActivity;
-import com.aait.oms.product.ProductInGridViewActivity;
-import com.aait.oms.users.MyReferenceActivity;
-import com.aait.oms.commission.UsersAccountActivity;
-import com.aait.oms.util.AppUtils;
-import com.aait.oms.util.SQLiteDB;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.aait.oms.R;
+import com.aait.oms.commission.UsersAccountActivity;
+import com.aait.oms.fragment.HomeFragment;
+import com.aait.oms.fragment.ProfileFragment;
+import com.aait.oms.orders.MyOrdersActivity;
+import com.aait.oms.orders.OrderActivity;
+import com.aait.oms.product.ProductInGridViewActivity;
+import com.aait.oms.users.MyReferenceActivity;
+import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.SQLiteDB;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
@@ -64,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomePragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
 
 
 
@@ -138,7 +135,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             /*Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);*/
             Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomePragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
 
         } else if (menuItem.getItemId() == R.id.nav_profile) {
             Objects.requireNonNull(getSupportActionBar()).setTitle("Profile");

@@ -69,12 +69,17 @@
             android:name=".ui.LogInActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
         <activity android:name=".product.ProductListActivity" />
-        <activity android:name=".ui.HomeActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".supplier.SupplierListActivity" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Oms.NoActionBar" />
         <activity
             android:name=".ui.SplashScreenActivity"
             android:screenOrientation="portrait"

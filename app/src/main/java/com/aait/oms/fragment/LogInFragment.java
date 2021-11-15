@@ -1,20 +1,24 @@
-package com.aait.oms.ui;
+package com.aait.oms.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.orders.CartActivity;
+import com.aait.oms.ui.HomeActivity;
+import com.aait.oms.ui.SignUpActivity;
 import com.aait.oms.users.UserRequest;
 import com.aait.oms.users.UserService;
 import com.aait.oms.util.AppUtils;
@@ -30,93 +34,67 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
+public class LogInFragment extends Fragment implements View.OnClickListener {
 
+    // private FirebaseAuth mAuth;
+    private final String username = null;
     private EditText useremail, userpasswordid;
     private Button signup;
     private FloatingActionButton login;
     private ProgressBar loginProgress;
-    // private FirebaseAuth mAuth;
-    private String username = null;
     private AppUtils appUtils;
     private ApplicationData applicationData;
 
-
+    public LogInFragment() {
+        // Required empty public constructor
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //remove the title ber
-        //(Window.FEATURE_NO_TITLE);
-        //remove the notification ber
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_log_in);
-      /*  ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setLogo(R.drawable.ic_home_icon);
-        actionBar.setTitle("K And T Trading");*/
-
-        appUtils = new AppUtils(this);
-        applicationData= new ApplicationData(this);
+        appUtils = new AppUtils(getContext());
+        applicationData = new ApplicationData(getContext());
 
 
-        login = findViewById(R.id.btn_login);
-        signup = findViewById(R.id.btn_signup);
-        loginProgress = findViewById(R.id.login_progress);
-        useremail = findViewById(R.id.emailedittextid);
-        userpasswordid = findViewById(R.id.edtPassword);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_log_in, container, false);
+        login = view.findViewById(R.id.btn_login_frag);
+        signup = view.findViewById(R.id.btn_signup_login_frag);
+        loginProgress = view.findViewById(R.id.login_frag_progress);
+        useremail = view.findViewById(R.id.login_frag_emailedittextid);
+        userpasswordid = view.findViewById(R.id.login_frag_edtPassword);
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
         loginProgress.setVisibility(View.INVISIBLE);
-       // mAuth = FirebaseAuth.getInstance();
+
+
+        return view;
     }
 
-
+    @SuppressLint("NonConstantResourceId")
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void onClick(View view) {
 
-        int loginstatus = 0;
-
-        // FirebaseUser  user = mAuth.getCurrentUser();
-        SQLiteDB sqLiteDB = new SQLiteDB(this);
-        //sqLiteDB.updateuserotp(currentuser,1);
-        Cursor cursor = sqLiteDB.getUserInfo();
-        if (cursor.moveToFirst()) {
-            username = cursor.getString(1);
-            loginstatus = cursor.getInt(4);
-        }
-
-
-
-        if (loginstatus == 1) {
-            Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
-            startActivity(intent);
-        }
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.btn_login:
+        switch (view.getId()) {
+            case R.id.btn_login_frag:
                 netWorkCheck();
                 break;
-            case R.id.btn_signup:
-                Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            case R.id.btn_signup_login_frag:
+                Intent intent = new Intent(getContext(), SignUpActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
         }
 
-    }
 
+    }
 
     // check mobile net work status and then call checkvalidity method ;
     public void netWorkCheck() {
@@ -126,7 +104,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             appUtils.networkAlertDialog();
         }
     }
-
 
 
     private void checkValidity() {
@@ -145,7 +122,6 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
     public void signIn(String uname, String pass) {
 
         UserService userService = ApiClient.getRetrofit().create(UserService.class);
@@ -156,7 +132,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.isSuccessful()) {
                     BaseResponse baseResponse = response.body();
-                   // String massage = baseResponse.getMessage();
+                    // String massage = baseResponse.getMessage();
                     if (baseResponse.getObj() == null) {
                         appUtils.appToast("User not match");
                     } else {
@@ -175,7 +151,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         if (userPassword != null && userPassword.equals(pass) && userRole.equals("102.0")) {
                             //save username to sqlite db  for getting session;
 
-                            SQLiteDB sqLiteDB = new SQLiteDB(getApplicationContext());
+                            SQLiteDB sqLiteDB = new SQLiteDB(getContext());
                             Cursor cursor = sqLiteDB.getUserInfo();
 
                             if (cursor != null && cursor.moveToFirst()) {
@@ -190,22 +166,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
                             }
 
-                            String page = applicationData.getPageState("prodgridview");
-                            if (page != null && page.equals("p1")){
-                                appUtils.appToast("Congratulation");
-                                Intent intent = new Intent(LogInActivity.this, CartActivity.class);
-                                intent.putExtra("SQ","SQ");
-                                startActivity(intent);
-                                clear();
-                            }else {
-                                appUtils.appToast("Congratulation");
-                                Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                                clear();
-                            }
+                            appUtils.appToast("Congratulation");
+                            Intent intent = new Intent(getContext(), HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
 
+                            clear();
 
                         } else {
                             appUtils.appToast("Password or Role not mach");
@@ -227,10 +193,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
     private void clear() {
         useremail.setText("");
         userpasswordid.setText("");
     }
+
 
 }
