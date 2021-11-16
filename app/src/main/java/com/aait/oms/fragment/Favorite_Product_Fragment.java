@@ -1,6 +1,5 @@
 package com.aait.oms.fragment;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +15,6 @@ import com.aait.oms.R;
 import com.aait.oms.adapter.FavoriteProductAdapter;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.orders.CardModel;
-import com.aait.oms.orders.CartAdapter;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.util.AppUtils;
@@ -53,7 +50,6 @@ AppUtils appUtils;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         productModelList = new ArrayList<>();
          sqLiteDB = new SQLiteDB(getContext());
          appUtils = new AppUtils(getContext());
@@ -82,7 +78,7 @@ public void getFabProdId(){
             getsingleproduct(prodidlist.get(i));
         }
     }else{
-        appUtils.appToast("Cart Is Empty");
+        appUtils.appToast("There Have No Favorite Product");
     }
 }
 

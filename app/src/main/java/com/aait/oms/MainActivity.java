@@ -2,11 +2,11 @@ package com.aait.oms;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.aait.oms.fragment.CartFragment;
 import com.aait.oms.fragment.Favorite_Product_Fragment;
 import com.aait.oms.fragment.HomeFragment;
 import com.aait.oms.fragment.LogInFragment;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         meowBottomNavigation.clearCount(3);
-                        fragment = new HomeFragment();
+                        fragment = new CartFragment();
 
                         break;
                     case 4:

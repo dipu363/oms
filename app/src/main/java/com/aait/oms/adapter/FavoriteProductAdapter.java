@@ -1,7 +1,6 @@
 package com.aait.oms.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -19,7 +18,6 @@ import com.aait.oms.product.ProductModel;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteProductAdapter extends BaseAdapter {
@@ -86,7 +84,7 @@ public class FavoriteProductAdapter extends BaseAdapter {
                 sqLiteDB.deleteFavSingleProduct(pId);
                 productModels.remove(i); // remove the item
                 notifyDataSetChanged();
-                appUtils.appToast("A New Product added in your Card");
+                appUtils.appToast("A New Product added in your Cart");
             }
         });
 
