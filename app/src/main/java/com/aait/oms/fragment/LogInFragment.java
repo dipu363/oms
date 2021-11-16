@@ -73,10 +73,9 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         signup.setOnClickListener(this);
         login.setOnClickListener(this);
         loginProgress.setVisibility(View.INVISIBLE);
-
-
         return view;
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -95,6 +94,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
 
 
     }
+
 
     // check mobile net work status and then call checkvalidity method ;
     public void netWorkCheck() {
