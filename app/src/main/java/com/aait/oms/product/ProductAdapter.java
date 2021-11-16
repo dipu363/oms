@@ -60,11 +60,11 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;*/
         ProductModel product = itemsModelListFiltered.get(position);
 
-        // for get serial no of list item
+/*        // for get serial no of list item
         ArrayList<String> listWithSerialNumber = new ArrayList<>();
         for (int i = 0; i < itemsModelListFiltered.size(); i++) {
             listWithSerialNumber.add(String.valueOf(i + 1));
-        }
+        }*/
 
         if(convertView==null){
 

@@ -1,65 +1,136 @@
 package com.aait.oms.fragment;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.aait.oms.R;
+import com.aait.oms.adapter.FavoriteProductAdapter;
+import com.aait.oms.apiconfig.ApiClient;
+import com.aait.oms.model.BaseResponse;
+import com.aait.oms.orders.CardModel;
+import com.aait.oms.orders.CartAdapter;
+import com.aait.oms.product.ProductInterface;
+import com.aait.oms.product.ProductModel;
+import com.aait.oms.util.AppUtils;
+import com.aait.oms.util.SQLiteDB;
+import com.google.gson.internal.LinkedTreeMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Favorite_Product_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Favorite_Product_Fragment extends Fragment {
+FavoriteProductAdapter adapter;
+ListView listView;
+List<ProductModel> productModelList;
+ArrayList <String> prodidlist =new ArrayList<>();
+ProductModel productModel;
+SQLiteDB sqLiteDB;
+AppUtils appUtils;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Favorite_Product_Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Favorite_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Favorite_Product_Fragment newInstance(String param1, String param2) {
+    public static Favorite_Product_Fragment newInstance() {
         Favorite_Product_Fragment fragment = new Favorite_Product_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        productModelList = new ArrayList<>();
+         sqLiteDB = new SQLiteDB(getContext());
+         appUtils = new AppUtils(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_, container, false);
+        View view= inflater.inflate(R.layout.fragment_favorite_product, container, false);
+        listView = view.findViewById(R.id.fav_productlist_id);
+        getFabProdId();
+        return view;
+    }
+
+public void getFabProdId(){
+    Cursor cursor = sqLiteDB.getallfavoriteProduct();
+    prodidlist.clear();
+    if ( cursor.moveToFirst()){
+        do {
+            prodidlist.add(cursor.getString(0));
+        }  while (cursor.moveToNext());
+
+        for (int i = 0 ;i< prodidlist.size();i++){
+            getsingleproduct(prodidlist.get(i));
+        }
+    }else{
+        appUtils.appToast("Cart Is Empty");
+    }
+}
+
+    private void getsingleproduct(String id) {
+        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
+        Call<BaseResponse> productlist = apiService.getsingleproduct(id);
+        productlist.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
+                assert response.body() != null;
+                Log.e("success",response.body().toString());
+                if(response.isSuccessful()){
+                    Log.e("success",response.body().toString());
+                    BaseResponse baseResponse = response.body();
+                    // assert baseResponse != null;
+
+                    Object row =  baseResponse.getObj();
+                    LinkedTreeMap<Object,Object> t = (LinkedTreeMap) row;
+                    String l1code = String.valueOf(t.get("l1code"));
+                    String l2code = String.valueOf(t.get("l2code"));
+                    String l3code = String.valueOf(t.get("l3code"));
+                    String l4code = String.valueOf(t.get("l4code"));
+                    String salesrate = String.valueOf(t.get("salesrate"));
+                    String uomid = String.valueOf(t.get("uomid"));
+                    String productname = String.valueOf(t.get("productname"));
+                    String activeStatus = String.valueOf(t.get("activeStatus"));
+                    String ledgername = String.valueOf(t.get("ledgername"));
+                    String producPhoto = String.valueOf(t.get("productPhoto"));
+                    String picbyte =   String.valueOf(t.get("picByte"));
+                    String imagetypt = String.valueOf(t.get("imageType"));
+
+                    productModel =  new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
+                    productModelList.add(productModel);
+
+                }
+
+                adapter = new FavoriteProductAdapter(getContext(),productModelList);
+                listView.setAdapter(adapter);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                Log.d("failure",t.getLocalizedMessage());
+
+            }
+        });
+
     }
 }

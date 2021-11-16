@@ -185,6 +185,12 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return c ;
     }
 
+    public  void deleteFavSingleProduct(String prodId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FAVORITE_PRODUCT,L4CODE + "=?",new String[]{String.valueOf(prodId)});
+        db.close();
+    }
+
     public Cursor getSingleProduct(String prodid){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("select * from " +

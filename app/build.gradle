@@ -65,24 +65,20 @@ dependencies {
     //implementation'com.squareup.okhttp3:okhttp:4.9.0'
     //implementation'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
-
 // for objectmapervalue
     implementation 'com.fasterxml.jackson.core:jackson-core:2.8.5'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
-
-
-
      // circulerimageview
-
-
-
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
-    implementation 'com.android.support:multidex:1.0.3'
-    //for suports htmltextview in android
-    implementation 'org.sufficientlysecure:html-textview:4.0'
-    implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
+
+    implementation 'com.android.support:multidex:1.0.3' // for support multidex
+
+    implementation 'org.sufficientlysecure:html-textview:4.0'//for suports htmltextview in android
+
+    implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'//for meow-Bottom navigation view
+
 
 
 
