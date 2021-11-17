@@ -15,9 +15,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"
@@ -77,6 +77,7 @@
         <activity android:name=".supplier.SupplierListActivity" />
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Oms.NoActionBar" />
@@ -88,7 +89,6 @@
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

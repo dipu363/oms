@@ -10,6 +10,7 @@ import com.aait.oms.fragment.CartFragment;
 import com.aait.oms.fragment.Favorite_Product_Fragment;
 import com.aait.oms.fragment.HomeFragment;
 import com.aait.oms.fragment.LogInFragment;
+import com.aait.oms.fragment.ProductFragment;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
@@ -52,18 +53,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getId()) {
 
                     case 1:
-                        fragment = new HomeFragment();
+                        fragment = new ProductFragment();
                         break;
                     case 2:
                         fragment = new Favorite_Product_Fragment();
                         meowBottomNavigation.clearCount(2);
-
-
                         break;
                     case 3:
                         meowBottomNavigation.clearCount(3);
                         fragment = new CartFragment();
-
                         break;
                     case 4:
                         fragment = new LogInFragment();

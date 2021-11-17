@@ -21,7 +21,7 @@
 
             <ImageView
                 android:id="@+id/fav_prod_Imageid"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/fav_prod_nameid"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
@@ -40,10 +40,10 @@
                 android:layout_toRightOf="@+id/fav_prod_Imageid"
                 android:text="Apple Red"
                 android:textColor="@color/text_color_green"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
             <TextView
                 android:id="@+id/fav_prod_codeid"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/text_color_black"
                 android:text="Code  :"
                 android:layout_toRightOf="@+id/fav_prod_Imageid"
@@ -52,7 +52,8 @@
                 android:layout_below="@id/fav_prod_nameid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/fav_prod_Imageid" />
 
             <TextView
                 android:id="@+id/fav_prod_codeid2"
@@ -66,7 +67,7 @@
                 android:layout_toRightOf="@+id/fav_prod_codeid"
                 android:text="Code"
                 android:textColor="@color/text_color_black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
 
             <TextView
@@ -80,54 +81,44 @@
                 android:layout_toEndOf="@+id/fav_prod_Imageid"
                 android:layout_toRightOf="@+id/fav_prod_Imageid"
                 android:textColor="@color/text_color_green"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/fav_prod_Priceid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fav_prod_Imageid"
-                android:padding="5dp"
+                android:layout_below="@id/fav_prod_stockstatusid"
+                android:layout_toEndOf="@+id/fav_prod_Imageid"
+                android:layout_toRightOf="@+id/fav_prod_Imageid"
                 android:text="TK."
                 android:textColor="@color/text_color_green"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/fav_prod__add_to_cart_id"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fav_prod_stockstatusid"
-                android:layout_marginBottom="5dp"
-                android:layout_toRightOf="@+id/fav_prod_Imageid"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_toEndOf="@+id/fav_prod_Imageid">
-                <ImageButton
-                    android:id="@+id/fab_btn_delete_Id"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@color/app_background_white"
-                    android:foregroundGravity="center"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_baseline_delete_60" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Add Cart"
+                android:textAllCaps="false"
+                android:textColor="@color/text_color_white" />
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="30dp">
+            <ImageButton
+                android:id="@+id/fab_btn_delete_Id"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/fav_prod__add_to_cart_id"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@color/app_background_white"
+                android:foregroundGravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_delete_60" />
 
-                    <Button
-                        android:id="@+id/fav_prod__add_to_cart_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/submit_button_shape"
-                        android:text="Add to Cart"
-                        android:textAllCaps="false"
-                        android:textColor="@color/text_color_white"/>
-                </FrameLayout>
 
-            </LinearLayout>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -63,7 +63,7 @@ public class CartFrgAdapter extends BaseAdapter {
 
 
         TextView productname = view.findViewById(R.id.cart_fr_prod_nameid);
-        TextView prodcode = view.findViewById(R.id.cart_fr_prod_codeid);
+        TextView prodcode = view.findViewById(R.id.cart_fr_prod_codeid2);
         TextView price = view.findViewById(R.id.cart_fr_prod_Priceid);
         TextView stock = view.findViewById(R.id.cart_fr_prod_stockstatusid);
         ImageView productImage = view.findViewById(R.id.cart_fr_prod_Imageid);

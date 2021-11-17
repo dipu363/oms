@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="7dp"
     tools:context=".fragment.CartFragment">
+    <TextView
+        android:text="Your Cart"
+        android:textColor="@color/text_color_black"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" />
+
 
     <ListView
+        android:layout_marginTop="40dp"
         android:id="@+id/cart_fr_productlist_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:divider="@color/app_background_white"
-        android:dividerHeight="3dp"></ListView>
+        android:dividerHeight="3dp"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/fav_prod__add_to_cart_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="@drawable/edit_text_shape"
+        android:text="Continue"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        tools:ignore="RtlHardcoded" />
+</FrameLayout>

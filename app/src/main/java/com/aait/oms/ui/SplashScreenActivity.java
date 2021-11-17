@@ -63,7 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         };
 
         mHandler = new Handler();
-        int SPLASH_TIME_OUT = 3000;
+        int SPLASH_TIME_OUT = 2000;
         mHandler.postDelayed(mRunnable, SPLASH_TIME_OUT);
     }
 

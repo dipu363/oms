@@ -6,6 +6,16 @@
     android:orientation="vertical"
     android:padding="7dp"
     tools:context=".fragment.Favorite_Product_Fragment">
+
+        <TextView
+            android:text="Your Favorite Products"
+            android:textColor="@color/text_color_black"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" />
         <ListView
             android:id="@+id/fav_productlist_id"
             android:layout_width="match_parent"
