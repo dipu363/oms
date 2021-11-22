@@ -228,7 +228,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_greencolor"
+                        android:background="@drawable/circlebacground_color"
                         android:padding="10dp"
                         android:src="@drawable/ic_baseline_product_40" />
 
@@ -263,7 +263,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_greencolor"
+                        android:background="@drawable/circlebacground_color"
                         android:padding="10dp"
                         android:src="@drawable/ic_add_shopping_cart_black_24dp" />
 
@@ -308,7 +308,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_greencolor"
+                        android:background="@drawable/circlebacground_color"
                         android:padding="10dp"
                         android:src="@drawable/ic_baseline_people_outline_24" />
 
@@ -343,7 +343,7 @@
                     <ImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/circlebacground_greencolor"
+                        android:background="@drawable/circlebacground_color"
                         android:padding="10dp"
                         android:src="@drawable/ic_add_shopping_cart_black_24dp" />
 

@@ -1,6 +1,7 @@
 package com.aait.oms.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -23,7 +24,7 @@ import java.util.List;
 public class FavoriteProductAdapter extends BaseAdapter {
     Context context;
     List<ProductModel> productModels;
-    SQLiteDB sqLiteDB ;
+    SQLiteDB sqLiteDB;
     AppUtils appUtils;
 
     public FavoriteProductAdapter(Context context, List<ProductModel> productModels) {
@@ -52,10 +53,10 @@ public class FavoriteProductAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ProductModel product = productModels.get(i);
 
-        if (view == null){
+        if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            view = layoutInflater.inflate(R.layout.favorite_product_sample_layout,null);
+            view = layoutInflater.inflate(R.layout.favorite_product_sample_layout, null);
 
         }
 
@@ -70,21 +71,27 @@ public class FavoriteProductAdapter extends BaseAdapter {
         productname.setText(product.getProductname());
         prodcode.setText(product.getL4code());
         stock.setText("Available");
-        price.setText("TK. "+product.getSalesrate());
+        price.setText("TK. " + product.getSalesrate());
 
-        byte[] bytes = Base64.decode(product.getPicByte(),Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         productImage.setImageBitmap(bitmap);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String pId = product.getL4code();
-                sqLiteDB.insertCardProduct(pId);
-                sqLiteDB.deleteFavSingleProduct(pId);
-                productModels.remove(i); // remove the item
-                notifyDataSetChanged();
-                appUtils.appToast("A New Product added in your Cart");
+                Cursor cursor1 = sqLiteDB.getSingleProduct(product.getL4code());
+
+                if (cursor1.moveToFirst()) {
+                    appUtils.appToast("This product already added to your cart");
+
+                } else {
+
+                    sqLiteDB.insertCardProduct(product.getL4code());
+                    productModels.remove(i); // remove the item
+                    notifyDataSetChanged();
+                    appUtils.appToast("A New Product added in your Cart");
+                }
             }
         });
 
@@ -96,12 +103,8 @@ public class FavoriteProductAdapter extends BaseAdapter {
                 notifyDataSetChanged();
 
 
-
-
             }
         });
-
-
 
 
         return view;

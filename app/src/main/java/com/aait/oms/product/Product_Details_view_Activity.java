@@ -34,9 +34,9 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
     SQLiteDB sqLiteDB;
     ArrayList<String> cardList;
     AppUtils appUtils;
-    private TextView prodname, prodcode, prodprice, proddetails, prodstock;
-    private ImageView prodimageview;
-    private ImageButton favorite, feedback;
+    TextView prodname, prodcode, prodprice, proddetails, prodstock;
+    ImageView prodimageview;
+    ImageButton favorite, feedback;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -47,7 +47,6 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Products Details");
 
         prodname = findViewById(R.id.cardproductnameid);
@@ -101,10 +100,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
     }
 
 
-
-
-
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -146,7 +142,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
                 addToCart.setVisibility(View.VISIBLE);
                 removeCart.setVisibility(View.INVISIBLE);
                 appUtils.appToast("Remove a Product From your Card");
-                Cursor c= sqLiteDB.getAllCardProduct();
+                Cursor c = sqLiteDB.getAllCardProduct();
                 if (c.moveToFirst()) {
                     cardList.clear();
                     do {
@@ -159,6 +155,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.card_menu, menu);
@@ -170,12 +167,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         TextView textView = actionView.findViewById(R.id.cart_badge_text_view);
         textView.setText(String.valueOf(cardList.size()));
 
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onOptionsItemSelected(menuItem);
-            }
-        });
+        actionView.setOnClickListener(view -> onOptionsItemSelected(menuItem));
 
 
         return true;

@@ -271,7 +271,7 @@ public class ProductFragment extends Fragment {
                     productgridAdapter = new ProductGridAdapter(context,prodname);
                     gridView.setAdapter(productgridAdapter);
 
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                 /*   gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -284,14 +284,9 @@ public class ProductFragment extends Fragment {
                             //System.out.println(product);
                             Intent intent = new Intent(getContext(), Product_Details_view_Activity.class);
                             intent.putExtra("product" , product);
-
-                       /*     Object product = productgridAdapter.getItem(position);
-
-                            Intent intent = new Intent(ProductInGridViewActivity.this, Product_Details_view_Activity.class);*/
-                            // intent.putExtra("product", (Bundle) product);
                             startActivity(intent);
                         }
-                    });
+                    });*/
                 }
             }
 

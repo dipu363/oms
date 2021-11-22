@@ -64,7 +64,6 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     List<ProductModel> allproductlist;
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
-    ArrayList<String> cardList ;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -74,7 +73,9 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle("  Products");
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("  All Products");
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
         applicationData = new ApplicationData(this);
@@ -85,22 +86,16 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        Cursor cursor = sqLiteDB.getAllCardProduct();
-        cardList = new ArrayList<>();
-
-
-        if (cursor.moveToFirst()){
-            do {
-                cardList.add(cursor.getString(0));
-            }  while (cursor.moveToNext());
-        }
-
        // invalidateOptionsMenu();
        //all time call net work check method as last line in hare ;
         netWorkCheck(this);
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        invalidateOptionsMenu();
+    }
 
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -259,27 +254,6 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     productgridAdapter = new ProductGridAdapter(context,prodname);
                     gridView.setAdapter(productgridAdapter);
 
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            ProductModel productModel =   prodname.get(position);
-                            Gson gson = new Gson();
-                            String product = gson.toJson(productModel);
-
-                           // String Productstring = productModel.toString();
-
-                            //System.out.println(product);
-                            Intent intent = new Intent(ProductInGridViewActivity.this,Product_Details_view_Activity.class);
-                            intent.putExtra("product" , product);
-
-                       /*     Object product = productgridAdapter.getItem(position);
-
-                            Intent intent = new Intent(ProductInGridViewActivity.this, Product_Details_view_Activity.class);*/
-                            // intent.putExtra("product", (Bundle) product);
-                            startActivity(intent);
-                        }
-                    });
                 }
             }
 
@@ -338,22 +312,6 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
                     productgridAdapter = new ProductGridAdapter(context,prodname);
                     gridView.setAdapter(productgridAdapter);
-
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ProductModel productModel =   prodname.get(position);
-                            Gson gson = new Gson();
-                            String product = gson.toJson(productModel);
-
-                            // String Productstring = productModel.toString();
-
-                           // System.out.println(product);
-                            Intent intent = new Intent(ProductInGridViewActivity.this,Product_Details_view_Activity.class);
-                            intent.putExtra("product" , product);
-                            startActivity(intent);
-                        }
-                    });
                 }
             }
 
@@ -378,11 +336,9 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
       final MenuItem menuItem = menu.findItem(R.id.tabCartId);
        View actionView = menuItem.getActionView();
-
-
+        Cursor cursor = sqLiteDB.getAllCardProduct();
         textView = actionView.findViewById(R.id.cart_badge_text_view);
-        textView.setText(String.valueOf(cardList.size()));
-
+        textView.setText(String.valueOf(cursor.getCount()));
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -399,17 +355,17 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-             invalidateOptionsMenu();
+            finish();
         } else if(item.getItemId() == R.id.tabCartId) {
             SQLiteDB sqLiteDB = new SQLiteDB(this);
-            Cursor cursor = sqLiteDB.getUserInfo();
-            int cartsize = cardList.size();
+            Cursor cursor1 = sqLiteDB.getUserInfo();
+            Cursor cursor2 = sqLiteDB.getAllCardProduct();
             int loginstatus = 0;
 
-            if (cursor.moveToFirst()) {
-                loginstatus = cursor.getInt(4);
+            if (cursor1.moveToFirst()) {
+                loginstatus = cursor1.getInt(4);
             }
-            if (cartsize > 0) {
+            if (cursor2.getCount() > 0) {
                 if (loginstatus == 1) {
                     Intent intent = new Intent(ProductInGridViewActivity.this, CartActivity.class);
                     intent.putExtra("SQ", "SQ");

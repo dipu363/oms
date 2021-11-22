@@ -308,10 +308,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
+                    android:backgroundTint="@color/app_background_white"
                     android:src="@drawable/baseline_done_black_24dp"
                     android:layout_marginBottom="30dp"
                     android:layout_marginTop="30dp"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="TODO"
+                    tools:targetApi="lollipop" />
 
 
             </LinearLayout>

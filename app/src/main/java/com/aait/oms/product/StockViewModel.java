@@ -4,6 +4,7 @@ public class StockViewModel {
     //stockmodel   {"pcode":"APREAF _100ctn","uomName":"CTN","soldQty":"170","totalQty":"5000","currentQty":"4830","avgPurRate":"90.00","salesRate":"100","currentTotalPrice":"434700","pname":"APPLE RED 100ctn","cumTotalPrice":"450000"}
 
     String pcode;
+    String picByte;
     String uomName;
     String soldQty;
     String totalQty;
@@ -17,8 +18,9 @@ public class StockViewModel {
     public StockViewModel() {
     }
 
-    public StockViewModel(String pcode, String uomName, String soldQty, String totalQty, String currentQty, String avgPurRate, String salesRate, String currentTotalPrice, String pname, String cumTotalPrice) {
+    public StockViewModel(String pcode, String picByte, String uomName, String soldQty, String totalQty, String currentQty, String avgPurRate, String salesRate, String currentTotalPrice, String pname, String cumTotalPrice) {
         this.pcode = pcode;
+        this.picByte = picByte;
         this.uomName = uomName;
         this.soldQty = soldQty;
         this.totalQty = totalQty;
@@ -36,6 +38,14 @@ public class StockViewModel {
 
     public void setPcode(String pcode) {
         this.pcode = pcode;
+    }
+
+    public String getPicByte() {
+        return picByte;
+    }
+
+    public void setPicByte(String picByte) {
+        this.picByte = picByte;
     }
 
     public String getUomName() {
@@ -112,8 +122,9 @@ public class StockViewModel {
 
     @Override
     public String toString() {
-        return "ProductModel{" +
+        return "StockViewModel{" +
                 "pcode='" + pcode + '\'' +
+                ", picByte='" + picByte + '\'' +
                 ", uomName='" + uomName + '\'' +
                 ", soldQty='" + soldQty + '\'' +
                 ", totalQty='" + totalQty + '\'' +
@@ -125,6 +136,4 @@ public class StockViewModel {
                 ", cumTotalPrice='" + cumTotalPrice + '\'' +
                 '}';
     }
-
-
 }

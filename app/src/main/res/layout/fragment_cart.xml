@@ -27,7 +27,7 @@
         android:dividerHeight="3dp"/>
 
     <Button
-        android:id="@+id/fav_prod__add_to_cart_id"
+        android:id="@+id/frag_cart_btn_conti_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"

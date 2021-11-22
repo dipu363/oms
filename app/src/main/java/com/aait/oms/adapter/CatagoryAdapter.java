@@ -39,20 +39,15 @@ public class CatagoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Object getrow =prodCatagoryModels.get(position);
-        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
+        Object getrow = prodCatagoryModels.get(position);
+        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
-        if(convertView==null){
+        if (convertView == null) {
 
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.support_simple_spinner_dropdown_item,null);
+            convertView = layoutInflater.inflate(R.layout.support_simple_spinner_dropdown_item, null);
 
         }
-
-
-
-       /* TextView productname = convertView.findViewById(R.id.supname);
-        productname.setText(String.valueOf(t.get("productname")));*/
         return convertView;
 
 

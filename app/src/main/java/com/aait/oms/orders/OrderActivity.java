@@ -81,8 +81,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
-        actionBar.setTitle("    Order");
+        actionBar.setTitle("   Easy Order");
         rootcat = findViewById(R.id.catagoryid);
         subcat = findViewById(R.id.subcatagoryid);
         btnnext = findViewById(R.id.btnordernextid);
