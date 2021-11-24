@@ -35,7 +35,8 @@
             <LinearLayout
 
                 android:layout_marginTop="10dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
+                android:background="@color/app_background_dark_blue"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -45,7 +46,7 @@
                     android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:textColor="@color/text_color_black"
+                        android:textColor="@color/text_color_white"
                         android:id="@+id/radiobtn1"
                         android:textSize="18sp"
                         android:text="From Branch"
@@ -53,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <RadioButton
-                        android:textColor="@color/text_color_black"
+                        android:textColor="@color/text_color_white"
                         android:id="@+id/radiobtn2"
                         android:textSize="18sp"
                         android:onClick="onRadioButtonClicked"
@@ -66,9 +67,9 @@
                 </RadioGroup>
                 <TextView
                     android:id="@+id/redioselecttextid"
-                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
                     android:textSize="14sp"
-                    android:textColor="@color/text_color_black"
+                    android:textColor="@color/text_color_white"
                     android:visibility="invisible"
                     android:textAlignment="textStart"
                     android:layout_width="wrap_content"

@@ -21,7 +21,7 @@
         android:layout_height="18dp"
         android:text="0"
         android:textColor="@color/text_color_white"
-        android:background="@drawable/circlebacground_color"
+        android:background="@drawable/circlebagraound_color_pink"
         android:layout_gravity="top|end"
         android:layout_marginEnd="-4dp"
         android:layout_marginTop="-4dp"

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 
 import com.aait.oms.fragment.CartFragment;
 import com.aait.oms.fragment.Favorite_Product_Fragment;
-import com.aait.oms.fragment.HomeFragment;
 import com.aait.oms.fragment.LogInFragment;
 import com.aait.oms.fragment.ProductFragment;
 import com.aait.oms.util.AppUtils;
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4:
                         fragment = new LogInFragment();
+
+
                         break;
                 }
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // set initali selected fragment
-        meowBottomNavigation.show(1, true);
+        meowBottomNavigation.show(4, true);
         meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {

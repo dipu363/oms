@@ -1,9 +1,15 @@
 package com.aait.oms.orders;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,32 +19,44 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.branch.BranchAdapter;
 import com.aait.oms.branch.BranchModel;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.product.ProductInGridViewActivity;
+import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.CommonFunctions;
 import com.aait.oms.util.SQLiteDB;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +67,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     RadioButton radioButton1,radioButton2;
     EditText shipaddress, cmobile;
     Spinner branchspinner,paymentspinner;
-    Button btnsubmint;
+    Button btnsubmint,btnContinue,btnInvoice;
     List<BranchModel> allbranchlist;
     BranchModel[] branchsarraylist;
     //OrderDetailsModel[] orderDetailsModels;
@@ -60,6 +78,12 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     String option;
 
     ArrayList<String> senddatatoinvoice;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    AppUtils appUtils;
+
+
+    Dialog fullScreen_dialog_1;
+    View fullScreenView_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +115,18 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
         allbranchlist = new ArrayList<>();
         senddatatoinvoice = new ArrayList<>();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        appUtils = new AppUtils(this);
+
+        fullScreenView_1 = getLayoutInflater().inflate(R.layout.full_screen_dailog_1, null);
+        fullScreen_dialog_1 = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        fullScreen_dialog_1.setContentView(fullScreenView_1);
+        btnContinue = fullScreenView_1.findViewById(R.id.dialog_btn_continue);
+        btnInvoice = fullScreenView_1.findViewById(R.id.dialog_btn_invoice);
+        btnContinue.setOnClickListener(this);
+        btnInvoice.setOnClickListener(this);
+
+
 
         //for spinner
         String[] payoption = {"Select","Cash On Delivery","Online Banking"};
@@ -122,18 +158,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-
-
-
             }
         });
-
-
-
-
-      //  getbrnachList(this);
-
-
 
     }
 
@@ -145,7 +171,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             case R.id.radiobtn1:
                 if (checked)
                     selectdelioption.setText(R.string.selectbranch);
-                //  selectdelioption.setTextColor(Color.WHITE);
                      selectdelioption.setVisibility(View.VISIBLE);
                      shipaddress.setVisibility(View.INVISIBLE);
                      cmobile.setVisibility(View.INVISIBLE);
@@ -156,12 +181,9 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             case R.id.radiobtn2:
                 if (checked)
                     getbrnachList(this);
+                    getCurrrentLocation();
                     selectdelioption.setText(R.string.selecthome);
-                // selectdelioption.setTextColor(Color.WHITE);
                     selectdelioption.setVisibility(View.VISIBLE);
-                    shipaddress.setVisibility(View.VISIBLE);
-                    cmobile.setVisibility(View.VISIBLE);
-                   // branchadd.setVisibility(View.INVISIBLE);
                     deliverty = radioButton2.getText().toString().trim();
 
                 break;
@@ -271,7 +293,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
                         double grandtotal = Double.parseDouble(total)+5;
                         senddatatoinvoice.clear();
-
                         senddatatoinvoice.add(deliverty);
                         senddatatoinvoice.add(option);
                         senddatatoinvoice.add(bname);
@@ -284,10 +305,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         senddatatoinvoice.add(String.valueOf(grandtotal));
                         Log.d("SEND Data", senddatatoinvoice.toString());
                         saveOrder(shipadd+","+ mobile +","+option);
-
-
-                       // Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
-
                     }
 
                 }
@@ -309,17 +326,20 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
                     Log.d("SEND Data", senddatatoinvoice.toString());
                     saveOrder(bname+"," + baddress +","+ bmobile +","+option);
-
-
-                   // Toast.makeText(this, "Your Order submitted has been successful", Toast.LENGTH_LONG).show();
-
                 }
-
-
-
-
-
             }
+        }else if(v.getId()== R.id.dialog_btn_continue){
+            Intent intent = new Intent(ConfirmOrderActivity.this, ProductInGridViewActivity.class);
+            startActivity(intent);
+            finish();
+            fullScreen_dialog_1.dismiss();
+        }else if (v.getId() == R.id.dialog_btn_invoice){
+              Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
+              intent.putExtra("alldata", senddatatoinvoice);
+              startActivity(intent);
+              finish();
+            fullScreen_dialog_1.dismiss();
+
         }
 
     }
@@ -344,7 +364,6 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         Bundle bundle = getIntent().getExtras();
         if(bundle!= null){
              orderDetailsModels = bundle.getParcelableArrayList("myObj");
-
         }
 
 
@@ -368,7 +387,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
                   /*  //when send post request
                      //if error faced Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
-                     //Error say's you want to get result in String body.
+                     //Error say's you want to get result in String body .
                      //Or this problem occur for response type .
                      // solution : please see your response type in your api
                     //If you want to do this, Just add ScalarsConverterFactory.create() in your Retrofit.Builder.
@@ -392,13 +411,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         OrderMasterModel omm   = new Gson().fromJson(jsons , listType);
                         orderID = omm.getOrderId();
                         senddatatoinvoice.add(String.valueOf(orderID));
-
-
-                        Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
-                        intent.putExtra("alldata", senddatatoinvoice);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(ConfirmOrderActivity.this, "Order submitted successful", Toast.LENGTH_LONG).show();
+                        fullScreen_dialog_1.show();
                     }
 
                 }
@@ -411,19 +424,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 }
             });
 
-
-
         }catch (Exception e){
 
             Log.d("exception",e.getMessage());
 
         }
-
-
-
-
-
-
     }
 
     @Override
@@ -434,5 +439,52 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void getCurrrentLocation() {
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(ConfirmOrderActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+
+        }else{
+            SQLiteDB sqLiteDB = new SQLiteDB(this);
+            Cursor cursor = sqLiteDB.getUserInfo();
+            String usermobile ="";
+            if(cursor.moveToFirst()){
+                usermobile = cursor.getString(1);
+            }
+
+            String finalUsermobile = usermobile;
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+
+                    //initial location
+                    Location location = task.getResult();
+                    if (location != null) {
+
+                        try {
+
+                            //initial address list
+                            Geocoder geocoder = new Geocoder(ConfirmOrderActivity.this,
+                                    Locale.getDefault());
+                            List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            shipaddress.setVisibility(View.VISIBLE);
+                            shipaddress.setText(addressList.get(0).getAddressLine(0));
+                            cmobile.setVisibility(View.VISIBLE);
+                            cmobile.setText(finalUsermobile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+            });
+        }
+
     }
 }
