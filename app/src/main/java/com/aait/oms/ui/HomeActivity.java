@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.aait.oms.R;
 import com.aait.oms.commission.UsersAccountActivity;
 import com.aait.oms.fragment.HomeFragment;
+import com.aait.oms.fragment.ProductFragment;
 import com.aait.oms.fragment.ProfileFragment;
 import com.aait.oms.orders.MyOrdersActivity;
 import com.aait.oms.orders.OrderActivity;

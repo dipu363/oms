@@ -19,8 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,26 +60,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConfirmOrderActivity extends AppCompatActivity implements View.OnClickListener , CommonFunctions {
-    TextView selectdelioption, branchadd ,paytextviewmassage;
-    RadioButton radioButton1,radioButton2;
+public class ConfirmOrderActivity extends AppCompatActivity implements View.OnClickListener, CommonFunctions {
+    TextView selectdelioption, branchadd, paytextviewmassage;
+    RadioButton radioButton1, radioButton2;
     EditText shipaddress, cmobile;
-    Spinner branchspinner,paymentspinner;
-    Button btnsubmint,btnContinue,btnInvoice;
+    Spinner branchspinner, paymentspinner;
+    Button btnsubmint, btnContinue, btnInvoice;
     List<BranchModel> allbranchlist;
     BranchModel[] branchsarraylist;
-    //OrderDetailsModel[] orderDetailsModels;
-    List<OrderDetailsModel> orderDetailsModels=new ArrayList<>();
+    List<OrderDetailsModel> orderDetailsModels = new ArrayList<>();
     BranchAdapter branchAdapter;
-    String deliverty,bname,baddress ,bmobile;
-    int branchid ,orderID;
+    String deliverty, bname, baddress, bmobile;
+    int branchid, orderID;
     String option;
-
     ArrayList<String> senddatatoinvoice;
     FusedLocationProviderClient fusedLocationProviderClient;
     AppUtils appUtils;
-
-
     Dialog fullScreen_dialog_1;
     View fullScreenView_1;
 
@@ -90,12 +84,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
-
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("   Confirm Order ");
 
         radioButton1 = findViewById(R.id.radiobtn1);
@@ -109,10 +101,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         branchadd = findViewById(R.id.branch_add_id);
         cmobile = findViewById(R.id.cmobile_noid);
 
-        deliverty="";
+        deliverty = "";
         btnsubmint.setOnClickListener(this);
-
-
         allbranchlist = new ArrayList<>();
         senddatatoinvoice = new ArrayList<>();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -126,33 +116,28 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         btnContinue.setOnClickListener(this);
         btnInvoice.setOnClickListener(this);
 
-
-
         //for spinner
-        String[] payoption = {"Select","Cash On Delivery","Online Banking"};
-        ArrayAdapter<CharSequence> payAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, payoption );
+        String[] payoption = {"Select", "Cash On Delivery", "Online Banking"};
+        ArrayAdapter<CharSequence> payAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, payoption);
         payAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         paymentspinner.setAdapter(payAdapter);
         paymentspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 option = (String) payAdapter.getItem(position);
-                if(option.equals("Online Banking")){
+                option = (String) payAdapter.getItem(position);
+                if (option.equals("Online Banking")) {
                     paytextviewmassage.setVisibility(View.VISIBLE);
                     paytextviewmassage.setText("Please sent your payment at PUBLIC BANK, Account no 3145263227, if you have any queries please Contact +60 95135005");
                     //paytextviewmassage.setTextColor(Color.WHITE);
-                }else if(option.equals("Cash On Delivery")){
+                } else if (option.equals("Cash On Delivery")) {
                     paytextviewmassage.setVisibility(View.VISIBLE);
                     paytextviewmassage.setText("Please give your payment to our service provider. if you have any queries please Contact +60 95135005");
                     //   paytextviewmassage.setTextColor(Color.WHITE);
-                }else{
-                    option="Select";
+                } else {
+                    option = "Select";
                     paytextviewmassage.setText("");
                     paytextviewmassage.setVisibility(View.INVISIBLE);
                 }
-
-
-
             }
 
             @Override
@@ -171,27 +156,27 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             case R.id.radiobtn1:
                 if (checked)
                     selectdelioption.setText(R.string.selectbranch);
-                     selectdelioption.setVisibility(View.VISIBLE);
-                     shipaddress.setVisibility(View.INVISIBLE);
-                     cmobile.setVisibility(View.INVISIBLE);
-                     getbrnachList(this);
-                     deliverty = radioButton1.getText().toString().trim();
+                selectdelioption.setVisibility(View.VISIBLE);
+                shipaddress.setVisibility(View.INVISIBLE);
+                cmobile.setVisibility(View.INVISIBLE);
+                getbrnachList(this);
+                deliverty = radioButton1.getText().toString().trim();
 
                 break;
             case R.id.radiobtn2:
                 if (checked)
                     getbrnachList(this);
-                    getCurrrentLocation();
-                    selectdelioption.setText(R.string.selecthome);
-                    selectdelioption.setVisibility(View.VISIBLE);
-                    deliverty = radioButton2.getText().toString().trim();
+                getCurrrentLocation();
+                selectdelioption.setText(R.string.selecthome);
+                selectdelioption.setVisibility(View.VISIBLE);
+                deliverty = radioButton2.getText().toString().trim();
 
                 break;
         }
     }
 
 
-    private  void getbrnachList(Context context){
+    private void getbrnachList(Context context) {
 
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
@@ -199,18 +184,16 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             call.enqueue(new Callback<BaseResponse>() {
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         BaseResponse baseResponse = response.body();
-                        allbranchlist= baseResponse.getData();
-
+                        allbranchlist = baseResponse.getData();
                         String jsons = new Gson().toJson(allbranchlist);
-                        Type listType = new TypeToken<BranchModel[]>() {}.getType();
-                        branchsarraylist = new Gson().fromJson(jsons , listType);
-                        branchAdapter =new BranchAdapter(context, android.R.layout.simple_spinner_item,branchsarraylist);
-                        branchAdapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        Type listType = new TypeToken<BranchModel[]>() {
+                        }.getType();
+                        branchsarraylist = new Gson().fromJson(jsons, listType);
+                        branchAdapter = new BranchAdapter(context, android.R.layout.simple_spinner_item, branchsarraylist);
+                        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         branchspinner.setAdapter(branchAdapter);
-
-
                         branchspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @SuppressLint("SetTextI18n")
                             @Override
@@ -218,19 +201,15 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
                                 BranchModel branchModel = branchAdapter.getItem(position);
                                 assert branchModel != null;
-                                 branchadd .setText(
-                                         "Please Collect Your Product form " + branchModel.getAddress() +
-                                                 ". Contact Please " + branchModel.getMobile1()
-                                 );
-                                 branchadd.setVisibility(View.VISIBLE);
-                                //  branchadd.setTextColor(Color.WHITE);
-                                 branchid=branchModel.getBranchID();
-                                 bname = branchModel.getBname();
-                                 baddress= branchModel.getAddress();
-                                 bmobile = branchModel.getMobile1();
-
-
-
+                                branchadd.setText(
+                                        "Please Collect Your Product form " + branchModel.getAddress() +
+                                                ". Contact Please " + branchModel.getMobile1()
+                                );
+                                branchadd.setVisibility(View.VISIBLE);
+                                branchid = branchModel.getBranchID();
+                                bname = branchModel.getBname();
+                                baddress = branchModel.getAddress();
+                                bmobile = branchModel.getMobile1();
                             }
 
                             @Override
@@ -239,59 +218,53 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                             }
                         });
 
-                        Log.d("good", "onResponse: "+ branchsarraylist);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse> call, Throwable t) {
-                    Log.d("Failure", "onResponse: "+ t.getMessage());
-
-
+                public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
+                    Log.d("Failure", "onResponse: " + t.getMessage());
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception ignored) {
 
         }
-
-
     }
 
     @Override
     public void onClick(View v) {
 
-        if (v.getId()== R.id.btnconfirmorderid){
+        if (v.getId() == R.id.btnconfirmorderid) {
 
-            if(deliverty.equals("")){
+            if (deliverty.equals("")) {
                 Toast.makeText(this, "Please Choose a Delivery Option", Toast.LENGTH_LONG).show();
 
-            }else if (option.equals("Select")){
+            } else if (option.equals("Select")) {
                 Toast.makeText(this, "Please Choose a Payment Option", Toast.LENGTH_LONG).show();
 
-            } else{
+            } else {
 
                 String shipadd;
                 String mobile;
-                String total="";
+                String total = "";
                 Bundle bundle = getIntent().getExtras();
-                if(bundle!= null) {
+                if (bundle != null) {
                     total = bundle.getString("Total", null);
 
                 }
-                if(radioButton2.isChecked()){
-                    shipadd= shipaddress.getText().toString().trim();
+                if (radioButton2.isChecked()) {
+                    shipadd = shipaddress.getText().toString().trim();
                     mobile = cmobile.getText().toString().trim();
-                    if(TextUtils.isEmpty(shipadd)){
+                    if (TextUtils.isEmpty(shipadd)) {
                         shipaddress.setError("Please Enter Shipping Address");
                         shipaddress.requestFocus();
-                    }else if(TextUtils.isEmpty(mobile)){
+                    } else if (TextUtils.isEmpty(mobile)) {
                         cmobile.setError("Please Enter Shipping Address");
                         cmobile.requestFocus();
-                    }
-                    else {
+                    } else {
 
-                        double grandtotal = Double.parseDouble(total)+5;
+                        double grandtotal = Double.parseDouble(total) + 5;
                         senddatatoinvoice.clear();
                         senddatatoinvoice.add(deliverty);
                         senddatatoinvoice.add(option);
@@ -299,18 +272,17 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         senddatatoinvoice.add(baddress);
                         senddatatoinvoice.add(bmobile);
                         senddatatoinvoice.add(shipadd);
-                        senddatatoinvoice .add(mobile);
+                        senddatatoinvoice.add(mobile);
                         senddatatoinvoice.add(total);
                         senddatatoinvoice.add("5.0");
                         senddatatoinvoice.add(String.valueOf(grandtotal));
                         Log.d("SEND Data", senddatatoinvoice.toString());
-                        saveOrder(shipadd+","+ mobile +","+option);
+                        saveOrder(shipadd + "," + mobile + "," + option);
                     }
 
-                }
-                else{
+                } else {
 
-                   // saveOrder(bname + baddress + bmobile);
+                    // saveOrder(bname + baddress + bmobile);
 
                     senddatatoinvoice.clear();
                     senddatatoinvoice.add(deliverty);
@@ -325,19 +297,19 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     senddatatoinvoice.add(total);
 
                     Log.d("SEND Data", senddatatoinvoice.toString());
-                    saveOrder(bname+"," + baddress +","+ bmobile +","+option);
+                    saveOrder(bname + "," + baddress + "," + bmobile + "," + option);
                 }
             }
-        }else if(v.getId()== R.id.dialog_btn_continue){
+        } else if (v.getId() == R.id.dialog_btn_continue) {
             Intent intent = new Intent(ConfirmOrderActivity.this, ProductInGridViewActivity.class);
             startActivity(intent);
             finish();
             fullScreen_dialog_1.dismiss();
-        }else if (v.getId() == R.id.dialog_btn_invoice){
-              Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
-              intent.putExtra("alldata", senddatatoinvoice);
-              startActivity(intent);
-              finish();
+        } else if (v.getId() == R.id.dialog_btn_invoice) {
+            Intent intent = new Intent(ConfirmOrderActivity.this, OrderInvoiceActivity.class);
+            intent.putExtra("alldata", senddatatoinvoice);
+            startActivity(intent);
+            finish();
             fullScreen_dialog_1.dismiss();
 
         }
@@ -345,31 +317,30 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-
-    public void saveOrder(final String shippingAddress){
+    public void saveOrder(final String shippingAddress) {
 
 
         @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
 
-        String orderdate= formeter.format(date);
+        String orderdate = formeter.format(date);
 
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor = sqLiteDB.getUserInfo();
-        String uname ="";
-        if(cursor.moveToFirst()){
+        String uname = "";
+        if (cursor.moveToFirst()) {
             uname = cursor.getString(1);
         }
         Bundle bundle = getIntent().getExtras();
-        if(bundle!= null){
-             orderDetailsModels = bundle.getParcelableArrayList("myObj");
+        if (bundle != null) {
+            orderDetailsModels = bundle.getParcelableArrayList("myObj");
         }
 
 
-       // OrderMasterModel orderMasterModel = new OrderMasterModel(666666667,"101",branchid,uname,shippingAddress,"1","1");
+        // OrderMasterModel orderMasterModel = new OrderMasterModel(666666667,"101",branchid,uname,shippingAddress,"1","1");
 
-        OrderMasterModel orderMasterModel = new OrderMasterModel("101",branchid,uname,orderdate,shippingAddress,"Ordered","1",orderDetailsModels);
+        OrderMasterModel orderMasterModel = new OrderMasterModel("101", branchid, uname, orderdate, shippingAddress, "Ordered", "1", orderDetailsModels);
         orderMasterModel.setSsCreator(uname);
         orderMasterModel.setSsCreatedOn(orderdate);
         orderMasterModel.setSsModifier(uname);
@@ -398,17 +369,15 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     // .addConverterFactory(GsonConverterFactory.create())
                     // .build();*/
 
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         assert response.body() != null;
                         String um = response.body();
-                        // Log.d("um",um);
-                        BaseResponse baseResponse = objectMapperReadValue(um,BaseResponse.class);
-
-                        Object row= baseResponse.getObj();
-
+                        BaseResponse baseResponse = objectMapperReadValue(um, BaseResponse.class);
+                        Object row = baseResponse.getObj();
                         String jsons = new Gson().toJson(row);
-                        Type listType = new TypeToken<OrderMasterModel>() {}.getType();
-                        OrderMasterModel omm   = new Gson().fromJson(jsons , listType);
+                        Type listType = new TypeToken<OrderMasterModel>() {
+                        }.getType();
+                        OrderMasterModel omm = new Gson().fromJson(jsons, listType);
                         orderID = omm.getOrderId();
                         senddatatoinvoice.add(String.valueOf(orderID));
                         fullScreen_dialog_1.show();
@@ -418,15 +387,15 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
-                    Toast.makeText(ConfirmOrderActivity.this, "Failure "+t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("failure",t.getMessage());
+                    Toast.makeText(ConfirmOrderActivity.this, "Failure " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("failure", t.getMessage());
 
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            Log.d("exception",e.getMessage());
+            Log.d("exception", e.getMessage());
 
         }
     }
@@ -434,8 +403,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()== android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -443,17 +411,13 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
 
 
     private void getCurrrentLocation() {
-
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(ConfirmOrderActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-
-        }else{
+        } else {
             SQLiteDB sqLiteDB = new SQLiteDB(this);
             Cursor cursor = sqLiteDB.getUserInfo();
-            String usermobile ="";
-            if(cursor.moveToFirst()){
+            String usermobile = "";
+            if (cursor.moveToFirst()) {
                 usermobile = cursor.getString(1);
             }
 
@@ -485,6 +449,5 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 }
             });
         }
-
     }
 }

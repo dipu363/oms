@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
@@ -41,10 +43,12 @@ import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
 import com.aait.oms.ui.LogInActivity;
+import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +58,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    Spinner rootcat,subcat;
+    Spinner rootcat, subcat;
     ImageButton btnnext;
     TextView textView;
     ListView orderlistView;
@@ -64,13 +68,14 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     OrderProductAdapter orderProductAdapter;
     CatSpinnerAdapter catSpinnerAdapter;
     SubCatSpinnerAdapter subCatSpinnerAdapter;
-    List<String> categories;
     ProdCatagoryModel[] catagory;
     ProdSubCatagoryModel[] subcatagory;
-    ArrayList <String> checkedValue;
+    ArrayList<String> checkedValue;
+    ProgressDialog progressDialog;
+    AppUtils appUtils;
 
-    int subcatid ;
-    int l2codeid ;
+    int subcatid;
+    int l2codeid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar .setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("   Easy Order");
         rootcat = findViewById(R.id.catagoryid);
@@ -90,15 +95,16 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         allcatgorylist = new ArrayList<>();
         allsubcatlist = new ArrayList<>();
         checkedValue = new ArrayList<>();
-
+        progressDialog = new ProgressDialog(this);
+        appUtils = new AppUtils(this);
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkedValue.size()>0){
-                    Intent intent = new Intent(OrderActivity.this,CartActivity.class);
-                    intent.putExtra("checkvalue",checkedValue);
+                if (checkedValue.size() > 0) {
+                    Intent intent = new Intent(OrderActivity.this, CartActivity.class);
+                    intent.putExtra("checkvalue", checkedValue);
                     startActivity(intent);
-                }else {
+                } else {
 
                     Toast.makeText(OrderActivity.this, "Item Not Found", Toast.LENGTH_LONG).show();
                 }
@@ -113,21 +119,19 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onStart() {
         super.onStart();
         invalidateOptionsMenu();
-        netWorkCheck( this);
-
+        netWorkCheck(this);
     }
 
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void netWorkCheck(Context context){
+    public void netWorkCheck(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
 
             getcatList(this);
 
-        }
-        else {
+        } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(" NO NetWork")
                     .setMessage("Enable Mobile Network ")
@@ -148,12 +152,10 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             });
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
-
         }
-
     }
 
-    private  void getcatList(Context context){
+    private void getcatList(Context context) {
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.getCatList();
@@ -161,29 +163,20 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
 
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         BaseResponse baseResponse = response.body();
                         allcatgorylist = baseResponse.getData();
-                        if(allcatgorylist.size() == 0){
-
-
-                            showMessege("Data Not Found");
-
-                        }else {
-
-
+                        if (allcatgorylist.size() == 0) {
+                            appUtils.appToast("Data Not Found");
+                        } else {
                             String jsons = new Gson().toJson(allcatgorylist);
                             Type listType = new TypeToken<ProdCatagoryModel[]>() {
                             }.getType();
                             catagory = new Gson().fromJson(jsons, listType);
                             catagory = new Gson().fromJson(jsons, listType);
-
-
                             catSpinnerAdapter = new CatSpinnerAdapter(context, android.R.layout.simple_spinner_item, catagory);
                             catSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             rootcat.setAdapter(catSpinnerAdapter);
-
-
                             rootcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -192,7 +185,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                                     assert prodCatagoryModel != null;
                                     subcatid = prodCatagoryModel.getL1Code();
                                     String catname = prodCatagoryModel.getL1Name();
-                                    Toast.makeText(OrderActivity.this, catname, Toast.LENGTH_SHORT).show();
+                                    appUtils.appToast(catname);
                                     getSubcatList(context, subcatid);
 
                                 }
@@ -203,14 +196,10 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                                 }
                             });
 
-                            Log.d("good", "onResponse: " + catagory);
                         }
 
-                    }
-                    else{
-
-                        showMessege("Request Not Response");
-
+                    } else {
+                        appUtils.appToast("Request Not Response");
                     }
                 }
 
@@ -220,42 +209,37 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
-
-
     }
 
-    private  void getSubcatList(Context context,int subid){
+    private void getSubcatList(Context context, int subid) {
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.getSubCatList(subid);
             call.enqueue(new Callback<BaseResponse>() {
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         BaseResponse baseResponse = response.body();
                         allsubcatlist = baseResponse.getItems();
-                        Log.d("good", "onResponse: "+ allsubcatlist);
-
                         String jsons = new Gson().toJson(allsubcatlist);
-                        Type listType = new TypeToken<ProdSubCatagoryModel[]>() {}.getType();
-                        subcatagory = new Gson().fromJson(jsons , listType);
-                        subcatagory = new Gson().fromJson(jsons,listType);
-                        subCatSpinnerAdapter =new SubCatSpinnerAdapter(context, android.R.layout.simple_spinner_item,subcatagory);
-                        subCatSpinnerAdapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        Type listType = new TypeToken<ProdSubCatagoryModel[]>() {
+                        }.getType();
+                        subcatagory = new Gson().fromJson(jsons, listType);
+                        subcatagory = new Gson().fromJson(jsons, listType);
+                        subCatSpinnerAdapter = new SubCatSpinnerAdapter(context, android.R.layout.simple_spinner_item, subcatagory);
+                        subCatSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         subcat.setAdapter(subCatSpinnerAdapter);
-
-
                         subcat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                               ProdSubCatagoryModel prodSubCatagoryModel= subCatSpinnerAdapter.getItem(position);
+                                ProdSubCatagoryModel prodSubCatagoryModel = subCatSpinnerAdapter.getItem(position);
                                 assert prodSubCatagoryModel != null;
                                 l2codeid = prodSubCatagoryModel.getL2Code();
-                                getallproduct(context,l2codeid);
+                                getallproduct(context, l2codeid);
                             }
 
                             @Override
@@ -263,10 +247,6 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
                             }
                         });
-
-
-                        Log.d("good", "onResponse: "+ subcatagory);
-
                     }
                 }
 
@@ -275,47 +255,44 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 }
             });
-        }catch (Exception e){
-            Log.d("exception",e.getMessage());
-
+        } catch (Exception e) {
+            Log.d("exception", e.getMessage());
         }
 
 
     }
 
 
-
-
     private void getallproduct(Context context, int id) {
-        OrderService apiService =  ApiClient.getRetrofit().create(OrderService.class);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
+        OrderService apiService = ApiClient.getRetrofit().create(OrderService.class);
         Call<BaseResponse> productlist = apiService.getproductbyl2id(id);
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                Log.e("success",response.body().toString());
-                if(response.isSuccessful()){
-                     Log.e("success",response.body().toString());
-                     BaseResponse baseResponse = response.body();
-                     // assert baseResponse != null;
-                     allproductlist = baseResponse.getItems();
-                     List<ProductModel> prodname = new ArrayList();
-                     ProductModel prod = new ProductModel();
-                for(int i = 0 ; i<allproductlist.size(); i++){
-                    Object getrow =allproductlist.get(i);
-                    LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
+            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
+                if (response.isSuccessful()) {
+                    BaseResponse baseResponse = response.body();
+                    assert baseResponse != null;
+                    allproductlist = baseResponse.getItems();
+                    List<ProductModel> prodname = new ArrayList();
+                    ProductModel prod = new ProductModel();
+                    for (int i = 0; i < allproductlist.size(); i++) {
+                        Object getrow = allproductlist.get(i);
+                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
-                    String l1code = String.valueOf(t.get("l1code"));
-                    String l2code = String.valueOf(t.get("l2code"));
-                    String l3code = String.valueOf(t.get("l3code"));
-                    String l4code = String.valueOf(t.get("l4code"));
-                    String salesrate = String.valueOf(t.get("salesrate"));
-                    String uomid = String.valueOf(t.get("uomid"));
-                    String productname = String.valueOf(t.get("productname"));
-                    String activeStatus = String.valueOf(t.get("activeStatus"));
-                    String ledgername = String.valueOf(t.get("ledgername"));
-                    String producPhoto = String.valueOf(t.get("productPhoto"));
-                    String picbyte =   String.valueOf(t.get("picByte"));
-                    String imagetypt = String.valueOf(t.get("imageType"));
+                        String l1code = String.valueOf(t.get("l1code"));
+                        String l2code = String.valueOf(t.get("l2code"));
+                        String l3code = String.valueOf(t.get("l3code"));
+                        String l4code = String.valueOf(t.get("l4code"));
+                        String salesrate = String.valueOf(t.get("salesrate"));
+                        String uomid = String.valueOf(t.get("uomid"));
+                        String productname = String.valueOf(t.get("productname"));
+                        String activeStatus = String.valueOf(t.get("activeStatus"));
+                        String ledgername = String.valueOf(t.get("ledgername"));
+                        String producPhoto = String.valueOf(t.get("productPhoto"));
+                        String picbyte = String.valueOf(t.get("picByte"));
+                        String imagetypt = String.valueOf(t.get("imageType"));
 
                  /*   String pcode = String.valueOf(t.get("pcode"));
                     String uomName = String.valueOf(t.get("uomName"));
@@ -328,26 +305,19 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                     String pname = String.valueOf(t.get("pname"));
                     String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
 
-                    prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
-
-                    prodname.add(prod);
-
-                }
-
-
-
-                orderProductAdapter = new OrderProductAdapter(context,prodname);
-                orderlistView.setAdapter(orderProductAdapter);
-
-
-
+                        prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
+                        prodname.add(prod);
+                    }
+                    orderProductAdapter = new OrderProductAdapter(context, prodname);
+                    orderlistView.setAdapter(orderProductAdapter);
+                    progressDialog.dismiss();
                 }
 
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.d("failure",t.getLocalizedMessage());
+            public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
+                Log.d("failure", t.getLocalizedMessage());
 
             }
         });
@@ -359,17 +329,15 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         // TODO Auto-generated method stub
-        CheckBox cb =  view.findViewById(R.id.prodlistchackboxid);
-        TextView tv =  view.findViewById(R.id.order_product_name_id);
+        CheckBox cb = view.findViewById(R.id.prodlistchackboxid);
+        TextView tv = view.findViewById(R.id.order_product_name_id);
         TextView prodid = view.findViewById(R.id.order_prod_codeid);
         cb.performClick();
         if (cb.isChecked()) {
-           // Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
             checkedValue.add(prodid.getText().toString());
             invalidateOptionsMenu();
-
         } else if (!cb.isChecked()) {
-            //Toast.makeText(this, "false", Toast.LENGTH_SHORT).show();
+
             checkedValue.remove(prodid.getText().toString());
             invalidateOptionsMenu();
         }
@@ -377,16 +345,9 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
-    private void  showMessege(String msg){
-
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.card_menu,menu);
+        getMenuInflater().inflate(R.menu.card_menu, menu);
 
         final MenuItem menuItem = menu.findItem(R.id.tabCartId);
         View actionView = menuItem.getActionView();
@@ -400,29 +361,23 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
-
-        return  true;
-
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()== android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
-        }else if(item.getItemId() == R.id.tabCartId){
-            if(checkedValue.size()>0){
-
-                Intent intent = new Intent(OrderActivity.this,CartActivity.class);
-                intent.putExtra("checkvalue",checkedValue);
+        } else if (item.getItemId() == R.id.tabCartId) {
+            if (checkedValue.size() > 0) {
+                Intent intent = new Intent(OrderActivity.this, CartActivity.class);
+                intent.putExtra("checkvalue", checkedValue);
                 startActivity(intent);
-            }else {
-
-                Toast.makeText(OrderActivity.this, "Item Not Found", Toast.LENGTH_LONG).show();
+            } else {
+                appUtils.appToast("Item Not Found");
             }
         }
-
 
 
         return super.onOptionsItemSelected(item);

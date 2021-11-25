@@ -26,7 +26,7 @@
             app:mbn_countTextColor="@color/app_background_white"
             app:mbn_defaultIconColor="@color/app_background_white"
             app:mbn_rippleColor="@color/app_background_dark_blue"
-            app:mbn_selectedIconColor="@color/text_color_gold"/>
+            app:mbn_selectedIconColor="@color/app_background_dark_blue"/>
 
 
 

@@ -12,19 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aait.oms.R;
 import com.aait.oms.util.OnclickeventListener;
 
-public class SubCategoryRecyclerAdapter extends RecyclerView.Adapter <SubCategoryRecyclerAdapter.ViewHolder> {
+public class SubCategoryRecyclerAdapter extends RecyclerView.Adapter<SubCategoryRecyclerAdapter.ViewHolder> {
     ProdSubCatagoryModel[] subcatagory;
     private Context context;
     OnclickeventListener itemClickListener;
 
 
-
-    public SubCategoryRecyclerAdapter(ProdSubCatagoryModel[] subcatagory, Context context ,OnclickeventListener onclickeventListener) {
+    public SubCategoryRecyclerAdapter(ProdSubCatagoryModel[] subcatagory, Context context, OnclickeventListener onclickeventListener) {
         this.subcatagory = subcatagory;
         this.context = context;
         this.itemClickListener = onclickeventListener;
     }
-
 
 
     @NonNull
@@ -36,14 +34,11 @@ public class SubCategoryRecyclerAdapter extends RecyclerView.Adapter <SubCategor
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SubCategoryRecyclerAdapter.ViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull SubCategoryRecyclerAdapter.ViewHolder holder, int position) {
         char catname = subcatagory[position].getL2Name().charAt(0);
-
         holder.textView1.setText(subcatagory[position].getL2Name());
         holder.textView2.setText(String.valueOf(catname));
         // holder.imgThumbnail.setImageResource(numberImage.get(position));
-
-
 
 
     }
@@ -54,11 +49,12 @@ public class SubCategoryRecyclerAdapter extends RecyclerView.Adapter <SubCategor
     }
 
 
-    public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
             View.OnLongClickListener {
 
         TextView textView1;
         TextView textView2;
+
         public ViewHolder(View itemView) {
             super(itemView);
             textView1 = itemView.findViewById(R.id.rootcatagoritextView);
@@ -71,9 +67,10 @@ public class SubCategoryRecyclerAdapter extends RecyclerView.Adapter <SubCategor
         public void onClick(View view) {
             itemClickListener.onClick(view, getLayoutPosition(), false);
         }
+
         @Override
         public boolean onLongClick(View view) {
-            itemClickListener.onClick(view,getLayoutPosition(), true);
+            itemClickListener.onClick(view, getLayoutPosition(), true);
             return true;
         }
     }

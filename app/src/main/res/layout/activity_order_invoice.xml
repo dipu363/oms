@@ -24,7 +24,7 @@
             <LinearLayout
                 android:id="@+id/invoiceidtextid"
                 android:orientation="vertical"
-                android:background="@color/black"
+                android:background="@color/app_background_dark_blue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -559,121 +559,12 @@
                     android:layout_gravity="bottom|center"
                     android:src="@drawable/baseline_done_black_24dp"
                     android:layout_marginBottom="30dp"
-                    android:contentDescription="TODO" />
+                    android:backgroundTint="@color/app_background_white"
+                    android:contentDescription="TODO"
+                    tools:targetApi="lollipop" />
 
 
             </LinearLayout>
-
-
-
-
-
-
-
-
-            <!--            <TextView
-                            android:id="@+id/orderinvoic_customertext_id"
-                            android:textSize="14sp"
-                            android:textColor="@color/dark_gray"
-                            android:text="Code  :"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/orderinvoicetextid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp" />
-
-                        <TextView
-                            android:id="@+id/orderinvoic_customer_id"
-                            android:textSize="14sp"
-                            android:textColor="@color/dark_gray"
-                            android:text="Code"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/orderinvoiceid"
-                            android:layout_toRightOf="@+id/orderinvoic_customertext_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/orderinvoiceid"
-                            android:layout_marginStart="5dp" />
-                        <TextView
-                            android:id="@+id/stockid"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:text="In Stock :"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/productcodeid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp" />
-
-                        <TextView
-                            android:id="@+id/stockstatusid"
-                            android:textSize="16sp"
-                            android:textColor="@color/Green"
-                            android:text="1000"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/productcodeid2"
-                            android:layout_toRightOf="@+id/stockid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/stockid"
-                            android:layout_marginStart="5dp" />
-                        <TextView
-                            android:id="@+id/unitid"
-                            android:textSize="16sp"
-                            android:textColor="@color/Green"
-                            android:text="Unit"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/productcodeid2"
-                            android:layout_toRightOf="@+id/stockstatusid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/stockstatusid"
-                            android:layout_marginStart="5dp" />
-
-                        <TextView
-                            android:id="@+id/priceid"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:text="Price :"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/stockid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp" />
-
-                        <TextView
-                            android:id="@+id/propriceid"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:text="Price"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/stockstatusid"
-                            android:layout_toRightOf="@+id/pname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/pname"
-                            android:layout_marginStart="5dp" />
-                        <TextView
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:text="MR."
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_below="@id/stockstatusid"
-                            android:layout_toRightOf="@+id/propriceid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/propriceid"
-                            android:layout_marginStart="5dp" />-->
-
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

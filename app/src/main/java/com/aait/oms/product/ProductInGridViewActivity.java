@@ -1,5 +1,6 @@
 package com.aait.oms.product;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -24,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
@@ -33,7 +33,6 @@ import com.aait.oms.orders.OrderService;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
-import com.aait.oms.ui.HomeActivity;
 import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.ApplicationData;
@@ -57,6 +56,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     GridView gridView;
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
+    ProgressDialog progressDialog;
     ApplicationData applicationData;
     ProductGridAdapter productgridAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -78,6 +78,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         actionBar.setTitle("  All Products");
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
+        progressDialog = new ProgressDialog(this);
         applicationData = new ApplicationData(this);
         allcatgorylist = new ArrayList<>();
         gridView = findViewById(R.id.product_grid_view_id);
@@ -85,9 +86,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
-       // invalidateOptionsMenu();
-       //all time call net work check method as last line in hare ;
+        //all time call net work check method as last line in hare ;
         netWorkCheck(this);
     }
 
@@ -99,15 +98,14 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void netWorkCheck(Context context){
+    public void netWorkCheck(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             getcatList(context);
             getproduct(context);
 
-        }
-        else {
+        } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(" NO NetWork")
                     .setMessage("Enable Mobile Network ")
@@ -128,13 +126,11 @@ public class ProductInGridViewActivity extends AppCompatActivity {
             });
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
-
         }
-
     }
 
-// getting product category list
-    private  void getcatList(Context context){
+    // getting product category list
+    private void getcatList(Context context) {
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.getCatList();
@@ -142,25 +138,23 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
 
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         BaseResponse baseResponse = response.body();
                         allcatgorylist = baseResponse.getData();
-                        if(allcatgorylist.size() == 0){
-                            showMaseage("Data Not Found");
-                        }else {
+                        if (allcatgorylist.size() == 0) {
+                            appUtils.appToast("Data Not Found");
+                        } else {
                             String jsons = new Gson().toJson(allcatgorylist);
-                            Type listType = new TypeToken<ProdCatagoryModel[]>() {}.getType();
+                            Type listType = new TypeToken<ProdCatagoryModel[]>() {
+                            }.getType();
                             catagory = new Gson().fromJson(jsons, listType);
                             catagory = new Gson().fromJson(jsons, listType);
-                            adapter = new RootCatagoryRecyclerAdapter(catagory,context);
+                            adapter = new RootCatagoryRecyclerAdapter(catagory, context);
                             recyclerView.setAdapter(adapter);
                             Log.d("good", "onResponse: " + catagory);
                         }
-                    }
-                    else{
-
-                        showMaseage("Request Not Response");
-
+                    } else {
+                        appUtils.appToast("Request Not Response");
                     }
                 }
 
@@ -170,52 +164,50 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("Exception", "onResponse: " + e);
-
         }
     }
 
-
-// check category item click or not
+    // check category item click or not
     // if category item click then call category wise product method ;
     //if category item not click then call  get all products method ;
     private void getproduct(Context context) {
         int catid = 0;
         Bundle extras = getIntent().getExtras();
-        if (extras != null){
+        if (extras != null) {
             catid = extras.getInt("catid");
         }
 
-        if (catid != 0){
-            getcatagorywiseproduct(context,catid);
-        } else{
+        if (catid != 0) {
+            getcatagorywiseproduct(context, catid);
+        } else {
             allProductlist(context);
         }
     }
 
-//getting all products
-    private void allProductlist(Context context){
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
+    //getting all products
+    private void allProductlist(Context context) {
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
+        ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
         Call<BaseResponse> productlist = apiService.getallproduct();
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
 
-                if(baseResponse.getMessage().equals("") ) {
-                    showMaseage("Data Note found");
-                } else{
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
+                if (baseResponse.getMessage().equals("")) {
+                    appUtils.appToast("Data Note found");
+                } else {
                     allproductlist = baseResponse.getData();
                     List<ProductModel> prodname = new ArrayList();
                     ProductModel prod;
 
-
-                    for(int i = 0 ; i<allproductlist.size(); i++){
-                        Object getrow =allproductlist.get(i);
-                        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
+                    for (int i = 0; i < allproductlist.size(); i++) {
+                        Object getrow = allproductlist.get(i);
+                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
                         String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));
@@ -227,7 +219,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                         String activeStatus = String.valueOf(t.get("activeStatus"));
                         String ledgername = String.valueOf(t.get("ledgername"));
                         String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte =   String.valueOf(t.get("picByte"));
+                        String picbyte = String.valueOf(t.get("picByte"));
                         String imagetypt = String.valueOf(t.get("imageType"));
 
 
@@ -245,50 +237,48 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                         String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
 
                         // prod = new StockViewModel(pcode,uomName,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
+                        prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
                         prodname.add(prod);
                     }
-
-                    Log.d("prodname",prodname.toString());
-
-                    productgridAdapter = new ProductGridAdapter(context,prodname);
+                    productgridAdapter = new ProductGridAdapter(context, prodname);
                     gridView.setAdapter(productgridAdapter);
+                    progressDialog.dismiss();
 
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
+                Log.e("failure", t.getLocalizedMessage());
 
             }
         });
 
     }
-    //getting category wise products
-    private void getcatagorywiseproduct(Context context, int id){
 
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
+    //getting category wise products
+    private void getcatagorywiseproduct(Context context, int id) {
+
+        ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
         Call<BaseResponse> productlist = apiService.getproductbyl1id(id);
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
 
-                if(baseResponse.getMessage().equals("") ) {
-                    showMaseage("Data Note found");
-                } else{
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
+                if (baseResponse.getMessage().equals("")) {
+
+                    appUtils.appToast("Data Note found");
+                } else {
                     assert baseResponse != null;
                     allproductlist = baseResponse.getItems();
                     List<ProductModel> prodname = new ArrayList();
                     ProductModel prod;
 
 
-                    for(int i = 0 ; i<allproductlist.size(); i++){
-                        Object getrow =allproductlist.get(i);
-                        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
+                    for (int i = 0; i < allproductlist.size(); i++) {
+                        Object getrow = allproductlist.get(i);
+                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
                         String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));
@@ -300,42 +290,32 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                         String activeStatus = String.valueOf(t.get("activeStatus"));
                         String ledgername = String.valueOf(t.get("ledgername"));
                         String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte =   String.valueOf(t.get("picByte"));
+                        String picbyte = String.valueOf(t.get("picByte"));
                         String imagetypt = String.valueOf(t.get("imageType"));
 
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
+                        prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
                         prodname.add(prod);
 
                     }
-
-                   // Log.d("prodname",prodname.toString());
-
-                    productgridAdapter = new ProductGridAdapter(context,prodname);
+                    productgridAdapter = new ProductGridAdapter(context, prodname);
                     gridView.setAdapter(productgridAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
+                Log.e("failure", t.getLocalizedMessage());
 
             }
         });
     }
 
-// for toast massage showing
-    private void showMaseage( String msg){
-
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       getMenuInflater().inflate(R.menu.card_menu,menu);
+        getMenuInflater().inflate(R.menu.card_menu, menu);
 
-      final MenuItem menuItem = menu.findItem(R.id.tabCartId);
-       View actionView = menuItem.getActionView();
+        final MenuItem menuItem = menu.findItem(R.id.tabCartId);
+        View actionView = menuItem.getActionView();
         Cursor cursor = sqLiteDB.getAllCardProduct();
         textView = actionView.findViewById(R.id.cart_badge_text_view);
         textView.setText(String.valueOf(cursor.getCount()));
@@ -347,7 +327,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         });
 
 
-        return  true;
+        return true;
 
     }
 
@@ -356,7 +336,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
-        } else if(item.getItemId() == R.id.tabCartId) {
+        } else if (item.getItemId() == R.id.tabCartId) {
             SQLiteDB sqLiteDB = new SQLiteDB(this);
             Cursor cursor1 = sqLiteDB.getUserInfo();
             Cursor cursor2 = sqLiteDB.getAllCardProduct();

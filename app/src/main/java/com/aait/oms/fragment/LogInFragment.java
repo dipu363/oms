@@ -39,16 +39,15 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     // private FirebaseAuth mAuth;
     private final String username = null;
     private EditText useremail, userpasswordid;
-    private Button signup;
+    Button signup;
     private FloatingActionButton login;
     private ProgressBar loginProgress;
     private AppUtils appUtils;
-    private ApplicationData applicationData;
+    ApplicationData applicationData;
 
     public LogInFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +62,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
         login = view.findViewById(R.id.btn_login_frag);
@@ -75,7 +75,6 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         loginProgress.setVisibility(View.INVISIBLE);
         return view;
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -91,10 +90,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
         }
-
-
     }
-
 
     // check mobile net work status and then call checkvalidity method ;
     public void netWorkCheck() {
@@ -104,7 +100,6 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
             appUtils.networkAlertDialog();
         }
     }
-
 
     private void checkValidity() {
         String uemail = useremail.getText().toString();
@@ -120,7 +115,6 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
             signIn(uemail, upass);
         }
     }
-
 
     public void signIn(String uname, String pass) {
 
@@ -138,11 +132,8 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                     } else {
                         loginProgress.setVisibility(View.VISIBLE);
                         login.setVisibility(View.INVISIBLE);
-
                         Gson gson = new Gson();
                         String json = gson.toJson(baseResponse.getObj());
-                   /* JsonObject jsonObject = null;
-                    jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
                         Type typeMyType = new TypeToken<UserRequest>() {
                         }.getType();
                         UserRequest user = gson.fromJson(json, typeMyType);
@@ -150,38 +141,33 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                         String userRole = user.getRoleId();
                         if (userPassword != null && userPassword.equals(pass) && userRole.equals("102.0")) {
                             //save username to sqlite db  for getting session;
-
                             SQLiteDB sqLiteDB = new SQLiteDB(getContext());
                             Cursor cursor = sqLiteDB.getUserInfo();
 
                             if (cursor != null && cursor.moveToFirst()) {
                                 sqLiteDB.updateuserunamepassstatus(uname, pass, true, 1);
                             } else {
-
                                 UserRequest userRequest = new UserRequest();
                                 userRequest.setUserName(uname);
                                 userRequest.setMobiPassword(pass);
                                 userRequest.setLogin_status(true);
                                 sqLiteDB.insertUserinfo(userRequest);
-
                             }
 
                             appUtils.appToast("Congratulation");
                             Intent intent = new Intent(getContext(), HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-
                             clear();
+                            getActivity().finish();
+                            loginProgress.setVisibility(View.INVISIBLE);
 
                         } else {
                             appUtils.appToast("Password or Role not mach");
                             login.setVisibility(View.VISIBLE);
                             loginProgress.setVisibility(View.INVISIBLE);
-
                         }
-
                     }
-
                 }
             }
 

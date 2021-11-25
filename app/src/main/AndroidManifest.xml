@@ -80,7 +80,6 @@
         <activity android:name=".supplier.SupplierListActivity" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Oms.NoActionBar" />

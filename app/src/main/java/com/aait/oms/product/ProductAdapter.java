@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aait.oms.R;
-import com.aait.oms.product.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,21 +54,11 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-      /*  Object getrow =productModelList.get(position);
-        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;*/
         ProductModel product = itemsModelListFiltered.get(position);
-
-/*        // for get serial no of list item
-        ArrayList<String> listWithSerialNumber = new ArrayList<>();
-        for (int i = 0; i < itemsModelListFiltered.size(); i++) {
-            listWithSerialNumber.add(String.valueOf(i + 1));
-        }*/
-
-        if(convertView==null){
+        if (convertView == null) {
 
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.supplier_samplelist_layout,null);
+            convertView = layoutInflater.inflate(R.layout.supplier_samplelist_layout, null);
 
         }
 
@@ -84,10 +73,10 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         productname.setText(product.getProductname());
         prodcode.setText(product.getL4code());
         stock.setText("Available");
-        price.setText("TK. "+product.getSalesrate());
+        price.setText("TK. " + product.getSalesrate());
 
-        byte[] bytes = Base64.decode(product.getPicByte(),Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         productImage.setImageBitmap(bitmap);
 
         return convertView;
@@ -100,24 +89,21 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
             protected FilterResults performFiltering(CharSequence constraint) {
 
                 FilterResults filterResults = new FilterResults();
-                if(constraint.length() == 0){
+                if (constraint.length() == 0) {
                     filterResults.count = productModels.size();
                     filterResults.values = productModels;
 
-                }else{
+                } else {
                     List<ProductModel> resultsModel = new ArrayList<>();
                     String searchStr = constraint.toString().toLowerCase();
 
-                    for(ProductModel prod:productModels){
-
-                        if(prod.getProductname().toLowerCase().contains(searchStr)){
+                    for (ProductModel prod : productModels) {
+                        if (prod.getProductname().toLowerCase().contains(searchStr)) {
                             resultsModel.add(prod);
-
                         }
                         filterResults.count = resultsModel.size();
                         filterResults.values = resultsModel;
                     }
-
 
                 }
 
@@ -129,7 +115,6 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
 
                 itemsModelListFiltered = (List<ProductModel>) results.values;
                 notifyDataSetChanged();
-
             }
         };
         return filter;

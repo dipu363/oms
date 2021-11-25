@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -53,7 +52,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
 
 
     RecyclerView recyclerView;
-    TextView subrecycletextid;
     RecyclerView.LayoutManager layoutManager;
     SubCategoryRecyclerAdapter subrecycleradapter;
     List<ProdSubCatagoryModel> allsubcatgorylist;
@@ -82,11 +80,9 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(rootcatname);
 
-
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
         allsubcatgorylist = new ArrayList<>();
-        // gridView = findViewById(R.id.subcat_product_grid_view_id);
         recyclerView = findViewById(R.id.subcatrecyclerView_id);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -101,7 +97,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
         }
 
         invalidateOptionsMenu();
-        //subrecycletextid.setText("All "+rootcatname+" 's");
         netWorkCheck(this, this);
     }
 
@@ -113,7 +108,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             getsubcatList(context, onclickeventListener);
 
-
             Bundle bundle = new Bundle();
             bundle.putInt("rootcatid", rootcatid);
             Fragment fragment = RootCatagoryFragment.newInstance();
@@ -121,8 +115,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.prodctfragmentontainer, fragment);
             transaction.commit();
-            // getproduct(context);
-
 
         } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -145,33 +137,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
             });
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
-
-        }
-
-    }
-
-
-    // check category item click or not
-    // if category item click then call category wise product method ;
-    //if category item not click then call  get all products method ;
-    private void getproduct(Context context, OnclickeventListener onclickeventListener) {
-        int subcat = 0;
-        String subcatname = "Sub Category Items";
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            subcat = extras.getInt("subcatid");
-            subcatname = extras.getString("subcatname");
-
-        }
-
-        if (subcat != 0) {
-            //getsubcatList(context);
-            // allsubCatWiseProductlist(context,subcat);
-            subrecycletextid.setText("All " + subcatname + "'s");
-        } else {
-            getsubcatList(context, onclickeventListener);
-            //getcatagorywiseproduct(context);
-            subrecycletextid.setText("All " + rootcatname + " 's");
         }
     }
 
@@ -188,7 +153,7 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
                         BaseResponse baseResponse = response.body();
                         allsubcatgorylist = baseResponse.getItems();
                         if (allsubcatgorylist.size() == 0) {
-                            showMaseage("Data Not Found");
+                            appUtils.appToast("Data Not Found");
                         } else {
                             String jsons = new Gson().toJson(allsubcatgorylist);
                             Type listType = new TypeToken<ProdSubCatagoryModel[]>() {
@@ -200,8 +165,7 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
                             Log.d("good", "onResponse: " + subcatagory);
                         }
                     } else {
-
-                        showMaseage("Request Not Response");
+                        appUtils.appToast("Request Not Response");
 
                     }
                 }
@@ -217,34 +181,20 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
         }
     }
 
-    // for toast massage showing
-    private void showMaseage(String msg) {
-
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.card_menu, menu);
-
         final MenuItem menuItem = menu.findItem(R.id.tabCartId);
         View actionView = menuItem.getActionView();
-
         TextView textView = actionView.findViewById(R.id.cart_badge_text_view);
         textView.setText(String.valueOf(cardList.size()));
-
-
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onOptionsItemSelected(menuItem);
             }
         });
-
-
         return true;
-
     }
 
     @Override
@@ -253,13 +203,8 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.tabCartId) {
-
-
             int loginstatus = 0;
-
-            // FirebaseUser  user = mAuth.getCurrentUser();
             SQLiteDB sqLiteDB = new SQLiteDB(this);
-            //sqLiteDB.updateuserotp(currentuser,1);
             Cursor cursor = sqLiteDB.getUserInfo();
             if (cursor.moveToFirst()) {
                 loginstatus = cursor.getInt(4);
@@ -280,7 +225,6 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
                 startActivity(intent);
                 finish();
             }
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -288,20 +232,14 @@ public class CategoryWiseProductViewActivity extends AppCompatActivity implement
     @Override
     public void onClick(View view, int position, boolean isLongClick) {
         if (isLongClick) {
-            Toast.makeText(this, "LongClick", Toast.LENGTH_SHORT).show();
         } else {
             Bundle bundle = new Bundle();
             bundle.putInt("subcatcatid", subcatagory[position].getL2Code());
-
             Fragment fragment = SubCatagoryFragment.newInstance();
             fragment.setArguments(bundle);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.prodctfragmentontainer, fragment);
             transaction.commit();
         }
-
-
     }
-
-
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.aait.oms.R;
@@ -46,10 +45,10 @@ public class SummaryAdapter extends BaseAdapter {
             listWithSerialNumber.add(String.valueOf(i + 1));
         }
 
-        if(convertView == null){
+        if (convertView == null) {
 
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.order_productlist_sample_layout,parent,false);
+            convertView = layoutInflater.inflate(R.layout.order_productlist_sample_layout, parent, false);
 
         }
         TextView serialno = convertView.findViewById(R.id.sum_prod_sl_id);
@@ -64,17 +63,9 @@ public class SummaryAdapter extends BaseAdapter {
         rate.setText(cardModel.getSalesrate());
         qty.setText(String.valueOf(cardModel.getQty()));
         serialno.setText(String.valueOf(listWithSerialNumber.get(position)));
-        int q  = cardModel.getQty();
+        int q = cardModel.getQty();
         float p = Float.parseFloat(cardModel.getSalesrate());
-        price.setText(String.valueOf(p*q));
-
-
-
-
-
-
-
-
+        price.setText(String.valueOf(p * q));
 
         return convertView;
     }

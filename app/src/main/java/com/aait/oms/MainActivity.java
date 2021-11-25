@@ -2,6 +2,7 @@ package com.aait.oms;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
 
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // set initali selected fragment
-        meowBottomNavigation.show(4, true);
+        meowBottomNavigation.show(1, true);
         meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {

@@ -17,10 +17,6 @@ import com.aait.oms.orders.OrderActivity;
 import com.aait.oms.product.ProductInGridViewActivity;
 import com.aait.oms.users.MyReferenceActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     CardView card_option1, card_option2, card_option3, card_option4;
@@ -34,17 +30,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_home_fragment, container, false);
 
-          card_option1 = view.findViewById(R.id.cardviewadmin_Optino1);
+        card_option1 = view.findViewById(R.id.cardviewadmin_Optino1);
         card_option2 = view.findViewById(R.id.cardviewadmin_Optino2);
         card_option3 = view.findViewById(R.id.cardviewadmin_Optino3);
         card_option4 = view.findViewById(R.id.cardviewadmin_Optino4);
-        textView1= view.findViewById(R.id.dashboard_comnameid);
+        textView1 = view.findViewById(R.id.dashboard_comnameid);
         card_option1.setOnClickListener(this);
         card_option2.setOnClickListener(this);
         card_option3.setOnClickListener(this);
         card_option4.setOnClickListener(this);
-
-
         return view;
 
     }
@@ -52,7 +46,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.cardviewadmin_Optino1:
                 Intent intent1 = new Intent(getContext(), ProductInGridViewActivity.class);
@@ -63,15 +57,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent2);
                 break;
             case R.id.cardviewadmin_Optino3:
-            Intent intent3 = new Intent(getContext(), MyReferenceActivity.class);
-            startActivity(intent3);
-            break;
+                Intent intent3 = new Intent(getContext(), MyReferenceActivity.class);
+                startActivity(intent3);
+                break;
             case R.id.cardviewadmin_Optino4:
                 Intent intent4 = new Intent(getContext(), MyOrdersActivity.class);
                 startActivity(intent4);
                 break;
-
         }
-
     }
 }

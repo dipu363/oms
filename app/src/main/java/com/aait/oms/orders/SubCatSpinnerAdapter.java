@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
 import androidx.annotation.Nullable;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
 
@@ -20,7 +19,6 @@ public class SubCatSpinnerAdapter extends ArrayAdapter<ProdSubCatagoryModel> {
         this.context= context;
         this.subCatagoryModels= subcatmodel;
     }
-
 
     @Override
     public int getCount() {

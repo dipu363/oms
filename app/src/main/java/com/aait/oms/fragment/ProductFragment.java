@@ -1,6 +1,7 @@
 package com.aait.oms.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,7 +49,7 @@ import retrofit2.Response;
 
 
 public class ProductFragment extends Fragment {
-    TextView textView;
+
     RecyclerView recyclerView;
     GridView gridView;
     SQLiteDB sqLiteDB;
@@ -61,7 +62,8 @@ public class ProductFragment extends Fragment {
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
     ArrayList<String> cardList ;
-    Intent intent;
+
+    ProgressDialog progressDialog;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -79,7 +81,7 @@ public class ProductFragment extends Fragment {
         sqLiteDB = new SQLiteDB(getContext());
         appUtils = new AppUtils(getContext());
         applicationData = new ApplicationData(getContext());
-
+        progressDialog = new ProgressDialog(getContext());
 
     }
 
@@ -155,6 +157,7 @@ public class ProductFragment extends Fragment {
 
     // getting product category list
     private  void getcatList(Context context){
+
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
             Call<BaseResponse> call = service.getCatList();
@@ -196,23 +199,10 @@ public class ProductFragment extends Fragment {
         }
     }
 
-    // check category item click or not
-    // if category item click then call category wise product method ;
-    //if category item not click then call  get all products method ;
-    private void getproduct(Context context) {
-        int catid = getArguments().getInt("catid");
-
-        if (catid == 0){
-            allProductlist(context);
-        } else{
-            getcatagorywiseproduct(context,catid);
-
-        }
-    }
-
-
     //getting all products
     private void allProductlist(Context context){
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
         ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
         Call<BaseResponse> productlist = apiService.getallproduct();
         productlist.enqueue(new Callback<BaseResponse>() {
@@ -223,8 +213,6 @@ public class ProductFragment extends Fragment {
                 if(baseResponse.getMessage().equals("") ) {
                     appUtils.appToast("Data Note found");
                 } else{
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
                     allproductlist = baseResponse.getData();
                     List<ProductModel> prodname = new ArrayList();
                     ProductModel prod;
@@ -265,28 +253,9 @@ public class ProductFragment extends Fragment {
                         prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
                         prodname.add(prod);
                     }
-
-                    Log.d("prodname",prodname.toString());
-
                     productgridAdapter = new ProductGridAdapter(context,prodname);
                     gridView.setAdapter(productgridAdapter);
-
-                 /*   gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            ProductModel productModel =   prodname.get(position);
-                            Gson gson = new Gson();
-                            String product = gson.toJson(productModel);
-
-                            // String Productstring = productModel.toString();
-
-                            //System.out.println(product);
-                            Intent intent = new Intent(getContext(), Product_Details_view_Activity.class);
-                            intent.putExtra("product" , product);
-                            startActivity(intent);
-                        }
-                    });*/
+                    progressDialog.dismiss();
                 }
             }
 
@@ -297,80 +266,6 @@ public class ProductFragment extends Fragment {
             }
         });
 
+
     }
-
-    //getting category wise products
-    private void getcatagorywiseproduct(Context context, int id){
-
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getproductbyl1id(id);
-        productlist.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                BaseResponse baseResponse = response.body();
-
-                if(baseResponse.getMessage().equals("") ) {
-                    appUtils.appToast("Data Note found");
-                } else{
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
-                    assert baseResponse != null;
-                    allproductlist = baseResponse.getItems();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod;
-
-
-                    for(int i = 0 ; i<allproductlist.size(); i++){
-                        Object getrow =allproductlist.get(i);
-                        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
-
-                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte =   String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));
-
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
-                        prodname.add(prod);
-
-                    }
-
-                    // Log.d("prodname",prodname.toString());
-
-                    productgridAdapter = new ProductGridAdapter(context,prodname);
-                    gridView.setAdapter(productgridAdapter);
-
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ProductModel productModel =   prodname.get(position);
-                            Gson gson = new Gson();
-                            String product = gson.toJson(productModel);
-
-                            // String Productstring = productModel.toString();
-
-                            // System.out.println(product);
-                            Intent intent = new Intent(getContext(),Product_Details_view_Activity.class);
-                            intent.putExtra("product" , product);
-                            startActivity(intent);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
-
-            }
-        });
-    }
-
 }

@@ -1,5 +1,6 @@
 package com.aait.oms.fragment;
 
+import android.app.ProgressDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,30 +30,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Favorite_Product_Fragment extends Fragment {
-FavoriteProductAdapter adapter;
-ListView listView;
-List<ProductModel> productModelList;
-ArrayList <String> prodidlist =new ArrayList<>();
-ProductModel productModel;
-SQLiteDB sqLiteDB;
-AppUtils appUtils;
-
+    FavoriteProductAdapter adapter;
+    ListView listView;
+    List<ProductModel> productModelList;
+    ArrayList<String> prodidlist = new ArrayList<>();
+    ProductModel productModel;
+    SQLiteDB sqLiteDB;
+    AppUtils appUtils;
+    ProgressDialog progressDialog;
 
     public Favorite_Product_Fragment() {
         // Required empty public constructor
-    }
-
-    public static Favorite_Product_Fragment newInstance() {
-        Favorite_Product_Fragment fragment = new Favorite_Product_Fragment();
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         productModelList = new ArrayList<>();
-         sqLiteDB = new SQLiteDB(getContext());
-         appUtils = new AppUtils(getContext());
+        sqLiteDB = new SQLiteDB(getContext());
+        appUtils = new AppUtils(getContext());
+        progressDialog = new ProgressDialog(getContext());
     }
 
     @Override
@@ -60,43 +57,45 @@ AppUtils appUtils;
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_favorite_product, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite_product, container, false);
         listView = view.findViewById(R.id.fav_productlist_id);
         getFabProdId();
         return view;
     }
 
-public void getFabProdId(){
-    Cursor cursor = sqLiteDB.getallfavoriteProduct();
-    prodidlist.clear();
-    if ( cursor.moveToFirst()){
-        do {
-            prodidlist.add(cursor.getString(0));
-        }  while (cursor.moveToNext());
+    public void getFabProdId() {
+        Cursor cursor = sqLiteDB.getallfavoriteProduct();
+        prodidlist.clear();
+        if (cursor.moveToFirst()) {
+            do {
+                prodidlist.add(cursor.getString(0));
+            } while (cursor.moveToNext());
 
-        for (int i = 0 ;i< prodidlist.size();i++){
-            getsingleproduct(prodidlist.get(i));
+            for (int i = 0; i < prodidlist.size(); i++) {
+                getsingleproduct(prodidlist.get(i));
+            }
+        } else {
+            appUtils.appToast("There Have No Favorite Product");
         }
-    }else{
-        appUtils.appToast("There Have No Favorite Product");
     }
-}
 
     private void getsingleproduct(String id) {
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
+
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
+        ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
         Call<BaseResponse> productlist = apiService.getsingleproduct(id);
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
                 assert response.body() != null;
-                Log.e("success",response.body().toString());
-                if(response.isSuccessful()){
-                    Log.e("success",response.body().toString());
+                Log.e("success", response.body().toString());
+                if (response.isSuccessful()) {
+                    Log.e("success", response.body().toString());
                     BaseResponse baseResponse = response.body();
-                    // assert baseResponse != null;
-
-                    Object row =  baseResponse.getObj();
-                    LinkedTreeMap<Object,Object> t = (LinkedTreeMap) row;
+                    assert baseResponse != null;
+                    Object row = baseResponse.getObj();
+                    LinkedTreeMap<Object, Object> t = (LinkedTreeMap) row;
                     String l1code = String.valueOf(t.get("l1code"));
                     String l2code = String.valueOf(t.get("l2code"));
                     String l3code = String.valueOf(t.get("l3code"));
@@ -107,23 +106,22 @@ public void getFabProdId(){
                     String activeStatus = String.valueOf(t.get("activeStatus"));
                     String ledgername = String.valueOf(t.get("ledgername"));
                     String producPhoto = String.valueOf(t.get("productPhoto"));
-                    String picbyte =   String.valueOf(t.get("picByte"));
+                    String picbyte = String.valueOf(t.get("picByte"));
                     String imagetypt = String.valueOf(t.get("imageType"));
 
-                    productModel =  new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
+                    productModel = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
                     productModelList.add(productModel);
 
                 }
 
-                adapter = new FavoriteProductAdapter(getContext(),productModelList);
+                adapter = new FavoriteProductAdapter(getContext(), productModelList);
                 listView.setAdapter(adapter);
-
-
+                progressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.d("failure",t.getLocalizedMessage());
+            public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
+                Log.d("failure", t.getLocalizedMessage());
 
             }
         });

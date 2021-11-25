@@ -62,7 +62,6 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
 
         sqLiteDB = new SQLiteDB(this);
         appUtils = new AppUtils(this);
-
         addToCart.setOnClickListener(this);
         removeCart.setOnClickListener(this);
         favorite.setOnClickListener(this);
@@ -159,17 +158,11 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.card_menu, menu);
-
         final MenuItem menuItem = menu.findItem(R.id.tabCartId);
         View actionView = menuItem.getActionView();
-
-
         TextView textView = actionView.findViewById(R.id.cart_badge_text_view);
         textView.setText(String.valueOf(cardList.size()));
-
         actionView.setOnClickListener(view -> onOptionsItemSelected(menuItem));
-
-
         return true;
 
     }
@@ -182,10 +175,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         } else if (item.getItemId() == R.id.tabCartId) {
 
             int loginstatus = 0;
-
-            // FirebaseUser  user = mAuth.getCurrentUser();
             SQLiteDB sqLiteDB = new SQLiteDB(this);
-            //sqLiteDB.updateuserotp(currentuser,1);
             Cursor cursor = sqLiteDB.getUserInfo();
             if (cursor.moveToFirst()) {
                 loginstatus = cursor.getInt(4);

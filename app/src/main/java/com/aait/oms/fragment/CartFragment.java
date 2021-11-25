@@ -1,5 +1,6 @@
 package com.aait.oms.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,6 +48,7 @@ public class CartFragment extends Fragment {
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
     ApplicationData applicationData;
+    ProgressDialog progressDialog;
 
     public CartFragment() {
         // Required empty public constructor
@@ -63,6 +66,7 @@ public class CartFragment extends Fragment {
         sqLiteDB = new SQLiteDB(getContext());
         appUtils = new AppUtils(getContext());
         applicationData = new ApplicationData(getContext());
+        progressDialog = new ProgressDialog(getContext());
     }
 
     @Override
@@ -98,6 +102,7 @@ public class CartFragment extends Fragment {
                 Intent intent = new Intent(getContext(), LogInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+               // getActivity().finish();
             }
 
         });
@@ -124,6 +129,8 @@ public class CartFragment extends Fragment {
 
 
     private void getsingleproduct(String id) {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
         ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
         Call<BaseResponse> productlist = apiService.getsingleproduct(id);
         productlist.enqueue(new Callback<BaseResponse>() {
@@ -158,6 +165,8 @@ public class CartFragment extends Fragment {
 
                 adapter = new CartFrgAdapter(getContext(), productModelList);
                 listView.setAdapter(adapter);
+                progressDialog.dismiss();
+
 
 
             }
