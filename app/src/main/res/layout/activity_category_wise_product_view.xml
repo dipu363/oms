@@ -38,14 +38,6 @@
 
         </FrameLayout>
 
-     <!--   <GridView
-            android:id="@+id/subcat_product_grid_view_id"
-            android:background="@color/white"
-            android:horizontalSpacing="3dp"
-            android:verticalSpacing="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="2"/>-->
     </LinearLayout>
 
 </LinearLayout>

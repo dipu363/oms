@@ -13,13 +13,13 @@
         android:textSize="20sp"
         android:padding="5dp"
         android:textStyle="bold"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical" />
 
 
     <ListView
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/cart_fr_productlist_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,13 +28,12 @@
 
     <Button
         android:id="@+id/frag_cart_btn_conti_id"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:background="@drawable/edit_text_shape"
+        android:layout_gravity="top|right"
         android:text="Continue"
         android:textSize="16sp"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_white"
         tools:ignore="RtlHardcoded" />
 </FrameLayout>
