@@ -3,6 +3,54 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable-v21/ic_add_shopping_cart_black_24dp.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable-v21/ic_home_icon.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable-v21/ic_profile.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable-v24/circlebacground_color.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable-v24/list_item_shape.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/card_background_border_shape.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/circlebacground_greencolor.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/circlebagraound_color_pink.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/edit_text_shape.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic__east_60.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_activeicon_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_add_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_arrow_drop_down_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_background_footer.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_background_header.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_active_run_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_calendar_today_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_delete_60.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_doler_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_favorite_botton_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_feedback_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_layers_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_location_on_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_mail_outline_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_navigate_next_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_perm_identity_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_person_outline_40.xml" value="0.26615384615384613" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_phone_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_product_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_shopping_cart_white24.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_task_alt_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_west_40.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_check_box_60.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_navigate_before_60.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_navigate_next_60.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_remove_24.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/serial_no_shap.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/spinner_border.xml" value="0.1" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/submit_button_shape.xml" value="0.2703125" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/layout/fragment_product.xml" value="0.25416666666666665" />
       </map>
     </option>

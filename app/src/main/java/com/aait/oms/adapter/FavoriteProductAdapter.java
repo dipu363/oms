@@ -59,8 +59,6 @@ public class FavoriteProductAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.favorite_product_sample_layout, null);
 
         }
-
-
         TextView productname = view.findViewById(R.id.fav_prod_nameid);
         TextView prodcode = view.findViewById(R.id.fav_prod_codeid2);
         TextView price = view.findViewById(R.id.fav_prod_Priceid);
@@ -101,14 +99,8 @@ public class FavoriteProductAdapter extends BaseAdapter {
                 sqLiteDB.deleteFavSingleProduct(product.getL4code());
                 productModels.remove(i); // remove the item
                 notifyDataSetChanged();
-
-
             }
         });
-
-
         return view;
-
-
     }
 }

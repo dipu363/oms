@@ -56,11 +56,8 @@ public class CartFrgAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             view = layoutInflater.inflate(R.layout.cart_sample_layout, null);
-
         }
-
 
         TextView productname = view.findViewById(R.id.cart_fr_prod_nameid);
         TextView prodcode = view.findViewById(R.id.cart_fr_prod_codeid2);
@@ -72,11 +69,9 @@ public class CartFrgAdapter extends BaseAdapter {
         prodcode.setText(product.getL4code());
         stock.setText("Available");
         price.setText("TK. " + product.getSalesrate());
-
         byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         productImage.setImageBitmap(bitmap);
-
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,13 +79,8 @@ public class CartFrgAdapter extends BaseAdapter {
                 sqLiteDB.deleteSingleProduct(product.getL4code());
                 productModels.remove(i); // remove the item
                 notifyDataSetChanged();
-
             }
         });
-
-
         return view;
-
-
     }
 }

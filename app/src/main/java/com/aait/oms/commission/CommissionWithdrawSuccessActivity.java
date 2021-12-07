@@ -21,7 +21,7 @@ import java.util.Date;
 
 public class CommissionWithdrawSuccessActivity extends AppCompatActivity {
 
-    TextView trandate,transecid,reqamount,charge,totalamount;
+    TextView trandate, transecid, reqamount, charge, totalamount;
     FloatingActionButton fab;
 
 
@@ -30,8 +30,8 @@ public class CommissionWithdrawSuccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commission_withdraw_success);
-        fab = findViewById(R.id.btn_commissionfab_id);
 
+        fab = findViewById(R.id.btn_commissionfab_id);
         trandate = findViewById(R.id.com_req_dateid);
         transecid = findViewById(R.id.com_req_transacid);
         reqamount = findViewById(R.id.com_req__amountid);
@@ -39,8 +39,7 @@ public class CommissionWithdrawSuccessActivity extends AppCompatActivity {
         totalamount = findViewById(R.id.com_req__totalamountid);
         Date date = new Date();
         @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-        String reqdate=formeter.format(date);
-
+        String reqdate = formeter.format(date);
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
@@ -54,25 +53,15 @@ public class CommissionWithdrawSuccessActivity extends AppCompatActivity {
         charge.setText(chargeamount);
         totalamount.setText(totalreqamount);
 
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommissionWithdrawSuccessActivity.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
 
             }
         });
-
-
-
-
-
-
-
-
-
     }
 }

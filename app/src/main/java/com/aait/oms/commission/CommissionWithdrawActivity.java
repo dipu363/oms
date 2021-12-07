@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,11 +21,6 @@ import android.widget.Toast;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.orders.ConfirmOrderActivity;
-import com.aait.oms.orders.OrderInvoiceActivity;
-import com.aait.oms.orders.OrderMasterModel;
-import com.aait.oms.ui.HomeActivity;
-import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.CommonFunctions;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
@@ -40,20 +35,17 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Formatter;
 
-import okhttp3.internal.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CommissionWithdrawActivity extends AppCompatActivity implements View.OnClickListener, CommonFunctions {
 
-    EditText transectionamount,transectionpassword;
-    TextView massagetextview ,balancetextview;
-
-    Button btn_send,btn_next1,btn_next2;
-    float ablebalance ;
+    EditText transectionamount, transectionpassword;
+    TextView massagetextview, balancetextview;
+    Button btn_send, btn_next1;
+    float ablebalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +53,7 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_commission_withdraw);
 
         ActionBar actionBar = getSupportActionBar();
-        assert actionBar !=null;
+        assert actionBar != null;
         actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Commission Withdraw");
         actionBar.setDisplayShowHomeEnabled(true);
@@ -70,12 +62,11 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
 
         transectionamount = findViewById(R.id.transection_amount_edittextid);
         transectionpassword = findViewById(R.id.transection_password_edittextid);
-
         massagetextview = findViewById(R.id.withdrawmassegeid);
         balancetextview = findViewById(R.id.withdrawbalancetextid);
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle!= null){
+        if (bundle != null) {
             String bal = bundle.getString("balance");
             ablebalance = Float.parseFloat(bal);
 
@@ -88,65 +79,53 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
 
         btn_send = findViewById(R.id.withdraw_btn_send);
         btn_next1 = findViewById(R.id.withdraw_btn_next1);
-       // btn_next2 = findViewById(R.id.withdraw_btn_next2);
         btn_next1.setOnClickListener(this);
         btn_send.setOnClickListener(this);
-
 
     }
 
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.withdraw_btn_next1:
-                String req_amount= transectionamount.getText().toString();
-                if(TextUtils.isEmpty(req_amount )){
+                String req_amount = transectionamount.getText().toString();
+                if (TextUtils.isEmpty(req_amount)) {
                     transectionamount.setError("Please Enter Request amount");
                     transectionamount.requestFocus();
-                }
-                else {
+                } else {
                     float reqbalance = Float.parseFloat(req_amount);
-                    float tax = reqbalance*2/100;
+                    float tax = reqbalance * 2 / 100;
                     float totalrequst = reqbalance + tax;
-                    if (totalrequst > ablebalance){
+                    if (totalrequst > ablebalance) {
                         transectionamount.setError(" You have not Enough amount available");
                         transectionamount.requestFocus();
 
-                    }else{
+                    } else {
                         transectionamount.setVisibility(View.INVISIBLE);
                         btn_next1.setVisibility(View.INVISIBLE);
                         transectionpassword.setVisibility(View.VISIBLE);
                         btn_send.setVisibility(View.VISIBLE);
                     }
-
-
                 }
                 break;
 
             case R.id.withdraw_btn_send:
-                String pass= transectionpassword.getText().toString().trim();
-                if (TextUtils.isEmpty(pass)){
+                String pass = transectionpassword.getText().toString().trim();
+                if (TextUtils.isEmpty(pass)) {
                     transectionpassword.setError("Enter Your Password");
                     transectionpassword.requestFocus();
 
-                }else {
+                } else {
 
                     SQLiteDB sqLiteDB = new SQLiteDB(this);
-                    Cursor cursor =  sqLiteDB.getUserInfo();
+                    Cursor cursor = sqLiteDB.getUserInfo();
 
-                    if (cursor != null && cursor.moveToFirst()){
+                    if (cursor != null && cursor.moveToFirst()) {
                         String password = cursor.getString(3);
-                        if (password.equals(pass)){
-                         /*   transectionpassword.setVisibility(View.INVISIBLE);
-                            btn_send.setVisibility(View.INVISIBLE);
-                            massagetextview.setVisibility(View.VISIBLE);
-                            massagetextview.setText("Your Request has been sent Please Wait a moment for processing");
-                            massagetextview.setTextColor(Color.DKGRAY);
-                            Toast.makeText(CommissionWithdrawActivity.this, "Request Successful", Toast.LENGTH_SHORT).show();*/
+                        if (password.equals(pass)) {
                             saveWithdrawCommission();
-
-                        }else {
+                        } else {
                             transectionpassword.setText("");
                             transectionpassword.setError("Enter Your Password");
                             transectionpassword.requestFocus();
@@ -155,41 +134,34 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
                     }
 
                 }
-
                 break;
-
         }
     }
-
-
-
 
 
     private void saveWithdrawCommission() {
         String username = "";
         Date date = new Date();
         @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("yyyy-MM-dd");
-        String reqdate=formeter.format(date);
+        String reqdate = formeter.format(date);
 
         long trsecid = date.getTime();
-        String transecid = String.valueOf(trsecid).substring(4,13);
+        String transecid = String.valueOf(trsecid).substring(4, 13);
 
-        String withtype ="Cash";
-        float req_amount= Float.parseFloat(transectionamount.getText().toString().trim()) ;
-        float tax = req_amount*2/100;
+        String withtype = "Cash";
+        float req_amount = Float.parseFloat(transectionamount.getText().toString().trim());
+        float tax = req_amount * 2 / 100;
         float totalrequestamount = req_amount + tax;
 
 
         SQLiteDB sqLiteDB = new SQLiteDB(this);
-        Cursor cursor =  sqLiteDB.getUserInfo();
+        Cursor cursor = sqLiteDB.getUserInfo();
         if (cursor != null && cursor.moveToFirst()) {
-             username = cursor.getString(1);
+            username = cursor.getString(1);
         }
 
 
-
-
-        CommissionWithdrawModel commissionWithdrawModel = new CommissionWithdrawModel(username,reqdate,totalrequestamount,withtype,"1",req_amount,tax,transecid);
+        CommissionWithdrawModel commissionWithdrawModel = new CommissionWithdrawModel(username, reqdate, totalrequestamount, withtype, "1", req_amount, tax, transecid);
         CommissionService service = ApiClient.getRetrofit().create(CommissionService.class);
         Gson gson = new Gson();
         String json = gson.toJson(commissionWithdrawModel);
@@ -199,18 +171,17 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     assert response.body() != null;
                     String um = response.body();
                     // Log.d("um",um);
-                    BaseResponse baseResponse = objectMapperReadValue(um,BaseResponse.class);
-
-                    Object row= baseResponse.getObj();
-
+                    BaseResponse baseResponse = objectMapperReadValue(um, BaseResponse.class);
+                    Object row = baseResponse.getObj();
                     String jsons = new Gson().toJson(row);
-                    Type listType = new TypeToken<CommissionWithdrawModel>() {}.getType();
-                    CommissionWithdrawModel comwithmodel   = new Gson().fromJson(jsons , listType);
+                    Type listType = new TypeToken<CommissionWithdrawModel>() {
+                    }.getType();
+                    CommissionWithdrawModel comwithmodel = new Gson().fromJson(jsons, listType);
                     String comtranid = comwithmodel.transectionId;
                     String reqamount = String.valueOf(comwithmodel.getAfterTexBalance());
                     String charge = String.valueOf(comwithmodel.getTexAmount());
@@ -224,33 +195,27 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
                     startActivity(intent);
                     finish();
 
-                    Log.d("Success","Balance Withdraw Request Success");
-                    Log.d("save data",um);
+                    Log.d("Success", "Balance Withdraw Request Success");
+                    Log.d("save data", um);
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.d("Failure","Balance Withdraw Request Fail" + t.getMessage());
+                Log.d("Failure", "Balance Withdraw Request Fail" + t.getMessage());
             }
         });
-
-
-
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId()== android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
 
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }

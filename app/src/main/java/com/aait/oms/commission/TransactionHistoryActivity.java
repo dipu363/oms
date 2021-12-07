@@ -9,18 +9,16 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +29,9 @@ import retrofit2.Response;
 public class TransactionHistoryActivity extends AppCompatActivity {
 
     List<CommissionWithdrawModel> commissionWithdrawModelList;
-
     TransactionHistoryAdapter transactionHistoryAdapter;
-
-    ListView listView ;
+    ListView listView;
+    AppUtils appUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +39,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_history);
 
         ActionBar actionBar = getSupportActionBar();
-        assert actionBar !=null;
+        assert actionBar != null;
         actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Transaction History");
         actionBar.setDisplayShowHomeEnabled(true);
@@ -50,54 +47,43 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.transactionhislist_id);
         commissionWithdrawModelList = new ArrayList<>();
+        appUtils = new AppUtils(this);
 
         SQLiteDB sqLiteDB = new SQLiteDB(this);
         Cursor cursor = sqLiteDB.getUserInfo();
-        String uname ="";
-
-        if(cursor.moveToFirst()){
+        String uname = "";
+        if (cursor.moveToFirst()) {
             uname = cursor.getString(1);
         }
-
-        getuserWithdrawcommission(this,uname);
-
-
+        getuserWithdrawcommission(this, uname);
     }
 
 
-
-    public void getuserWithdrawcommission(Context context, String uname){
+    public void getuserWithdrawcommission(Context context, String uname) {
         CommissionService commissionService = ApiClient.getRetrofit().create(CommissionService.class);
         Call<BaseResponse> call = commissionService.getuserWithdrawCommission(uname);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if(response.isSuccessful()){
-
+                if (response.isSuccessful()) {
                     BaseResponse baseResponse = response.body();
                     commissionWithdrawModelList = baseResponse.getItems();
-
                     Gson gson = new Gson();
                     String json = gson.toJson(commissionWithdrawModelList);
-                    Type typeMyType = new TypeToken<ArrayList<CommissionWithdrawModel>>(){}.getType();
+                    Type typeMyType = new TypeToken<ArrayList<CommissionWithdrawModel>>() {
+                    }.getType();
                     ArrayList<CommissionWithdrawModel> myObject = gson.fromJson(json, typeMyType);
-
-
-                    transactionHistoryAdapter = new TransactionHistoryAdapter(context,myObject);
+                    transactionHistoryAdapter = new TransactionHistoryAdapter(context, myObject);
                     listView.setAdapter(transactionHistoryAdapter);
-                    // Log.d("Response",response.body().toString());
 
-
-                } else{
-                    Toast.makeText(TransactionHistoryActivity.this, "Data Not Found", Toast.LENGTH_SHORT).show();
+                } else {
+                    appUtils.appToast("Data Not Found");
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
-                Toast.makeText(TransactionHistoryActivity.this, "Server Not found,root cause"+ t.getMessage(), Toast.LENGTH_SHORT).show();
-
+                appUtils.appToast("Server Not found,root cause");
             }
         });
 
@@ -106,7 +92,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId()== android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
 
             finish();
         }

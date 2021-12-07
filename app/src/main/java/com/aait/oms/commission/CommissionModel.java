@@ -3,11 +3,10 @@ package com.aait.oms.commission;
 public class CommissionModel {
 
 
-
     String userName;
-    String mnyr ;
-    Float comBlance ;
-    String commType ;
+    String mnyr;
+    Float comBlance;
+    String commType;
 
     public CommissionModel(String userName, String mnyr, Float comBlance, String commType) {
         this.userName = userName;

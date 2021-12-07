@@ -6,14 +6,14 @@ import java.util.Date;
 public class CommissionWithdrawModel {
 
 
-    String userName ;
-    String transDate ;
-    float transAmount ;
-    String withdrawType ;
-    String status ;
-    float afterTexBalance ;
-    float texAmount ;
-    String transectionId ;
+    String userName;
+    String transDate;
+    float transAmount;
+    String withdrawType;
+    String status;
+    float afterTexBalance;
+    float texAmount;
+    String transectionId;
 
     public CommissionWithdrawModel() {
     }
