@@ -31,6 +31,7 @@
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.2703125" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_layers_40.xml" value="0.2703125" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_location_on_40.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_location_on_60.xml" value="0.2703125" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_mail_outline_40.xml" value="0.2703125" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/ic_baseline_navigate_next_40.xml" value="0.1" />
@@ -51,6 +52,9 @@
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/spinner_border.xml" value="0.1" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/drawable/submit_button_shape.xml" value="0.2703125" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/layout-v21/activity_user_detail.xml" value="0.1296875" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/layout/activity_confirm_order.xml" value="0.25416666666666665" />
+        <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/layout/activity_maps.xml" value="0.15520833333333334" />
         <entry key="..\:/DIPU WORK STATION/ANDROID WORKSPACE/Running Project/oms/app/src/main/res/layout/fragment_product.xml" value="0.25416666666666665" />
       </map>
     </option>

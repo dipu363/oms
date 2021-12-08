@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -63,6 +64,7 @@ import retrofit2.Response;
 public class ConfirmOrderActivity extends AppCompatActivity implements View.OnClickListener, CommonFunctions {
     TextView selectdelioption, branchadd, paytextviewmassage;
     RadioButton radioButton1, radioButton2;
+    ImageButton btnMap;
     EditText shipaddress, cmobile;
     Spinner branchspinner, paymentspinner;
     Button btnsubmint, btnContinue, btnInvoice;
@@ -100,9 +102,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         selectdelioption = findViewById(R.id.redioselecttextid);
         branchadd = findViewById(R.id.branch_add_id);
         cmobile = findViewById(R.id.cmobile_noid);
+        btnMap = findViewById(R.id.btn_map_info);
 
         deliverty = "";
         btnsubmint.setOnClickListener(this);
+        btnMap.setOnClickListener(this);
         allbranchlist = new ArrayList<>();
         senddatatoinvoice = new ArrayList<>();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -277,7 +281,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         senddatatoinvoice.add("5.0");
                         senddatatoinvoice.add(String.valueOf(grandtotal));
                         Log.d("SEND Data", senddatatoinvoice.toString());
-                        saveOrder(shipadd + "," + mobile + "," + option);
+                        saveOrder(deliverty + ", " + shipadd + ", " + mobile + ", " + option);
                     }
 
                 } else {
@@ -297,7 +301,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     senddatatoinvoice.add(total);
 
                     Log.d("SEND Data", senddatatoinvoice.toString());
-                    saveOrder(bname + "," + baddress + "," + bmobile + "," + option);
+                    saveOrder(deliverty + ", " + bname + ", " + baddress + ", " + bmobile + ", " + option);
                 }
             }
         } else if (v.getId() == R.id.dialog_btn_continue) {
@@ -311,6 +315,13 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             startActivity(intent);
             finish();
             fullScreen_dialog_1.dismiss();
+
+        }else if (v.getId() == R.id.btn_map_info){
+            Intent intent = new Intent(this,MapsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("address",baddress);
+            startActivity(intent);
+
 
         }
 

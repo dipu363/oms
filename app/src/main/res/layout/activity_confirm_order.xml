@@ -20,15 +20,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="12dp"
+            android:layout_margin="15dp"
             android:orientation="vertical">
             <TextView
-
-                android:textColor="@color/app_background_dark_blue"
-                android:layout_marginTop="20dp"
+                android:background="@color/app_background_dark_blue"
+                android:textColor="@color/text_color_white"
                 android:textSize="24sp"
-                android:gravity="center"
+                android:textAlignment="center"
                 android:text="Choose a Delivery Option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -36,7 +34,7 @@
 
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:background="@color/app_background_dark_blue"
+                android:background="@drawable/edit_text_shape"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -46,7 +44,7 @@
                     android:layout_height="wrap_content">
 
                     <RadioButton
-                        android:textColor="@color/text_color_white"
+                        android:textColor="@color/text_color_default"
                         android:id="@+id/radiobtn1"
                         android:textSize="18sp"
                         android:text="From Branch"
@@ -54,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <RadioButton
-                        android:textColor="@color/text_color_white"
+                        android:textColor="@color/text_color_default"
                         android:id="@+id/radiobtn2"
                         android:textSize="18sp"
                         android:onClick="onRadioButtonClicked"
@@ -65,48 +63,76 @@
 
 
                 </RadioGroup>
+
                 <TextView
                     android:id="@+id/redioselecttextid"
-                    android:padding="5dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_color_white"
-                    android:visibility="invisible"
-                    android:textAlignment="textStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start" />
+                    android:gravity="start"
+                    android:padding="5dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/text_color_default"
+                    android:textSize="14sp"
+                    android:visibility="invisible" />
             </LinearLayout>
 
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/linianlyourid2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight=".28"
+                android:layout_height="70dp"
+                android:layout_below="@+id/textlavel3"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spinner_delivary_optionid"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
+       <!--         <EditText
+                    android:id="@+id/edit_address_id"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="8"
                     android:background="@drawable/edit_text_shape"
-                    android:gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:spinnerMode="dropdown" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
+                    android:hint="Type Patient Address"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="16sp" />-->
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow_drop_down_24" />
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="8"
+                    android:orientation="horizontal">
 
-            </RelativeLayout>
+                    <Spinner
+                        android:id="@+id/spinner_delivary_optionid"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edit_text_shape"
+                        android:gravity="center"
+                        android:spinnerMode="dropdown" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_arrow_drop_down_24" />
+
+                </RelativeLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_map_info"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/edit_text_shape"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_baseline_location_on_60" />
+
+            </LinearLayout>
             <TextView
                 android:id="@+id/branch_add_id"
                 android:layout_marginTop="5dp"
@@ -162,7 +188,6 @@
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
                         android:background="@drawable/edit_text_shape"
                         android:gravity="center"
                         android:spinnerMode="dropdown" />
@@ -210,9 +235,9 @@
 
                 <Button
                     android:id="@+id/btnconfirmorderid"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="right"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/submit_button_shape"
                     android:text="@string/signup"

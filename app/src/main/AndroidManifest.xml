@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aait.oms">
 
-
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -12,9 +17,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -25,18 +28,35 @@
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".orders.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".product.CategoryWiseProductViewActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".product.Product_Details_view_Activity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".product.ProductInGridViewActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Trams_Condition_Activity"
             android:exported="true" />
@@ -46,22 +66,28 @@
         <activity android:name=".commission.TransactionHistoryActivity" />
         <activity android:name=".commission.CommissionWithdrawSuccessActivity" />
         <activity android:name=".commission.CommissionWithdrawActivity" />
-        <activity android:name=".orders.OrderDetailsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".orders.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".users.UserDetailActivity" />
         <activity android:name=".commission.UsersAccountActivity" />
         <activity android:name=".users.MyReferenceActivity" />
         <activity android:name=".orders.MyOrdersActivity" />
-        <activity android:name=".orders.OrderInvoiceActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".orders.ConfirmOrderActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".orders.SummaryActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".orders.CartActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".orders.OrderActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".orders.OrderInvoiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".orders.ConfirmOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".orders.SummaryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".orders.CartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".orders.OrderActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SendOtpActivity"
             android:theme="@style/Theme.Oms.NoActionBar" />
@@ -75,7 +101,6 @@
         <activity
             android:name=".ui.HomeActivity"
             android:screenOrientation="portrait" />
-
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".supplier.SupplierListActivity" />
         <activity
@@ -85,12 +110,13 @@
             android:theme="@style/Theme.Oms.NoActionBar" />
         <activity
             android:name=".ui.SplashScreenActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Oms.NoActionBar"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -30,6 +30,7 @@
     <string name="invoicemassege"> "Dear Customer, Thanks to you that you choose our company for purchase your needed product. you will get your ordered product on time at your chooseing delivery option."</string>
     <string name="password_at_lest_6_character">Password(At lest 6 character)</string>
     <string name="commissionwithdrawsuccess">Commission Withdraw Request Successful</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 
 </resources>
