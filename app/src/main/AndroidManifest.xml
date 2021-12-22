@@ -21,9 +21,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/app_logo"
+        android:icon="@mipmap/aborong_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_logo_round"
+        android:roundIcon="@mipmap/aborong_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Oms"
         android:usesCleartextTraffic="true"

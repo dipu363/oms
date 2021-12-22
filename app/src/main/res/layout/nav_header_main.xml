@@ -19,15 +19,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/deshboardid"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/logo"
                 android:layout_marginRight="10dp"
+                android:src="@drawable/aborong"
 
 
-                 />
+                />
 
 
             <TextView
@@ -72,7 +73,7 @@
                 android:layout_toRightOf="@+id/deshboardid"
                 android:layout_below="@+id/dashboard_compostid"
                 android:textColor="@color/text_color_white"
-                android:text="@string/company_address3"
+                android:text="@string/company_email"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textStyle="italic"
                 android:layout_toEndOf="@+id/deshboardid" />

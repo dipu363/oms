@@ -131,11 +131,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 option = (String) payAdapter.getItem(position);
                 if (option.equals("Online Banking")) {
                     paytextviewmassage.setVisibility(View.VISIBLE);
-                    paytextviewmassage.setText("Please sent your payment at PUBLIC BANK, Account no 3145263227, if you have any queries please Contact +60 95135005");
+                    paytextviewmassage.setText("Please sent your payment at PUBLIC BANK, Account no 3145263227, if you have any queries please Contact +60 143043600");
                     //paytextviewmassage.setTextColor(Color.WHITE);
                 } else if (option.equals("Cash On Delivery")) {
                     paytextviewmassage.setVisibility(View.VISIBLE);
-                    paytextviewmassage.setText("Please give your payment to our service provider. if you have any queries please Contact +60 95135005");
+                    paytextviewmassage.setText("Please give your payment to our service provider. if you have any queries please Contact +60 143043600");
                     //   paytextviewmassage.setTextColor(Color.WHITE);
                 } else {
                     option = "Select";

@@ -99,16 +99,19 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <com.mikhaellopez.circularimageview.CircularImageView
                             android:id="@+id/deshboardid"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/logo"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/aborong"
                             app:civ_border="true"
-                            android:layout_margin="5dp"
                             app:civ_border_color="@color/app_background_white"
-                            app:civ_border_width="1dp"
-                            />
+                            app:civ_border_width="1dp" />
 
 
                         <!--   <ImageView
@@ -129,18 +132,19 @@
                             android:textColor="@color/text_color_green"
                             android:textStyle="bold"
                             android:layout_toEndOf="@+id/deshboardid" />
+
                         <TextView
                             android:id="@+id/dashboard_comadd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_toRightOf="@+id/deshboardid"
                             android:layout_below="@+id/dashboard_comnameid"
-                            android:textColor="@color/text_color_green"
+                            android:layout_toEndOf="@+id/deshboardid"
+                            android:layout_toRightOf="@+id/deshboardid"
                             android:text="@string/company_address1"
                             android:textAppearance="?android:textAppearanceLarge"
-                            android:textStyle="italic"
-                            android:layout_toEndOf="@+id/deshboardid" />
+                            android:textColor="@color/text_color_green"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
                         <TextView
                             android:id="@+id/dashboard_compostid"
                             android:layout_width="wrap_content"
@@ -153,17 +157,18 @@
                             android:textAppearance="?android:textAppearanceLarge"
                             android:textStyle="italic"
                             android:layout_toEndOf="@+id/deshboardid" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_toRightOf="@+id/deshboardid"
                             android:layout_below="@+id/dashboard_compostid"
-                            android:textColor="@color/text_color_green"
-                            android:text="@string/company_address3"
+                            android:layout_toEndOf="@+id/deshboardid"
+                            android:layout_toRightOf="@+id/deshboardid"
+                            android:text="@string/company_email"
                             android:textAppearance="?android:textAppearanceLarge"
-                            android:textStyle="italic"
-                            android:layout_toEndOf="@+id/deshboardid" />
+                            android:textColor="@color/text_color_green"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
 
 
 

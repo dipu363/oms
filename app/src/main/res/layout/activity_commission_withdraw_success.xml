@@ -34,7 +34,7 @@
                         android:id="@id/invoiceimageid"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="3dp"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/aborong"
                         android:layout_marginRight="5dp"
                         android:layout_width="60dp"
                         android:layout_height="60dp"/>
@@ -52,34 +52,36 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/invoiceimageid" />
+
                     <TextView
                         android:id="@+id/companyaddress1"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_below="@+id/companiid"
-                        android:layout_toRightOf="@+id/invoiceimageid"
-                        android:textColor="@color/text_color_white"
-                        android:text="@string/company_address1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/companiid"
+                        android:layout_gravity="center"
                         android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@+id/invoiceimageid" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_toEndOf="@+id/invoiceimageid"
+                        android:layout_toRightOf="@+id/invoiceimageid"
+                        android:gravity="center"
+                        android:text="@string/company_address1"
+                        android:textColor="@color/text_color_white"
+                        android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/companyaddress2"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_below="@+id/companyaddress1"
-                        android:layout_toRightOf="@+id/invoiceimageid"
-                        android:textColor="@color/text_color_white"
-                        android:text="@string/company_address2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/companyaddress1"
+                        android:layout_gravity="center"
                         android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@+id/invoiceimageid" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_toEndOf="@+id/invoiceimageid"
+                        android:layout_toRightOf="@+id/invoiceimageid"
+                        android:gravity="center"
+                        android:text="@string/company_address2"
+                        android:textColor="@color/text_color_white"
+                        android:textSize="12sp" />
                     <TextView
                         android:id="@+id/companyaddress3"
                         android:layout_gravity="center"
@@ -89,7 +91,7 @@
                         android:layout_below="@+id/companyaddress2"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/text_color_white"
-                        android:text="@string/company_address3"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"

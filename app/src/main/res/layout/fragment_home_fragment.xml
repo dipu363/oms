@@ -42,7 +42,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/logo" />
+                            android:src="@drawable/aborong" />
 
 
                      <!--   <ImageView
@@ -87,17 +87,18 @@
                             android:textAppearance="?android:textAppearanceLarge"
                             android:textStyle="italic"
                             android:layout_toEndOf="@+id/deshboardid" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_toRightOf="@+id/deshboardid"
                             android:layout_below="@+id/dashboard_compostid"
-                            android:textColor="@color/text_color_green"
-                            android:text="@string/company_address3"
+                            android:layout_toEndOf="@+id/deshboardid"
+                            android:layout_toRightOf="@+id/deshboardid"
+                            android:text="@string/company_email"
                             android:textAppearance="?android:textAppearanceLarge"
-                            android:textStyle="italic"
-                            android:layout_toEndOf="@+id/deshboardid" />
+                            android:textColor="@color/text_color_green"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
 
 
 
@@ -139,7 +140,7 @@
 
 
                         </LinearLayout>
-                        <LinearLayout
+       <!--                 <LinearLayout
                             android:layout_marginTop="3dp"
                             android:orientation="horizontal"
                             android:gravity="center"
@@ -166,7 +167,7 @@
 
 
 
-                        </LinearLayout>
+                        </LinearLayout>-->
                         <LinearLayout
                             android:orientation="horizontal"
                             android:gravity="center"

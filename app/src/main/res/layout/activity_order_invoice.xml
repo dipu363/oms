@@ -32,14 +32,15 @@
                     android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@id/invoiceimageid"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:src="@drawable/logo"
-                        android:layout_marginRight="5dp"
                         android:layout_width="60dp"
-                        android:layout_height="60dp"/>
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:src="@drawable/logo" />
 
                     <TextView
                         android:id="@+id/companiid"
@@ -91,7 +92,7 @@
                         android:layout_below="@+id/companyaddress2"
                         android:layout_toRightOf="@+id/invoiceimageid"
                         android:textColor="@color/text_color_white"
-                        android:text="@string/company_address3"
+                        android:text="@string/company_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
