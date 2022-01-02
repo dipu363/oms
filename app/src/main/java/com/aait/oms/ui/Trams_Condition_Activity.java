@@ -22,7 +22,6 @@ public class Trams_Condition_Activity extends AppCompatActivity {
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        //actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Terms & Conditions");
 
         textView = findViewById(R.id.termsconditions);

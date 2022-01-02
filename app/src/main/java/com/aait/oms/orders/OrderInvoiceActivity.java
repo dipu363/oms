@@ -36,7 +36,6 @@ public class OrderInvoiceActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Invoice ");
         orderdate = findViewById(R.id.order_invoice_dateid);
         fab = findViewById(R.id.btn_invoicefab_id);

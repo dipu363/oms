@@ -54,7 +54,6 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Commission Withdraw");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

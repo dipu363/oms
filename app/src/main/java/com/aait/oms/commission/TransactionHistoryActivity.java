@@ -40,7 +40,6 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Transaction History");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

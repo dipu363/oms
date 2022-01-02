@@ -21,7 +21,6 @@ public class Privacy_PolicyActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar .setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        //actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Privacy & Policy");
 
 

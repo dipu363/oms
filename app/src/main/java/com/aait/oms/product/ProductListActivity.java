@@ -55,7 +55,6 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         assert actionBar != null;
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setIcon(R.drawable.logopng40);
         actionBar.setTitle("  Products");
         appUtils = new AppUtils(this);
 
