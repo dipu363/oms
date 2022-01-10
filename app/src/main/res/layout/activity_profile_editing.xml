@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".users.ProfileEditingActivity">
+
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="12dp"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="12dp">
+            <EditText
+                android:id="@+id/profile_edit_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_shape"
+                android:layout_marginTop="20dp"
+                android:hint="First Name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/profile_edit_lastname"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_shape"
+                android:hint="Last Name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/profile_edit_phone"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Phone No"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/profile_edit_email"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Email "
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/profile_edit_address"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Full Address"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+            <EditText
+                android:id="@+id/profile_edit_dob"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Date Of Birth"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+            <EditText
+                android:id="@+id/profile_edit_religion"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Religion"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+            <EditText
+                android:id="@+id/profile_edit_marital"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Marital Status"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+            <EditText
+                android:id="@+id/profile_edit_blood_group"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_shape"
+                android:layout_gravity="left"
+                android:hint="Blood Group"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+
+
+            <ProgressBar
+                android:id="@+id/profileProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btn_profile_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/submit_button_shape"
+                android:text="@string/signup"
+                android:textAllCaps="true"
+                android:textColor="@color/text_color_white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

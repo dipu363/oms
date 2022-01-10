@@ -9,6 +9,7 @@ import android.os.Build;
 
 import androidx.annotation.Nullable;
 
+import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserRequest;
 
 public class SQLiteDB extends SQLiteOpenHelper {
@@ -33,6 +34,15 @@ public class SQLiteDB extends SQLiteOpenHelper {
     private static final String OTP_UID = "otpUID";
     private static final String USER_PASSWORD = "userPassword";
     private static final String LOGIN_STATUS = "login_status";
+    private static final String FIRST_NAME = "FIRST_NAME";
+    private static final String LAST_NAME = "LAST_NAME";
+    private static final String PHONE = "PHONE";
+    private static final String EMAIL = "EMAIL";
+    private static final String ADDRESS = "ADDRESS";
+    private static final String DOB = "DOB";
+    private static final String MARITAL_STATUS = "MARITAL_STATUS";
+    private static final String RELIGION = "RELIGION";
+    private static final String BLOOD_GROUP = "BLOOD_GROUP";
 
 
     //  favorite product Table Columns names
@@ -41,7 +51,9 @@ public class SQLiteDB extends SQLiteOpenHelper {
     private static final String L4CODE = "l4code";
 
     public static final String CREATE_USER_INFO_TABLE = "CREATE TABLE " + TABLE_USER_INFO + "("
-            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN " + ")";
+            + USER_ID + " INTEGER  NOT NULL," + USER_NAME + " TEXT ," + OTP_UID + " TEXT ," + USER_PASSWORD + " TEXT ," + LOGIN_STATUS + " BOOLEAN , " + FIRST_NAME + " TEXT , "
+            + LAST_NAME + " TEXT , " + PHONE + " TEXT , " + EMAIL + " TEXT , " + ADDRESS + " TEXT , " + DOB + " TEXT , " + MARITAL_STATUS + " TEXT , "
+            +RELIGION + " TEXT , " + BLOOD_GROUP + " TEXT  " +")";
 
     // table create string;
     public static final String CREATE_TABLE_MY_FAVORITE_PRODUCT = "CREATE TABLE " + TABLE_FAVORITE_PRODUCT + "("
@@ -128,6 +140,22 @@ public class SQLiteDB extends SQLiteOpenHelper {
         ContentValues value = new ContentValues();
         value.put(LOGIN_STATUS, loginstatus);
         db.update(TABLE_USER_INFO, value, USER_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+    public void updateUserInfo(UserModel userModel, String uName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(FIRST_NAME, userModel.getFname());
+        value.put(LAST_NAME, userModel.getLname());
+        value.put(PHONE, userModel.getPhone2());
+        value.put(EMAIL, userModel.getEmail());
+        value.put(ADDRESS, userModel.getAddress());
+        value.put(DOB, userModel.getDob());
+        value.put(MARITAL_STATUS, userModel.getMaritalStatus());
+        value.put(RELIGION, userModel.getReligion());
+        value.put(BLOOD_GROUP, userModel.getBloodGroup());
+
+        db.update(TABLE_USER_INFO, value, USER_NAME + " = ?", new String[]{String.valueOf(uName)});
         db.close();
     }
 

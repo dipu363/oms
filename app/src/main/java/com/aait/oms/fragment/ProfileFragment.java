@@ -1,5 +1,6 @@
 package com.aait.oms.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -8,13 +9,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.users.ProfileEditingActivity;
 import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserService;
+import com.aait.oms.util.OnclickeventListener;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,9 +29,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     TextView fname, lname, userName, roleId, active, referencedBy;
+    ImageButton editProfile;
+    String uname = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,9 +48,11 @@ public class ProfileFragment extends Fragment {
         userName = view.findViewById(R.id.profile_usernameid);
         roleId = view.findViewById(R.id.profile_roleid);
         referencedBy = view.findViewById(R.id.profile_referenceid);
+        editProfile = view.findViewById(R.id.editProfileBtnId);
+        editProfile.setOnClickListener(this);
         SQLiteDB sqLiteDB = new SQLiteDB(getContext());
         Cursor cursor = sqLiteDB.getUserInfo();
-        String uname = "";
+
 
         if (cursor.moveToFirst()) {
             uname = cursor.getString(1);
@@ -93,5 +101,17 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+        if(view.getId() == R.id.editProfileBtnId){
+            Intent intent = new Intent(getContext(), ProfileEditingActivity.class );
+            intent.putExtra("UserName",uname);
+            startActivity(intent);
+
+        }
     }
 }

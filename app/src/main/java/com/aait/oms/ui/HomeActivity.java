@@ -209,10 +209,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
        // Glide.with(this).load(currentuser.getPhotoUrl()).into(userimage);
 
     }
-
-
-
-
     @Override
     public void onBackPressed() {
             appUtils.showExitAlartDialog(HomeActivity.this);

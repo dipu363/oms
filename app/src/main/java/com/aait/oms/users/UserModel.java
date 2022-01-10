@@ -50,7 +50,7 @@ public class UserModel extends BaseModel {
     private String phone2;
     private String email;
     private String address;
-    private Date dob;
+    private String dob;
     private String gender;
     private String religion;
     private String maritalStatus;
@@ -60,6 +60,9 @@ public class UserModel extends BaseModel {
     private String commPromotionDate;
     private String  mobiPassword;
     private String username;
+
+    public UserModel() {
+    }
 
     public UserModel(String userid, String fname, String lname, int roleId, String password, int branchID, String referenced, String gender) {
         this.userid = userid;
@@ -178,11 +181,11 @@ public class UserModel extends BaseModel {
         this.address = address;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
