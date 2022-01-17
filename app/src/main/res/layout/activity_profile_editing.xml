@@ -110,8 +110,6 @@
                 android:hint="Blood Group"
                 android:inputType="text"
                 tools:ignore="TextFields" />
-
-
             <ProgressBar
                 android:id="@+id/profileProgressBar"
                 style="?android:attr/progressBarStyle"

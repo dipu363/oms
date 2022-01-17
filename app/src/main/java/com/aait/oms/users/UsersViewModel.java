@@ -42,6 +42,10 @@ public class UsersViewModel {
                 String commPromotionDate;
                 String lname;
 
+
+    public UsersViewModel() {
+    }
+
     public UsersViewModel(String username, String fname, String roleId, String rolename, String password, String referenced, String photo, String status, String phone1, String phone2, String email, String address, String dob, String gender, String religion, String maritalStatus, String bloodGroup, String referencedTo, String commLayer, String commPromotionDate, String lname) {
         this.username = username;
         this.fname = fname;

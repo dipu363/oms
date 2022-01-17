@@ -4,14 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.aait.oms.R;
+import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileEditingActivity extends AppCompatActivity {
 
@@ -86,6 +95,7 @@ public class ProfileEditingActivity extends AppCompatActivity {
 
         UserModel userModel = new UserModel();
 
+        userModel.setUserid(user);
         userModel.setFname(firstName);
         userModel.setLname(lastname);
         userModel.setPhone2(phoneNo);
@@ -96,10 +106,41 @@ public class ProfileEditingActivity extends AppCompatActivity {
         userModel.setReligion(relig);
         userModel.setBloodGroup(bloodG);
 
-        sqLiteDB.updateUserInfo(userModel,user);
 
-        appUtils.appToast("Update Successful");
-        prograss.setVisibility(View.INVISIBLE);
+
+
+        Gson gson = new Gson();
+        String json = gson.toJson(userModel);
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        UserService userService = ApiClient.getRetrofit().create(UserService.class);
+        Call<String> call = userService.userUpdate(jsonObject);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                if(response.isSuccessful()){
+                    appUtils.appToast("Update Successful");
+                    Log.d("ProfileEditingActivity :: ", "profileUpdate Successful ");
+                }else{
+                    appUtils.appToast("Update Successful");
+                    Log.d("ProfileEditingActivity :: ", "profileUpdate Fail ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+                t.getMessage();
+                t.getStackTrace();
+
+            }
+        });
+
+       // sqLiteDB.updateUserInfo(userModel,user);
+
+      //  appUtils.appToast("Update Successful");
+       // prograss.setVisibility(View.INVISIBLE);
 
     }
 

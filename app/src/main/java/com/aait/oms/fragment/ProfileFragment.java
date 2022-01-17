@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -108,9 +109,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         if(view.getId() == R.id.editProfileBtnId){
-            Intent intent = new Intent(getContext(), ProfileEditingActivity.class );
-            intent.putExtra("UserName",uname);
-            startActivity(intent);
+            getActivity(). getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileEditFragment()).commit();
 
         }
     }

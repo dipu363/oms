@@ -167,14 +167,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                         String json = gson.toJson(baseResponse.getObj());
                    /* JsonObject jsonObject = null;
                     jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
-                        Type typeMyType = new TypeToken<UserRequest>() {
-                        }.getType();
+                        Type typeMyType = new TypeToken<UserRequest>() {}.getType();
                         UserRequest user = gson.fromJson(json, typeMyType);
                         String userPassword = user.getMobiPassword();
                         String userRole = user.getRoleId();
                         if (userPassword != null && userPassword.equals(pass) && userRole.equals("102.0")) {
                             //save username to sqlite db  for getting session;
 
+                            applicationData.saveLoginInfo("username",user.getUserName());
                             SQLiteDB sqLiteDB = new SQLiteDB(getApplicationContext());
                             Cursor cursor = sqLiteDB.getUserInfo();
 

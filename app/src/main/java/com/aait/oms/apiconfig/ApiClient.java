@@ -12,7 +12,10 @@ public class ApiClient {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'*/
 
+
+
     private static final String BASE_URL = "http://aborong.com/orderapi/orderapi/";
+//    private static final String BASE_URL = "http://100.43.0.38:8080/orderapi/orderapi/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit() {
