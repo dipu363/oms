@@ -135,34 +135,28 @@ public class ProfileEditFragment extends Fragment {
         String json = gson.toJson(userModel);
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         UserService userService = ApiClient.getRetrofit().create(UserService.class);
-        Call<String> call = userService.userUpdate(jsonObject);
-
-        call.enqueue(new Callback<String>() {
+        Call<BaseResponse> call = userService.userUpdate(jsonObject);
+        call.enqueue(new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-                if(response.isSuccessful()){
-                    appUtils.appToast("Update Successful");
-                    Log.d("ProfileEditingActivity :: ", "msg "+ response.message());
-                }else{
-                    appUtils.appToast("Update Successful");
-                    Log.d("ProfileEditingActivity :: ", "msg "+ response.message());
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                BaseResponse res = null;
+                if (response.isSuccessful()){
+                   res = response.body();
+                    appUtils.appToast(res.getMessage());
+                }else {
+                   appUtils.appToast(res.getMessage());
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-                t.getMessage();
-                t.getStackTrace();
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+                appUtils.appToast("Internal Server Error" +t.getMessage());
 
             }
         });
 
-        // sqLiteDB.updateUserInfo(userModel,user);
 
-        //  appUtils.appToast("Update Successful");
-        // prograss.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -181,10 +175,8 @@ public class ProfileEditFragment extends Fragment {
                     BaseResponse res = response.body();
                     Gson gson = new Gson();
                     String json = gson.toJson(res.getObj());
-                   /* JsonObject jsonObject = null;
-                    jsonObject = new JsonParser().parse(json).getAsJsonObject();*/
-                    Type typeMyType = new TypeToken<UserModel>() {}.getType();
-                    UserModel user = gson.fromJson(json, typeMyType);
+                    Type typeMyType = new TypeToken<UsersViewModel>() {}.getType();
+                    UsersViewModel user = gson.fromJson(json, typeMyType);
 
                     fname.setText(user.getFname());
                     lname.setText(user.getLname());

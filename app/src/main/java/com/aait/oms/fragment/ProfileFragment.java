@@ -1,6 +1,5 @@
 package com.aait.oms.fragment;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -15,16 +14,13 @@ import android.widget.TextView;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
-import com.aait.oms.users.ProfileEditingActivity;
 import com.aait.oms.users.UserModel;
 import com.aait.oms.users.UserService;
-import com.aait.oms.util.OnclickeventListener;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;

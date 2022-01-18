@@ -19,8 +19,8 @@ public interface UserService {
     @POST("user/save")
     Call<String> userSave(@Body JsonObject jsonObject);
 
-    @POST("users/updateUser")
-    Call<String> userUpdate(@Body JsonObject jsonObject);
+    @POST("users/updateUserFromApps")
+    Call<BaseResponse> userUpdate(@Body JsonObject jsonObject);
 
 
  /*   @GET("user/findByUser")

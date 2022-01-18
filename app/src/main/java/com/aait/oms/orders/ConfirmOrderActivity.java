@@ -392,14 +392,17 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                         orderID = omm.getOrderId();
                         senddatatoinvoice.add(String.valueOf(orderID));
                         fullScreen_dialog_1.show();
+                    }else{
+                       appUtils.appToast("Order Submit Failed");
                     }
+
 
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     Toast.makeText(ConfirmOrderActivity.this, "Failure " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("failure", t.getMessage());
+                    Log.d("failure", "Save Fail"+t.getMessage());
 
                 }
             });

@@ -141,8 +141,10 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
     private void saveWithdrawCommission() {
         String username = "";
         Date date = new Date();
-        @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("yyyy-MM-dd");
-        String reqdate = formeter.format(date);
+        @SuppressLint("SimpleDateFormat") DateFormat formeter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String reqdate = formeter.format(date).substring(0,10);
+        String reqtime = formeter.format(date).substring(11,19);
+        String userrole = "Customer";
 
         long trsecid = date.getTime();
         String transecid = String.valueOf(trsecid).substring(4, 13);
@@ -160,7 +162,7 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
         }
 
 
-        CommissionWithdrawModel commissionWithdrawModel = new CommissionWithdrawModel(username, reqdate, totalrequestamount, withtype, "1", req_amount, tax, transecid);
+        CommissionWithdrawModel commissionWithdrawModel = new CommissionWithdrawModel(username,userrole, reqdate,reqtime, totalrequestamount, withtype, "1", req_amount, tax, transecid);
         CommissionService service = ApiClient.getRetrofit().create(CommissionService.class);
         Gson gson = new Gson();
         String json = gson.toJson(commissionWithdrawModel);

@@ -7,7 +7,9 @@ public class CommissionWithdrawModel {
 
 
     String userName;
+    String userRole;
     String transDate;
+    String transTime;
     float transAmount;
     String withdrawType;
     String status;
@@ -18,9 +20,11 @@ public class CommissionWithdrawModel {
     public CommissionWithdrawModel() {
     }
 
-    public CommissionWithdrawModel(String userName, String transDate, float transAmount, String withdrawType, String status, float afterTexBalance, float texAmount, String transectionId) {
+    public CommissionWithdrawModel(String userName, String userRole, String transDate, String transTime, float transAmount, String withdrawType, String status, float afterTexBalance, float texAmount, String transectionId) {
         this.userName = userName;
+        this.userRole = userRole;
         this.transDate = transDate;
+        this.transTime = transTime;
         this.transAmount = transAmount;
         this.withdrawType = withdrawType;
         this.status = status;
@@ -37,12 +41,28 @@ public class CommissionWithdrawModel {
         this.userName = userName;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
     public String getTransDate() {
         return transDate;
     }
 
     public void setTransDate(String transDate) {
         this.transDate = transDate;
+    }
+
+    public String getTransTime() {
+        return transTime;
+    }
+
+    public void setTransTime(String transTime) {
+        this.transTime = transTime;
     }
 
     public float getTransAmount() {
