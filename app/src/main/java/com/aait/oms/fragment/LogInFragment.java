@@ -25,6 +25,8 @@ import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.ApplicationData;
 import com.aait.oms.util.SQLiteDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +40,8 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
 
     // private FirebaseAuth mAuth;
     private final String username = null;
-    private EditText useremail, userpasswordid;
+   // private EditText useremail, userpasswordid;
+   TextInputEditText useremail,userpasswordid;
     Button signup;
     private FloatingActionButton login;
     private ProgressBar loginProgress;
@@ -106,13 +109,17 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         String upass = userpasswordid.getText().toString();
 
         if (TextUtils.isEmpty(uemail)) {
-            useremail.setError("Please Type valid Email Address");
+            useremail.setError("Please Type Phone No");
             useremail.requestFocus();
-        } else if (TextUtils.isEmpty(upass)) {
+        }
+
+        else if (TextUtils.isEmpty(upass)) {
             userpasswordid.setError("Pleases Type Password");
             userpasswordid.requestFocus();
-        } else {
-            signIn(uemail, upass);
+        }
+
+        else {
+           signIn(uemail, upass);
         }
     }
 

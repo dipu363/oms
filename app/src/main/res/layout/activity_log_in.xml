@@ -13,25 +13,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_background_dark_blue"
             android:padding="10dp">
+            <ImageView
+                android:id="@+id/logoid"
+                android:src="@drawable/aborong"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
 
             <TextView
                 android:id="@+id/haveanaccid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/logoid"
                 android:fontFamily="serif-monospace"
                 android:gravity="center_horizontal"
-                android:text="Welcome "
+                android:text="Welcome To"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/text_color_white"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/plealoinid"
@@ -40,21 +48,12 @@
                 android:layout_below="@+id/haveanaccid"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="serif-monospace"
-                android:text="Have an Account?"
+                android:text="ABORONG"
+                android:textStyle="bold"
                 android:textColor="@color/text_color_white"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/vgnupoinid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/plealoinid"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="serif-monospace"
-                android:text="LogIn "
-                android:textColor="@color/text_color_white"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+
         </RelativeLayout>
 
 
@@ -76,7 +75,45 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_person_outline_40"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:endIconMode="clear_text"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                android:hint="Phone No">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailedittextid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordInputLayout"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_lock_24"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                app:endIconMode="password_toggle"
+                android:hint="Password">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:inputType="textPassword"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--            <EditText
                 android:id="@+id/emailedittextid"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -94,7 +131,7 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp" />-->
 
             <ProgressBar
                 android:id="@+id/login_progress"

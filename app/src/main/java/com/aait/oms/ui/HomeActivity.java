@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.aait.oms.MainActivity;
 import com.aait.oms.R;
 import com.aait.oms.commission.UsersAccountActivity;
 import com.aait.oms.fragment.HomeFragment;
@@ -177,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             SQLiteDB sqLiteDB = new SQLiteDB(this);
             sqLiteDB.updateuserloginstatus(false,1);
 
-            Intent intent = new Intent(HomeActivity.this, LogInActivity.class);
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Successfully Sign out", Toast.LENGTH_LONG).show();

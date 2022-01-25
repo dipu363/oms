@@ -30,29 +30,60 @@
             <!--                android:layout_width="match_parent"-->
             <!--                android:layout_height="wrap_content"/>-->
 
-            <com.mikhaellopez.circularimageview.CircularImageView
+            <ImageView
                 android:layout_gravity="center"
+                android:layout_marginTop="30dp"
                 android:id="@+id/regUserPhoto"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/userphoto"
-                app:civ_border_color="#1E223E"
-                app:civ_border_width="2dp"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="10"
-                app:civ_shadow_color="#1E223E"/>
+                />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_person_outline_40"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:endIconMode="clear_text"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                android:hint="First Name">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_person_outline_40"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:endIconMode="clear_text"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                android:hint="Last Name">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-
-            <EditText
+   <!--         <EditText
                 android:id="@+id/edit_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_shape"
                 android:layout_marginTop="20dp"
                 android:hint="First Name"
-                android:inputType="text" />
-
+                android:inputType="text" />-->
+<!--
             <EditText
                 android:id="@+id/edit_lastname"
                 android:layout_marginTop="10dp"
@@ -60,14 +91,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_shape"
                 android:hint="Last Name"
-                android:inputType="text" />
+                android:inputType="text" />-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight=".28"
-                android:background="@drawable/spinner_border"
                 android:orientation="horizontal">
 
                 <Spinner
@@ -90,7 +120,28 @@
                     android:src="@drawable/ic_arrow_drop_down_24" />
 
             </RelativeLayout>
-            <EditText
+            <View
+                android:background="@color/app_background_dark_blue"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_person_outline_40"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:endIconMode="clear_text"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                android:hint="Reference By">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/reference_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+<!--            <EditText
                 android:id="@+id/reference_id"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -98,9 +149,26 @@
                 android:background="@drawable/edit_text_shape"
                 android:layout_gravity="left"
                 android:hint="Reference By"
-                android:inputType="text" />
+                android:inputType="text" />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_phone_40"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:endIconMode="clear_text"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                android:hint="Phone No">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+<!--            <EditText
                 android:id="@+id/edit_username"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -108,9 +176,26 @@
                 android:background="@drawable/edit_text_shape"
                 android:layout_gravity="left"
                 android:hint="Phone no"
-                android:inputType="text" />
+                android:inputType="text" />-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/app_background_white"
+                app:startIconDrawable ="@drawable/ic_baseline_lock_24"
+                app:startIconTint ="@color/app_background_dark_blue"
+                app:endIconMode="clear_text"
+                app:hintTextColor = "@color/app_background_dark_blue"
+                android:hint="@string/password_at_lest_6_character">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+<!--            <EditText
                 android:id="@+id/edt_password"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -119,7 +204,7 @@
                 android:layout_gravity="left"
                 android:hint="@string/password_at_lest_6_character"
                 android:inputType="text"
-                tools:ignore="TextFields" />
+                tools:ignore="TextFields" />-->
 
 
             <ProgressBar

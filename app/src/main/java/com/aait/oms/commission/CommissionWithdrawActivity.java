@@ -183,7 +183,7 @@ public class CommissionWithdrawActivity extends AppCompatActivity implements Vie
                     Type listType = new TypeToken<CommissionWithdrawModel>() {
                     }.getType();
                     CommissionWithdrawModel comwithmodel = new Gson().fromJson(jsons, listType);
-                    String comtranid = comwithmodel.transectionId;
+                    String comtranid = comwithmodel.getTransectionId();
                     String reqamount = String.valueOf(comwithmodel.getAfterTexBalance());
                     String charge = String.valueOf(comwithmodel.getTexAmount());
                     String total = String.valueOf(comwithmodel.getTransAmount());
