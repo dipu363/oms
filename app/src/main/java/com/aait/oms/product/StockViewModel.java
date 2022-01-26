@@ -6,6 +6,7 @@ public class StockViewModel {
     String pcode;
     String picByte;
     String uomName;
+    String prodDetails;
     String soldQty;
     String totalQty;
     String currentQty;
@@ -18,10 +19,11 @@ public class StockViewModel {
     public StockViewModel() {
     }
 
-    public StockViewModel(String pcode, String picByte, String uomName, String soldQty, String totalQty, String currentQty, String avgPurRate, String salesRate, String currentTotalPrice, String pname, String cumTotalPrice) {
+    public StockViewModel(String pcode, String picByte, String uomName, String prodDetails, String soldQty, String totalQty, String currentQty, String avgPurRate, String salesRate, String currentTotalPrice, String pname, String cumTotalPrice) {
         this.pcode = pcode;
         this.picByte = picByte;
         this.uomName = uomName;
+        this.prodDetails = prodDetails;
         this.soldQty = soldQty;
         this.totalQty = totalQty;
         this.currentQty = currentQty;
@@ -54,6 +56,14 @@ public class StockViewModel {
 
     public void setUomName(String uomName) {
         this.uomName = uomName;
+    }
+
+    public String getProdDetails() {
+        return prodDetails;
+    }
+
+    public void setProdDetails(String prodDetails) {
+        this.prodDetails = prodDetails;
     }
 
     public String getSoldQty() {
@@ -126,6 +136,7 @@ public class StockViewModel {
                 "pcode='" + pcode + '\'' +
                 ", picByte='" + picByte + '\'' +
                 ", uomName='" + uomName + '\'' +
+                ", prodDetails='" + prodDetails + '\'' +
                 ", soldQty='" + soldQty + '\'' +
                 ", totalQty='" + totalQty + '\'' +
                 ", currentQty='" + currentQty + '\'' +

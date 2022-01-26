@@ -22,6 +22,7 @@ import com.aait.oms.product.ProductGridAdapter;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.product.Product_Details_view_Activity;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.util.AppUtils;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
@@ -37,7 +38,7 @@ public class RootCatagoryFragment extends Fragment {
 
     GridView gridView;
     ProductGridAdapter productgridAdapter;
-    List<ProductModel> allproductlist;
+    List<StockViewModel> allproductlist;
     AppUtils appUtils;
     ProgressDialog progressDialog;
 
@@ -91,26 +92,40 @@ public class RootCatagoryFragment extends Fragment {
                 } else {
                     assert baseResponse != null;
                     allproductlist = baseResponse.getItems();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod;
+                    List<StockViewModel> prodname = new ArrayList();
+                    StockViewModel prod;
                     for (int i = 0; i < allproductlist.size(); i++) {
                         Object getrow = allproductlist.get(i);
                         LinkedTreeMap t = (LinkedTreeMap) getrow;
 
-                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));
+//                        String l1code = String.valueOf(t.get("l1code"));
+//                        String l2code = String.valueOf(t.get("l2code"));
+//                        String l3code = String.valueOf(t.get("l3code"));
+//                        String l4code = String.valueOf(t.get("l4code"));
+//                        String salesrate = String.valueOf(t.get("salesrate"));
+//                        String uomid = String.valueOf(t.get("uomid"));
+//                        String productname = String.valueOf(t.get("productname"));
+//                        String activeStatus = String.valueOf(t.get("activeStatus"));
+//                        String ledgername = String.valueOf(t.get("ledgername"));
+//                        String producPhoto = String.valueOf(t.get("productPhoto"));
+//                        String picbyte = String.valueOf(t.get("picByte"));
+//                        String imagetypt = String.valueOf(t.get("imageType"));
 
-                        prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
+                        String pcode = String.valueOf(t.get("pcode"));
+                        String uomName = String.valueOf(t.get("uomName"));
+                        String picbyte = String.valueOf(t.get("picByte"));
+                        String prodDetails = String.valueOf(t.get("prodDetails"));
+                        String soldQty = String.valueOf(t.get("soldQty"));
+                        String totalQty = String.valueOf(t.get("totalQty"));
+                        String currentQty = String.valueOf(t.get("currentQty"));
+                        String avgPurRate = String.valueOf(t.get("avgPurRate"));
+                        String salesRate = String.valueOf(t.get("salesRate"));
+                        String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
+                        String pname = String.valueOf(t.get("pname"));
+                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
+
+                        prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
+                       // prod = new StockViewModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
                         prodname.add(prod);
 
                     }
@@ -121,7 +136,7 @@ public class RootCatagoryFragment extends Fragment {
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ProductModel productModel = prodname.get(position);
+                            StockViewModel productModel = prodname.get(position);
                             Gson gson = new Gson();
                             String product = gson.toJson(productModel);
                             System.out.println(product);

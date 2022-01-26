@@ -24,13 +24,13 @@ import java.util.List;
 public class ProductGridAdapter extends BaseAdapter {
 
     Context mContext;
-    List<ProductModel> productModels;
-    List<ProductModel> itemsModelListFiltered;
-    final ArrayList<ProductModel> arraylist;
+    List<StockViewModel> productModels;
+    List<StockViewModel> itemsModelListFiltered;
+    final ArrayList<StockViewModel> arraylist;
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
 
-    public ProductGridAdapter(Context mContext, List<ProductModel> productModels) {
+    public ProductGridAdapter(Context mContext, List<StockViewModel> productModels) {
         this.mContext = mContext;
         this.productModels = productModels;
         this.itemsModelListFiltered = productModels;
@@ -59,7 +59,7 @@ public class ProductGridAdapter extends BaseAdapter {
     @SuppressLint({"InflateParams", "SetTextI18n"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ProductModel productModel = itemsModelListFiltered.get(position);
+        StockViewModel stockViewModel = itemsModelListFiltered.get(position);
 
         // for get serial no of list item
         ArrayList<String> listWithSerialNumber = new ArrayList<>();
@@ -84,25 +84,25 @@ public class ProductGridAdapter extends BaseAdapter {
 
 
 //set data to view
-        productname.setText(productModel.getProductname());
-        productumlcode.setText(productModel.getL4code());
-        productprice.setText("TK. " + productModel.getSalesrate());
+        productname.setText(stockViewModel.getPname());
+        productumlcode.setText(stockViewModel.getPcode());
+        productprice.setText("TK. " + stockViewModel.getSalesRate());
 
 
-        byte[] bytes = Base64.decode(productModel.getPicByte(), Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        productImage.setImageBitmap(bitmap);
+//        byte[] bytes = Base64.decode(stockViewModel.getPicByte(), Base64.DEFAULT);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//        productImage.setImageBitmap(bitmap);
 
         favoBotton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor1 = sqLiteDB.getSingleFavProduct(productModel.getL4code());
+                Cursor cursor1 = sqLiteDB.getSingleFavProduct(stockViewModel.getPcode());
 
                 if (cursor1.moveToFirst()) {
                     appUtils.appToast("This product already added to favorite list");
 
                 } else {
-                    sqLiteDB.insertProduct(productModel.getL4code());
+                    sqLiteDB.insertProduct(stockViewModel.getPcode());
                     appUtils.appToast("A New Product added as your favorite Product");
                 }
 
@@ -111,13 +111,13 @@ public class ProductGridAdapter extends BaseAdapter {
         cartBotton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor1 = sqLiteDB.getSingleProduct(productModel.getL4code());
+                Cursor cursor1 = sqLiteDB.getSingleProduct(stockViewModel.getPcode());
 
                 if (cursor1.moveToFirst()) {
                     appUtils.appToast("This product already added to your cart");
 
                 } else {
-                    sqLiteDB.insertCardProduct(productModel.getL4code());
+                    sqLiteDB.insertCardProduct(stockViewModel.getPcode());
                     appUtils.appToast("A New Product added in your Cart");
                     Cursor c = sqLiteDB.getAllCardProduct();
                 }
@@ -127,7 +127,7 @@ public class ProductGridAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Gson gson = new Gson();
-                String product = gson.toJson(productModel);
+                String product = gson.toJson(stockViewModel);
                 Intent intent = new Intent(mContext, Product_Details_view_Activity.class);
                 intent.putExtra("product", product);
                 mContext.startActivity(intent);

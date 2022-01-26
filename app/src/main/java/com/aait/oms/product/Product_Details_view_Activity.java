@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class Product_Details_view_Activity extends AppCompatActivity implements View.OnClickListener {
 
     Button addToCart, removeCart;
-    ProductModel prodmodel;
+    StockViewModel prodmodel;
     SQLiteDB sqLiteDB;
     ArrayList<String> cardList;
     AppUtils appUtils;
@@ -68,16 +68,16 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         feedback.setOnClickListener(this);
 
         Gson gson = new Gson();
-        prodmodel = gson.fromJson(getIntent().getStringExtra("product"), ProductModel.class);
-        prodname.setText(prodmodel.getProductname());
-        prodcode.setText("Code : " + prodmodel.getL4code());
-        prodprice.setText(" TK. " + prodmodel.getSalesrate());
-        proddetails.setText(prodmodel.getLedgername());
+        prodmodel = gson.fromJson(getIntent().getStringExtra("product"), StockViewModel.class);
+        prodname.setText(prodmodel.getPname());
+        prodcode.setText("Code : " + prodmodel.getPcode());
+        prodprice.setText(" TK. " + prodmodel.getSalesRate());
+        proddetails.setText(prodmodel.getProdDetails());
         prodstock.setText("Stock Available  ");
 
-        byte[] bytes = Base64.decode(prodmodel.getPicByte(), Base64.DEFAULT);
+/*        byte[] bytes = Base64.decode(prodmodel.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        prodimageview.setImageBitmap(bitmap);
+        prodimageview.setImageBitmap(bitmap);*/
 
         Cursor cursor = sqLiteDB.getAllCardProduct();
         cardList = new ArrayList<>();
@@ -89,7 +89,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
             } while (cursor.moveToNext());
         }
 
-        Cursor c = sqLiteDB.getSingleProduct(prodmodel.getL4code());
+        Cursor c = sqLiteDB.getSingleProduct(prodmodel.getPcode());
         if (c.moveToFirst()) {
             addToCart.setVisibility(View.INVISIBLE);
             removeCart.setVisibility(View.VISIBLE);
@@ -105,7 +105,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         switch (view.getId()) {
             case R.id.productFavouritebottonId:
 
-                String prodId = prodmodel.l4code;
+                String prodId = prodmodel.getPcode();
                 Cursor cursor1 = sqLiteDB.getSingleFavProduct(prodId);
 
                 if (cursor1.moveToFirst()) {
@@ -120,7 +120,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
             case R.id.productfeedbackbottonId:
                 break;
             case R.id.add_to_cart_id:
-                String pId = prodmodel.l4code;
+                String pId = prodmodel.getPcode();
                 sqLiteDB.insertCardProduct(pId);
                 addToCart.setVisibility(View.INVISIBLE);
                 removeCart.setVisibility(View.VISIBLE);
@@ -136,7 +136,7 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
                 invalidateOptionsMenu();
                 break;
             case R.id.remove_cart_prod_id:
-                String productId = prodmodel.l4code;
+                String productId = prodmodel.getPcode();
                 sqLiteDB.deleteSingleProduct(productId);
                 addToCart.setVisibility(View.VISIBLE);
                 removeCart.setVisibility(View.INVISIBLE);

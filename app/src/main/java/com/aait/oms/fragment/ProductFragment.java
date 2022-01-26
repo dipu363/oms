@@ -31,6 +31,7 @@ import com.aait.oms.product.ProductGridAdapter;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.product.Product_Details_view_Activity;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.rootcategory.RootCatagoryRecyclerAdapter;
@@ -58,7 +59,7 @@ public class ProductFragment extends Fragment {
     ProductGridAdapter productgridAdapter;
     RecyclerView.LayoutManager layoutManager;
     RootCatagoryRecyclerAdapter adapter;
-    List<ProductModel> allproductlist;
+    List<StockViewModel> allproductlist;
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
     ArrayList<String> cardList ;
@@ -204,7 +205,7 @@ public class ProductFragment extends Fragment {
         progressDialog.show();
         progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
         ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getallproduct();
+        Call<BaseResponse> productlist = apiService.getstockview();
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -214,15 +215,15 @@ public class ProductFragment extends Fragment {
                     appUtils.appToast("Data Note found");
                 } else{
                     allproductlist = baseResponse.getData();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod;
+                    List<StockViewModel> prodname = new ArrayList();
+                    StockViewModel prod;
 
 
                     for(int i = 0 ; i<allproductlist.size(); i++){
                         Object getrow =allproductlist.get(i);
                         LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
 
-                        String l1code = String.valueOf(t.get("l1code"));
+    /*                    String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));
                         String l3code = String.valueOf(t.get("l3code"));
                         String l4code = String.valueOf(t.get("l4code"));
@@ -233,12 +234,14 @@ public class ProductFragment extends Fragment {
                         String ledgername = String.valueOf(t.get("ledgername"));
                         String producPhoto = String.valueOf(t.get("productPhoto"));
                         String picbyte =   String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));
+                        String imagetypt = String.valueOf(t.get("imageType"));*/
 
 
                         // if call stockviewmodel class than set as below type
 
-                   /*     String pcode = String.valueOf(t.get("pcode"));
+                        String pcode = String.valueOf(t.get("pcode"));
+                        String picbyte =   String.valueOf(t.get("picByte"));
+                        String prodDetails = String.valueOf(t.get("prodDetails"));
                         String uomName = String.valueOf(t.get("uomName"));
                         String soldQty = String.valueOf(t.get("soldQty"));
                         String totalQty = String.valueOf(t.get("totalQty"));
@@ -247,10 +250,10 @@ public class ProductFragment extends Fragment {
                         String salesRate = String.valueOf(t.get("salesRate"));
                         String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
                         String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
+                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
 
-                        // prod = new StockViewModel(pcode,uomName,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
+                        prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
+                       // prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
                         prodname.add(prod);
                     }
                     productgridAdapter = new ProductGridAdapter(context,prodname);
