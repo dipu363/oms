@@ -84,14 +84,14 @@ public class ProductGridAdapter extends BaseAdapter {
 
 
 //set data to view
-        productname.setText(stockViewModel.getPname());
+        productname.setText(stockViewModel.getProdName());
         productumlcode.setText(stockViewModel.getPcode());
-        productprice.setText("TK. " + stockViewModel.getSalesRate());
+        productprice.setText("RM. " + stockViewModel.getSalesRate());
 
 
-//        byte[] bytes = Base64.decode(stockViewModel.getPicByte(), Base64.DEFAULT);
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//        productImage.setImageBitmap(bitmap);
+        byte[] bytes = Base64.decode(stockViewModel.getPicByte(), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        productImage.setImageBitmap(bitmap);
 
         favoBotton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -69,15 +69,15 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
 
         Gson gson = new Gson();
         prodmodel = gson.fromJson(getIntent().getStringExtra("product"), StockViewModel.class);
-        prodname.setText(prodmodel.getPname());
+        prodname.setText(prodmodel.getProdName());
         prodcode.setText("Code : " + prodmodel.getPcode());
         prodprice.setText(" TK. " + prodmodel.getSalesRate());
         proddetails.setText(prodmodel.getProdDetails());
         prodstock.setText("Stock Available  ");
 
-/*        byte[] bytes = Base64.decode(prodmodel.getPicByte(), Base64.DEFAULT);
+        byte[] bytes = Base64.decode(prodmodel.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        prodimageview.setImageBitmap(bitmap);*/
+        prodimageview.setImageBitmap(bitmap);
 
         Cursor cursor = sqLiteDB.getAllCardProduct();
         cardList = new ArrayList<>();

@@ -75,9 +75,9 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         stock.setText("Available");
         price.setText("TK. " + product.getSalesrate());
 
-     /*   byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
+        byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        productImage.setImageBitmap(bitmap);*/
+        productImage.setImageBitmap(bitmap);
 
         return convertView;
     }

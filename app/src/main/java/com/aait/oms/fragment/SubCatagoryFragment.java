@@ -25,7 +25,9 @@ import com.aait.oms.product.StockViewModel;
 import com.aait.oms.util.AppUtils;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,11 +101,11 @@ public class SubCatagoryFragment extends Fragment {
                     StockViewModel prod;
 
 
-                    for (int i = 0; i < allproductlist.size(); i++) {
+/*                    for (int i = 0; i < allproductlist.size(); i++) {
                         Object getrow = allproductlist.get(i);
                         LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
-       /*                 String l1code = String.valueOf(t.get("l1code"));
+       *//*                 String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));
                         String l3code = String.valueOf(t.get("l3code"));
                         String l4code = String.valueOf(t.get("l4code"));
@@ -114,7 +116,7 @@ public class SubCatagoryFragment extends Fragment {
                         String ledgername = String.valueOf(t.get("ledgername"));
                         String producPhoto = String.valueOf(t.get("productPhoto"));
                         String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));*/
+                        String imagetypt = String.valueOf(t.get("imageType"));*//*
 
 
                         // if call stockviewmodel class than set as below type
@@ -132,11 +134,18 @@ public class SubCatagoryFragment extends Fragment {
                         String pname = String.valueOf(t.get("pname"));
                         String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
 
-                         prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
+                        // prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
                         //prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
-                        prodname.add(prod);
-                    }
-                    productgridAdapter = new ProductGridAdapter(context, prodname);
+                     //   prodname.add(prod);
+                    }*/
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(allproductlist);
+                    Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                    }.getType();
+                    ArrayList<StockViewModel> productlist = gson.fromJson(json, typeMyType);
+
+                    productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

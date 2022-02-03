@@ -37,7 +37,6 @@ public class UsersViewModel {
                 String religion;
                 String maritalStatus;
                 String bloodGroup;
-                String referencedTo;
                 String commLayer;
                 String commPromotionDate;
                 String lname;
@@ -46,7 +45,7 @@ public class UsersViewModel {
     public UsersViewModel() {
     }
 
-    public UsersViewModel(String username, String fname, String roleId, String rolename, String password, String referenced, String photo, String status, String phone1, String phone2, String email, String address, String dob, String gender, String religion, String maritalStatus, String bloodGroup, String referencedTo, String commLayer, String commPromotionDate, String lname) {
+    public UsersViewModel(String username, String fname, String roleId, String rolename, String password, String referenced, String photo, String status, String phone1, String phone2, String email, String address, String dob, String gender, String religion, String maritalStatus, String bloodGroup, String commLayer, String commPromotionDate, String lname) {
         this.username = username;
         this.fname = fname;
         this.roleId = roleId;
@@ -64,7 +63,6 @@ public class UsersViewModel {
         this.religion = religion;
         this.maritalStatus = maritalStatus;
         this.bloodGroup = bloodGroup;
-        this.referencedTo = referencedTo;
         this.commLayer = commLayer;
         this.commPromotionDate = commPromotionDate;
         this.lname = lname;
@@ -206,13 +204,6 @@ public class UsersViewModel {
         this.bloodGroup = bloodGroup;
     }
 
-    public String getReferencedTo() {
-        return referencedTo;
-    }
-
-    public void setReferencedTo(String referencedTo) {
-        this.referencedTo = referencedTo;
-    }
 
     public String getCommLayer() {
         return commLayer;

@@ -29,6 +29,7 @@ import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.CartActivity;
+import com.aait.oms.orders.OrderMasterModel;
 import com.aait.oms.orders.OrderService;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
@@ -205,12 +206,12 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     List<StockViewModel> prodname = new ArrayList();
                     StockViewModel prod;
 
-                    for (int i = 0; i < allproductlist.size(); i++) {
+                   /* for (int i = 0; i < allproductlist.size(); i++) {
                         Object getrow = allproductlist.get(i);
                         LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
                         // if call Product model class than set as below type
-                     /*   String l1code = String.valueOf(t.get("l1code"));
+                     *//*   String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));
                         String l3code = String.valueOf(t.get("l3code"));
                         String l4code = String.valueOf(t.get("l4code"));
@@ -221,7 +222,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                         String ledgername = String.valueOf(t.get("ledgername"));
                         String producPhoto = String.valueOf(t.get("productPhoto"));
                         String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));*/
+                        String imagetypt = String.valueOf(t.get("imageType"));*//*
 
 
                         // if call stockviewmodel class than set as below type
@@ -242,8 +243,16 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                          prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
                        // prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
                         prodname.add(prod);
-                    }
-                    productgridAdapter = new ProductGridAdapter(context, prodname);
+                    }*/
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(allproductlist);
+                    Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                    }.getType();
+                    ArrayList<StockViewModel> productlist = gson.fromJson(json, typeMyType);
+
+
+                    productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
                     progressDialog.dismiss();
 
@@ -279,11 +288,11 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     StockViewModel prod;
 
 
-                    for (int i = 0; i < allproductlist.size(); i++) {
+/*                    for (int i = 0; i < allproductlist.size(); i++) {
                         Object getrow = allproductlist.get(i);
                         LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
-/*                        String l1code = String.valueOf(t.get("l1code"));
+*//*                        String l1code = String.valueOf(t.get("l1code"));
                         String l2code = String.valueOf(t.get("l2code"));
                         String l3code = String.valueOf(t.get("l3code"));
                         String l4code = String.valueOf(t.get("l4code"));
@@ -294,7 +303,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                         String ledgername = String.valueOf(t.get("ledgername"));
                         String producPhoto = String.valueOf(t.get("productPhoto"));
                         String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));*/
+                        String imagetypt = String.valueOf(t.get("imageType"));*//*
 
 
                         String pcode = String.valueOf(t.get("pcode"));
@@ -313,8 +322,16 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                        // prod = new StockViewModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
                         prodname.add(prod);
 
-                    }
-                    productgridAdapter = new ProductGridAdapter(context, prodname);
+                    }*/
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(allproductlist);
+                    Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                    }.getType();
+                    ArrayList<StockViewModel> productlist = gson.fromJson(json, typeMyType);
+
+
+                    productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
                 }
             }
