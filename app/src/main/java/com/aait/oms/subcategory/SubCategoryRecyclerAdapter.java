@@ -14,7 +14,7 @@ import com.aait.oms.util.OnclickeventListener;
 
 public class SubCategoryRecyclerAdapter extends RecyclerView.Adapter<SubCategoryRecyclerAdapter.ViewHolder> {
     ProdSubCatagoryModel[] subcatagory;
-    private Context context;
+    private final Context context;
     OnclickeventListener itemClickListener;
 
 

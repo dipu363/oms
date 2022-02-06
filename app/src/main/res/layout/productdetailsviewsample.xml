@@ -93,7 +93,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
                         android:padding="5dp"
-                        android:text="TK. 500.00"
+                        android:text="RM. 50.00"
                         android:textColor="@color/text_color_green"
                         android:textSize="24sp" />
 

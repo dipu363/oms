@@ -60,18 +60,9 @@ public class ProductGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         StockViewModel stockViewModel = itemsModelListFiltered.get(position);
-
-        // for get serial no of list item
-        ArrayList<String> listWithSerialNumber = new ArrayList<>();
-        for (int i = 0; i < itemsModelListFiltered.size(); i++) {
-            listWithSerialNumber.add(String.valueOf(i + 1));
-        }
-
         if (convertView == null) {
-
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.productgridviewsample, null);
-
         }
 
         //findviewbyid
@@ -83,12 +74,10 @@ public class ProductGridAdapter extends BaseAdapter {
         ImageButton cartBotton = convertView.findViewById(R.id.cardproductAddtTocartbottonId);
 
 
-//set data to view
+        //set data to view
         productname.setText(stockViewModel.getProdName());
         productumlcode.setText(stockViewModel.getPcode());
         productprice.setText("RM. " + stockViewModel.getSalesRate());
-
-
         byte[] bytes = Base64.decode(stockViewModel.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         productImage.setImageBitmap(bitmap);

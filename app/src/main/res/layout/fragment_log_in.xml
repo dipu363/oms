@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:background="@color/app_background_dark_blue"
         android:padding="10dp">
-        <ImageView
+
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/logoid"
-            android:src="@drawable/aborong"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:src="@drawable/citymax_logo_2" />
 
         <TextView
             android:id="@+id/haveanaccid"
@@ -26,8 +27,7 @@
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/logoid"
             android:fontFamily="serif-monospace"
-            android:gravity="center_horizontal"
-            android:text="Welcome To"
+            android:text="city Max"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/text_color_white"
@@ -41,10 +41,10 @@
             android:layout_below="@+id/haveanaccid"
             android:layout_centerHorizontal="true"
             android:fontFamily="serif-monospace"
-            android:text="ABORONG"
-            android:textStyle="bold"
+            android:text="SignIn"
             android:textColor="@color/text_color_white"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
@@ -130,10 +130,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="30dp"
-               android:backgroundTint="@color/app_background_white"
-                android:text="Registration"
+               android:backgroundTint="@color/app_background_dark_blue"
+                android:text="SignUp"
                 android:textAllCaps="true"
-                android:textColor="@color/text_color_black" />
+                android:textColor="@color/text_color_white" />
 
 
         </LinearLayout>

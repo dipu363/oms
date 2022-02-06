@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         databaseReference = FirebaseDatabase.getInstance().getReference("UsersInfo");
         appUtils = new AppUtils(this);
         //for spinner
-        spinner = (Spinner) findViewById(R.id.spinner_gender);
+        spinner = findViewById(R.id.spinner_gender);
         String[] gen = {"Select Gender","Male","Female","Others"};
         ArrayAdapter<CharSequence> genAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, gen );
         genAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);

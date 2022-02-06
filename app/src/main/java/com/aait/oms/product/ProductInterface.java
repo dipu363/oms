@@ -1,9 +1,12 @@
 package com.aait.oms.product;
 
 import com.aait.oms.model.BaseResponse;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ProductInterface {
@@ -24,16 +27,25 @@ public interface ProductInterface {
     @GET("prodmaster/findByl2Code")
     Call<BaseResponse> getproductbyl2id(@Query("l2Code") int id);
 
+   // http://aborong.com/orderapi/orderapi/stock/viewlist
+
+
     @GET("stock/viewlist")
     Call<BaseResponse> getstockview();
 
-    @GET("prodl/list")
+   // http://aborong.com/orderapi/orderapi/stock/productFilter >> POST request with request body here we can send an empty body
+
+    @POST("stock/productFilter")
+    Call<BaseResponse> productFilter(@Body JsonObject json);
+
+/*    @GET("prodl/list")
     Call<BaseResponse> getallrootcatagory();
 
     @GET("prodltwo/list")
     Call<BaseResponse> getallsubcatagory();
+
     @GET("uom/findById")
-    Call<BaseResponse> getumlname(@Query("id")int id);
+    Call<BaseResponse> getumlname(@Query("id")int id);*/
 
 
 

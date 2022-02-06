@@ -77,7 +77,7 @@ public class CartAdapter extends BaseAdapter {
             }
         });
 
-        serial.setText(String.valueOf(listWithSerialNumber.get(position) + "."));
+        serial.setText(listWithSerialNumber.get(position) + ".");
         prodname.setText(cardModel.getProductname());
         price.setText("RM :" + cardModel.getSalesrate());
         editText.setText(String.valueOf(cardModel.getQty()));

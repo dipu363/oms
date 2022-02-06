@@ -82,17 +82,18 @@
                 android:layout_toRightOf="@+id/cart_fr_prod_Imageid"
                 android:textColor="@color/text_color_green"
                 android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/cart_fr_prod_Priceid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/cart_fr_prod_stockstatusid"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_below="@+id/cart_fr_prod_stockstatusid"
                 android:layout_toEndOf="@+id/cart_fr_prod_Imageid"
                 android:layout_toRightOf="@+id/cart_fr_prod_Imageid"
                 android:padding="5dp"
-                android:text="TK."
+                android:text="RM."
                 android:textColor="@color/text_color_green"
                 android:textSize="14sp" />
 

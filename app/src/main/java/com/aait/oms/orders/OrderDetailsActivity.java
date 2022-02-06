@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
-import com.aait.oms.model.BaseResponse;;
+import com.aait.oms.model.BaseResponse;
 import com.aait.oms.util.AppUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

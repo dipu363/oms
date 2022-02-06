@@ -65,7 +65,7 @@ public class OrderDetailsAdapter extends BaseAdapter {
         code.setText(orderdetailsmodel.getL4Code());
         rate.setText(String.valueOf(orderdetailsmodel.getRate()));
         qty.setText(String.valueOf(orderdetailsmodel.getQty()));
-        serialno.setText(String.valueOf(listWithSerialNumber.get(position)+"."));
+        serialno.setText(listWithSerialNumber.get(position) + ".");
         int q  = orderdetailsmodel.getQty();
         float p = orderdetailsmodel.getRate();
         price.setText(String.valueOf(q*p));

@@ -90,7 +90,7 @@
                 android:layout_below="@id/fav_prod_stockstatusid"
                 android:layout_toEndOf="@+id/fav_prod_Imageid"
                 android:layout_toRightOf="@+id/fav_prod_Imageid"
-                android:text="TK."
+                android:text="RM."
                 android:textColor="@color/text_color_green"
                 android:textSize="14sp" />
 

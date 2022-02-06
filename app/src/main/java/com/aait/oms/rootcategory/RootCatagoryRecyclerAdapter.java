@@ -18,7 +18,7 @@ import com.aait.oms.util.ItemClickListener;
 
 public class RootCatagoryRecyclerAdapter extends RecyclerView.Adapter<RootCatagoryRecyclerAdapter.ViewHolder> {
     ProdCatagoryModel[] catagory;
-    private Context context;
+    private final Context context;
 
     public RootCatagoryRecyclerAdapter(ProdCatagoryModel[] catagory, Context context) {
         this.catagory = catagory;
@@ -36,7 +36,6 @@ public class RootCatagoryRecyclerAdapter extends RecyclerView.Adapter<RootCatago
     @Override
     public void onBindViewHolder(RootCatagoryRecyclerAdapter.ViewHolder holder, int position) {
         char catname = catagory[position].getL1Name().charAt(0);
-
         holder.textView1.setText(catagory[position].getL1Name());
         holder.textView2.setText(String.valueOf(catname));
 
@@ -45,10 +44,10 @@ public class RootCatagoryRecyclerAdapter extends RecyclerView.Adapter<RootCatago
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
-                    Intent intent = new Intent(context, ProductInGridViewActivity.class);
+               /*     Intent intent = new Intent(context, ProductInGridViewActivity.class);
                     intent.putExtra("catid", catagory[position].getL1Code());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    context.startActivity(intent);
+                    context.startActivity(intent);*/
                 } else {
                     Intent intent = new Intent(context, CategoryWiseProductViewActivity.class);
                     intent.putExtra("catid", catagory[position].getL1Code());

@@ -10,11 +10,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
@@ -41,9 +44,11 @@ import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +67,7 @@ public class ProductFragment extends Fragment {
     List<StockViewModel> allproductlist;
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
-    ArrayList<String> cardList ;
+    ArrayList<String> cardList;
 
     ProgressDialog progressDialog;
 
@@ -91,7 +96,7 @@ public class ProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_product, container, false);
+        View view = inflater.inflate(R.layout.fragment_product, container, false);
 
         allcatgorylist = new ArrayList<>();
         gridView = view.findViewById(R.id.product_grid_view_id);
@@ -104,10 +109,10 @@ public class ProductFragment extends Fragment {
         cardList = new ArrayList<>();
 
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 cardList.add(cursor.getString(0));
-            }  while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         // invalidateOptionsMenu();
@@ -121,15 +126,14 @@ public class ProductFragment extends Fragment {
 
     // check mobile net work status and then call checkvalidity method ;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void netWorkCheck(Context context){
+    public void netWorkCheck(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             getcatList(context);
             allProductlist(context);
 
-        }
-        else {
+        } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(" NO NetWork")
                     .setMessage("Enable Mobile Network ")
@@ -155,9 +159,8 @@ public class ProductFragment extends Fragment {
     }
 
 
-
     // getting product category list
-    private  void getcatList(Context context){
+    private void getcatList(Context context) {
 
         OrderService service = ApiClient.getRetrofit().create(OrderService.class);
         try {
@@ -166,22 +169,21 @@ public class ProductFragment extends Fragment {
                 @Override
                 public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
 
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         BaseResponse baseResponse = response.body();
                         allcatgorylist = baseResponse.getData();
-                        if(allcatgorylist.size() == 0){
+                        if (allcatgorylist.size() == 0) {
                             appUtils.appToast("Data Not Found");
-                        }else {
+                        } else {
                             String jsons = new Gson().toJson(allcatgorylist);
-                            Type listType = new TypeToken<ProdCatagoryModel[]>() {}.getType();
+                            Type listType = new TypeToken<ProdCatagoryModel[]>() {
+                            }.getType();
                             catagory = new Gson().fromJson(jsons, listType);
-                            catagory = new Gson().fromJson(jsons, listType);
-                            adapter = new RootCatagoryRecyclerAdapter(catagory,context);
+                            adapter = new RootCatagoryRecyclerAdapter(catagory, context);
                             recyclerView.setAdapter(adapter);
-                            Log.d("good", "onResponse: " + catagory);
+                            Log.d("getcatList res ", "onResponse: " + catagory);
                         }
-                    }
-                    else{
+                    } else {
 
                         appUtils.appToast("Request Not Response");
 
@@ -194,68 +196,27 @@ public class ProductFragment extends Fragment {
                 }
             });
 
-        }catch (Exception e){
-            Log.d("Exception", "onResponse: " + e);
+        } catch (Exception e) {
+            Log.d(" getcatList Exception", "onResponse: " + e);
 
         }
     }
 
     //getting all products
-    private void allProductlist(Context context){
+    private void allProductlist(Context context) {
         progressDialog.show();
         progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
-        ProductInterface apiService =  ApiClient.getRetrofit().create(ProductInterface.class);
+        ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
         Call<BaseResponse> productlist = apiService.getstockview();
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
 
-                if(baseResponse.getMessage().equals("") ) {
+                if (baseResponse.getMessage().equals("")) {
                     appUtils.appToast("Data Note found");
-                } else{
+                } else {
                     allproductlist = baseResponse.getData();
-                    List<StockViewModel> prodname = new ArrayList();
-                    StockViewModel prod;
-
-
-/*                    for(int i = 0 ; i<allproductlist.size(); i++){
-                        Object getrow =allproductlist.get(i);
-                        LinkedTreeMap<Object,Object> t = (LinkedTreeMap) getrow;
-
-    *//*                    String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte =   String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));*//*
-
-
-                        // if call stockviewmodel class than set as below type
-
-                        String pcode = String.valueOf(t.get("pcode"));
-                        String picbyte =   String.valueOf(t.get("picByte"));
-                        String prodDetails = String.valueOf(t.get("prodDetails"));
-                        String uomName = String.valueOf(t.get("uomName"));
-                        String soldQty = String.valueOf(t.get("soldQty"));
-                        String totalQty = String.valueOf(t.get("totalQty"));
-                        String currentQty = String.valueOf(t.get("currentQty"));
-                        String avgPurRate = String.valueOf(t.get("avgPurRate"));
-                        String salesRate = String.valueOf(t.get("salesRate"));
-                        String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
-                        String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
-
-                     //   prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                       // prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
-                       // prodname.add(prod);
-                    }*/
 
                     Gson gson = new Gson();
                     String json = gson.toJson(allproductlist);
@@ -263,7 +224,7 @@ public class ProductFragment extends Fragment {
                     }.getType();
                     ArrayList<StockViewModel> productlist = gson.fromJson(json, typeMyType);
 
-                    productgridAdapter = new ProductGridAdapter(context,productlist);
+                    productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
                     progressDialog.dismiss();
                 }
@@ -271,7 +232,7 @@ public class ProductFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                Log.e("failure",t.getLocalizedMessage());
+                Log.e("failure", t.getLocalizedMessage());
 
             }
         });

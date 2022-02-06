@@ -91,7 +91,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:text="TK."
+                android:text="RM."
                 android:textColor="@color/text_color_green"
                 android:textSize="24sp" />
 

@@ -66,14 +66,14 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         removeCart.setOnClickListener(this);
         favorite.setOnClickListener(this);
         feedback.setOnClickListener(this);
-
         Gson gson = new Gson();
         prodmodel = gson.fromJson(getIntent().getStringExtra("product"), StockViewModel.class);
         prodname.setText(prodmodel.getProdName());
         prodcode.setText("Code : " + prodmodel.getPcode());
-        prodprice.setText(" TK. " + prodmodel.getSalesRate());
+        prodprice.setText(" RM. " + prodmodel.getSalesRate());
         proddetails.setText(prodmodel.getProdDetails());
-        prodstock.setText("Stock Available  ");
+        String curQty = "Available "+String.valueOf(prodmodel.getCurrentQty()) + prodmodel.getUomName();
+        prodstock.setText(curQty);
 
         byte[] bytes = Base64.decode(prodmodel.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

@@ -177,7 +177,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
                 CardModel products = new CardModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, qty);
                 productOrders.add(products);
-                lOrderItems.add(products.getJsonObject().toString());
+                lOrderItems.add(products.getJsonObject());
             }
         }
 

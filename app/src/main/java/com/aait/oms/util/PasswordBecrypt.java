@@ -4,6 +4,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.KeySpec;
@@ -65,7 +66,7 @@ public class PasswordBecrypt {
 
     private SecretKeySpec generetKey(String password) throws Exception {
         final MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = password.getBytes("UTF-8");
+        byte[] bytes = password.getBytes(StandardCharsets.UTF_8);
         messageDigest.update(bytes,0,bytes.length);
         byte[] key = messageDigest.digest();
         SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");

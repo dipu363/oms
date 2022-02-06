@@ -32,7 +32,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
+                        <com.mikhaellopez.circularimageview.CircularImageView
                             android:id="@+id/deshboardid"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
@@ -42,7 +42,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/aborong" />
+                            android:src="@drawable/citymax_logo_2" />
 
 
                      <!--   <ImageView

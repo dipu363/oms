@@ -51,7 +51,7 @@ public class TransactionHistoryAdapter extends BaseAdapter {
         TextView trdate = convertView.findViewById(R.id.tr_his_date_id);
         String reqdate = model.getTransDate().substring(0, 10);
         trsacid.setText(model.getTransectionId());
-        trsacamount.setText("RM  " + String.valueOf(model.getAfterTexBalance()));
+        trsacamount.setText("RM  " + model.getAfterTexBalance());
         trdate.setText(reqdate);
         return convertView;
     }
