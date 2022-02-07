@@ -84,7 +84,7 @@ public class SubCatagoryFragment extends Fragment {
     private void allsubCatWiseProductlist(Context context, int subcatid) {
 
         ProductFilterRequest filterRequest = new ProductFilterRequest();
-        filterRequest.setL1Code(subcatid);
+        filterRequest.setL2Code(subcatid);
         Gson gson = new Gson();
         String json = gson.toJson(filterRequest);
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();

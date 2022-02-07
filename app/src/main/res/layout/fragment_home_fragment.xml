@@ -214,6 +214,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardviewadmin_Optino1"
                 android:layout_width="0dp"
+                android:backgroundTint="@color/app_background_dark_blue"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
@@ -237,6 +238,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:textColor="@color/text_color_white"
                         android:text="PRODUCTS"
                         android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
@@ -250,6 +252,7 @@
                 android:id="@+id/cardviewadmin_Optino2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/app_background_dark_blue"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:clickable="true"
@@ -275,6 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Easy ORDER"
+                        android:textColor="@color/text_color_white"
                         android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
@@ -295,6 +299,7 @@
                 android:id="@+id/cardviewadmin_Optino3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/app_background_dark_blue"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:clickable="true"
@@ -318,6 +323,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="REFERENCES"
+                        android:textColor="@color/text_color_white"
                         android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 
@@ -330,6 +336,7 @@
                 android:id="@+id/cardviewadmin_Optino4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/app_background_dark_blue"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:clickable="true"
@@ -355,6 +362,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="MYORDERS"
+                        android:textColor="@color/text_color_white"
                         android:textAppearance="?android:textAppearanceButton"
                         android:textStyle="bold" />
 

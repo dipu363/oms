@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new CartFragment();
                         break;
                     case 4:
+                        meowBottomNavigation.clearCount(4);
                         fragment = new LogInFragment();
-
-
                         break;
                 }
 

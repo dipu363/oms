@@ -45,7 +45,7 @@ public class AppUtils {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(" No Network")
                 .setMessage("Enable Mobile Network")
-                .setIcon(R.drawable.logopng40)
+                .setIcon(R.drawable.citymax_logo_2)
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -103,7 +103,7 @@ public class AppUtils {
         builder.setTitle("EXIT")
                 .setMessage("Are you sure you want to close the app ?")
                 .setCancelable(false)
-                .setIcon(R.drawable.logopng40)
+                .setIcon(R.drawable.citymax_logo_2)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

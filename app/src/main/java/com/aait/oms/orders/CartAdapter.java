@@ -66,7 +66,7 @@ public class CartAdapter extends BaseAdapter {
         cartincreasebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuantity(position, editText, 5);
+                updateQuantity(position, editText, 1);
             }
         });
         cartdecreasebtn.setOnClickListener(new View.OnClickListener() {

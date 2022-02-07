@@ -39,6 +39,8 @@ import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.ApplicationData;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
@@ -183,7 +185,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
         if (catid != 0) {
             getcatagorywiseproduct(context, catid);
         } else {
-            //allProductlist(context);
+            allProductlist(context);
         }
     }
 
@@ -203,55 +205,11 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     appUtils.appToast("Data Note found");
                 } else {
                     allproductlist = baseResponse.getData();
-                    List<StockViewModel> prodname = new ArrayList();
-                    StockViewModel prod;
-
-                   /* for (int i = 0; i < allproductlist.size(); i++) {
-                        Object getrow = allproductlist.get(i);
-                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
-
-                        // if call Product model class than set as below type
-                     *//*   String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));*//*
-
-
-                        // if call stockviewmodel class than set as below type
-
-                        String pcode = String.valueOf(t.get("pcode"));
-                        String uomName = String.valueOf(t.get("uomName"));
-                        String picbyte = String.valueOf(t.get("picByte"));
-                        String prodDetails = String.valueOf(t.get("prodDetails"));
-                        String soldQty = String.valueOf(t.get("soldQty"));
-                        String totalQty = String.valueOf(t.get("totalQty"));
-                        String currentQty = String.valueOf(t.get("currentQty"));
-                        String avgPurRate = String.valueOf(t.get("avgPurRate"));
-                        String salesRate = String.valueOf(t.get("salesRate"));
-                        String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
-                        String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
-
-                         prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                       // prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
-                        prodname.add(prod);
-                    }*/
-
                     Gson gson = new Gson();
                     String json = gson.toJson(allproductlist);
                     Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
                     }.getType();
                     ArrayList<StockViewModel> productlist = gson.fromJson(json, typeMyType);
-
-
                     productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
                     progressDialog.dismiss();
@@ -270,9 +228,15 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
     //getting category wise products
     private void getcatagorywiseproduct(Context context, int id) {
-
+        ProductFilterRequest filterRequest = new ProductFilterRequest();
+        filterRequest.setL1Code(id);
+        Gson gson = new Gson();
+        String json = gson.toJson(filterRequest);
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
         ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getproductbyl1id(id);
+        Call<BaseResponse> productlist = apiService.productFilter(jsonObject);
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -286,53 +250,14 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     allproductlist = baseResponse.getItems();
                     List<StockViewModel> prodname = new ArrayList();
                     StockViewModel prod;
-
-
-/*                    for (int i = 0; i < allproductlist.size(); i++) {
-                        Object getrow = allproductlist.get(i);
-                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
-
-*//*                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));*//*
-
-
-                        String pcode = String.valueOf(t.get("pcode"));
-                        String uomName = String.valueOf(t.get("uomName"));
-                        String picbyte = String.valueOf(t.get("picByte"));
-                        String prodDetails = String.valueOf(t.get("prodDetails"));
-                        String soldQty = String.valueOf(t.get("soldQty"));
-                        String totalQty = String.valueOf(t.get("totalQty"));
-                        String currentQty = String.valueOf(t.get("currentQty"));
-                        String avgPurRate = String.valueOf(t.get("avgPurRate"));
-                        String salesRate = String.valueOf(t.get("salesRate"));
-                        String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
-                        String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));
-                        prod = new StockViewModel(pcode,picbyte,uomName,prodDetails,soldQty,totalQty,currentQty,avgPurRate,salesRate,currentTotalPrice,pname,cumTotalPrice);
-                       // prod = new StockViewModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
-                        prodname.add(prod);
-
-                    }*/
-
                     Gson gson = new Gson();
                     String json = gson.toJson(allproductlist);
                     Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
                     }.getType();
                     ArrayList<StockViewModel> productlist = gson.fromJson(json, typeMyType);
-
-
                     productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
+                    progressDialog.dismiss();
                 }
             }
 
