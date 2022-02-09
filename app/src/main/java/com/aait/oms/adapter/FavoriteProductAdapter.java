@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.aait.oms.R;
 import com.aait.oms.product.ProductModel;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 
@@ -23,25 +24,25 @@ import java.util.List;
 
 public class FavoriteProductAdapter extends BaseAdapter {
     Context context;
-    List<ProductModel> productModels;
+    List<StockViewModel> productList;
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
 
-    public FavoriteProductAdapter(Context context, List<ProductModel> productModels) {
+    public FavoriteProductAdapter(Context context, List<StockViewModel> productList) {
         this.context = context;
-        this.productModels = productModels;
+        this.productList = productList;
         sqLiteDB = new SQLiteDB(context);
         appUtils = new AppUtils(context);
     }
 
     @Override
     public int getCount() {
-        return productModels.size();
+        return productList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return productModels.get(i);
+        return productList.get(i);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class FavoriteProductAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ProductModel product = productModels.get(i);
+        StockViewModel product = productList.get(i);
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -66,10 +67,10 @@ public class FavoriteProductAdapter extends BaseAdapter {
         ImageView productImage = view.findViewById(R.id.fav_prod_Imageid);
         Button btn_add = view.findViewById(R.id.fav_prod__add_to_cart_id);
         ImageButton imageButton = view.findViewById(R.id.fab_btn_delete_Id);
-        productname.setText(product.getProductname());
-        prodcode.setText(product.getL4code());
-        stock.setText("Available");
-        price.setText("TK. " + product.getSalesrate());
+        productname.setText(product.getProdName());
+        prodcode.setText(product.getPcode());
+        stock.setText(String.format("In Stock :%s %s", product.getCurrentQty(), product.getUomName()));
+        price.setText(String.format(" RM :%s", product.getSalesRate()));
 
         byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -78,15 +79,15 @@ public class FavoriteProductAdapter extends BaseAdapter {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor1 = sqLiteDB.getSingleProduct(product.getL4code());
+                Cursor cursor1 = sqLiteDB.getSingleProduct(product.getPcode());
 
                 if (cursor1.moveToFirst()) {
                     appUtils.appToast("This product already added to your cart");
 
                 } else {
 
-                    sqLiteDB.insertCardProduct(product.getL4code());
-                    productModels.remove(i); // remove the item
+                    sqLiteDB.insertCardProduct(product.getPcode());
+                    productList.remove(i); // remove the item
                     notifyDataSetChanged();
                     appUtils.appToast("A New Product added in your Cart");
                 }
@@ -96,8 +97,8 @@ public class FavoriteProductAdapter extends BaseAdapter {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sqLiteDB.deleteFavSingleProduct(product.getL4code());
-                productModels.remove(i); // remove the item
+                sqLiteDB.deleteFavSingleProduct(product.getPcode());
+                productList.remove(i); // remove the item
                 notifyDataSetChanged();
             }
         });

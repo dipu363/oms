@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.aait.oms.R;
 import com.aait.oms.product.ProductModel;
+import com.aait.oms.product.StockViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +22,18 @@ public class OrderProductAdapter extends BaseAdapter{
 
     CheckBox checkBox;
     Context mContext;
-    List<ProductModel> productModels;
-    List<ProductModel> itemsModelListFiltered;
-    private final ArrayList<ProductModel> arraylist;
+    List<StockViewModel> productModels;
+    List<StockViewModel> itemsModelListFiltered;
+    private final ArrayList<StockViewModel> arraylist;
 
     boolean[] itemChecked;
 
-    public OrderProductAdapter(Context mContext, List<ProductModel> productModels){
+    public OrderProductAdapter(Context mContext, List<StockViewModel> productModels){
         super();
         this.mContext = mContext;
         this.productModels = productModels;
         this.itemsModelListFiltered = productModels;
-        this.arraylist = new ArrayList<ProductModel>();
+        this.arraylist = new ArrayList<StockViewModel>();
         itemChecked = new boolean[productModels.size()];
 
     }
@@ -54,7 +56,7 @@ public class OrderProductAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ProductModel prodmodel = productModels.get(position);
+        StockViewModel prodmodel = productModels.get(position);
         ArrayList<String> listWithSerialNumber = new ArrayList<>();
         for (int i = 0; i < productModels.size(); i++) {
             listWithSerialNumber.add(String.valueOf(i + 1));
@@ -73,10 +75,10 @@ public class OrderProductAdapter extends BaseAdapter{
         TextView pcode = convertView.findViewById(R.id.order_prod_codeid);
          checkBox = convertView.findViewById(R.id.prodlistchackboxid);
 
-        serialno.setText(listWithSerialNumber.get(position) + ".");
-        productname.setText(prodmodel.getProductname());
-        pcode.setText(prodmodel.getL4code());
-        price.setText("RM "+prodmodel.getSalesrate());
+        serialno.setText(String.format("%s.", listWithSerialNumber.get(position)));
+        productname.setText(prodmodel.getProdName());
+        pcode.setText(prodmodel.getPcode());
+        price.setText(String.format(" RM :%s", prodmodel.getSalesRate()));
         checkBox.setChecked(false);
 
 

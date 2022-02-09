@@ -5,11 +5,9 @@ public class ProductFilterRequest {
     int l1Code;
     int l2Code;
     int l3Code;
+    String l4Code;
     String uomCode;
     String prodCode;
-
-    public ProductFilterRequest() {
-    }
 
     public int getL1Code() {
         return l1Code;
@@ -33,6 +31,14 @@ public class ProductFilterRequest {
 
     public void setL3Code(int l3Code) {
         this.l3Code = l3Code;
+    }
+
+    public String getL4Code() {
+        return l4Code;
+    }
+
+    public void setL4Code(String l4Code) {
+        this.l4Code = l4Code;
     }
 
     public String getUomCode() {

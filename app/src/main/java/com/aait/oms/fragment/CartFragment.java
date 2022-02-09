@@ -20,15 +20,22 @@ import com.aait.oms.adapter.CartFrgAdapter;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.CartActivity;
+import com.aait.oms.product.ProductFilterRequest;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
 import com.aait.oms.product.Product_Details_view_Activity;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.ApplicationData;
 import com.aait.oms.util.SQLiteDB;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +49,8 @@ public class CartFragment extends Fragment {
     CartFrgAdapter adapter;
     ListView listView;
     Button button;
-    List<ProductModel> productModelList;
-    ArrayList<String> prodidlist = new ArrayList<>();
-    ProductModel productModel;
+    List<StockViewModel> productList;
+    ArrayList<String> cardProdIdList = new ArrayList<>();
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
     ApplicationData applicationData;
@@ -62,7 +68,7 @@ public class CartFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        productModelList = new ArrayList<>();
+        productList = new ArrayList<>();
         sqLiteDB = new SQLiteDB(getContext());
         appUtils = new AppUtils(getContext());
         applicationData = new ApplicationData(getContext());
@@ -113,14 +119,14 @@ public class CartFragment extends Fragment {
 
     public void getCartProdId() {
         Cursor cursor = sqLiteDB.getAllCardProduct();
-        prodidlist.clear();
+        cardProdIdList.clear();
         if (cursor.moveToFirst()) {
             do {
-                prodidlist.add(cursor.getString(0));
+                cardProdIdList.add(cursor.getString(0));
             } while (cursor.moveToNext());
 
-            for (int i = 0; i < prodidlist.size(); i++) {
-                getsingleproduct(prodidlist.get(i));
+            for (int i = 0; i < cardProdIdList.size(); i++) {
+                getsingleproduct(cardProdIdList.get(i));
             }
         } else {
             appUtils.appToast("Cart Is Empty");
@@ -129,46 +135,36 @@ public class CartFragment extends Fragment {
 
 
     private void getsingleproduct(String id) {
+        ProductFilterRequest filterRequest = new ProductFilterRequest();
+        filterRequest.setL4Code(id);
+        Gson gson = new Gson();
+        String json = gson.toJson(filterRequest);
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         progressDialog.show();
         progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
         ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getsingleproduct(id);
-        productlist.enqueue(new Callback<BaseResponse>() {
+        Call<BaseResponse> call = apiService.productFilter(jsonObject);
+        call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
                 assert response.body() != null;
                 Log.e("success", response.body().toString());
                 if (response.isSuccessful()) {
-                    Log.e("success", response.body().toString());
                     BaseResponse baseResponse = response.body();
-                    // assert baseResponse != null;
-
-                    Object row = baseResponse.getObj();
-                    LinkedTreeMap<Object, Object> t = (LinkedTreeMap) row;
-                    String l1code = String.valueOf(t.get("l1code"));
-                    String l2code = String.valueOf(t.get("l2code"));
-                    String l3code = String.valueOf(t.get("l3code"));
-                    String l4code = String.valueOf(t.get("l4code"));
-                    String salesrate = String.valueOf(t.get("salesrate"));
-                    String uomid = String.valueOf(t.get("uomid"));
-                    String productname = String.valueOf(t.get("productname"));
-                    String activeStatus = String.valueOf(t.get("activeStatus"));
-                    String ledgername = String.valueOf(t.get("ledgername"));
-                    String producPhoto = String.valueOf(t.get("productPhoto"));
-                    String picbyte = String.valueOf(t.get("picByte"));
-                    String imagetypt = String.valueOf(t.get("imageType"));
-
-                    productModel = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
-                    productModelList.add(productModel);
-
+                    if (baseResponse.getItems().size()==0) {
+                        appUtils.appToast("Data Note found");
+                    } else {
+                        productList = baseResponse.getItems();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(productList);
+                        Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                        }.getType();
+                        ArrayList<StockViewModel> product = gson.fromJson(json, typeMyType);
+                        adapter = new CartFrgAdapter(getContext(), product);
+                        listView.setAdapter(adapter);
+                    }
                 }
-
-                adapter = new CartFrgAdapter(getContext(), productModelList);
-                listView.setAdapter(adapter);
                 progressDialog.dismiss();
-
-
-
             }
 
             @Override

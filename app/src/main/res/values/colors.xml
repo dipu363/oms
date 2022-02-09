@@ -15,7 +15,7 @@
     <color name="text_color_black">#000000</color>
     <color name="text_color_green">#000000</color>
     <color name="text_color_gold">#DD2C00</color>
-    <color name="text_color_red">#5000CA</color>
+    <color name="text_color_red">#FF4081</color>
 
     <color name="circle_backgroundcolor_green">#FFAB00</color>
     <color name="circle_backgroundcolor_white">#FFFFFF</color>

@@ -29,7 +29,6 @@ import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.orders.CartActivity;
-import com.aait.oms.orders.OrderMasterModel;
 import com.aait.oms.orders.OrderService;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
@@ -41,7 +40,6 @@ import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -64,7 +62,7 @@ public class ProductInGridViewActivity extends AppCompatActivity {
     ProductGridAdapter productgridAdapter;
     RecyclerView.LayoutManager layoutManager;
     RootCatagoryRecyclerAdapter adapter;
-    List<StockViewModel> allproductlist;
+    List allproductlist;
     List<Prod1L> allcatgorylist;
     ProdCatagoryModel[] catagory;
 
@@ -201,9 +199,8 @@ public class ProductInGridViewActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
 
-                if (baseResponse.getMessage().equals("")) {
-                    appUtils.appToast("Data Note found");
-                } else {
+                assert baseResponse != null;
+                if (baseResponse.isSuccess()&& baseResponse.getData().size()!=0) {
                     allproductlist = baseResponse.getData();
                     Gson gson = new Gson();
                     String json = gson.toJson(allproductlist);
@@ -213,6 +210,8 @@ public class ProductInGridViewActivity extends AppCompatActivity {
                     productgridAdapter = new ProductGridAdapter(context, productlist);
                     gridView.setAdapter(productgridAdapter);
                     progressDialog.dismiss();
+                } else {
+                    appUtils.appToast("Data Note found");
 
                 }
             }
@@ -246,7 +245,6 @@ public class ProductInGridViewActivity extends AppCompatActivity {
 
                     appUtils.appToast("Data Note found");
                 } else {
-                    assert baseResponse != null;
                     allproductlist = baseResponse.getItems();
                     List<StockViewModel> prodname = new ArrayList();
                     StockViewModel prod;

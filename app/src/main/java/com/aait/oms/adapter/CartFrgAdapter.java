@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.aait.oms.R;
 import com.aait.oms.product.ProductModel;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 
@@ -23,11 +24,11 @@ public class CartFrgAdapter extends BaseAdapter {
 
 
     Context context;
-    List<ProductModel> productModels;
+    List<StockViewModel> productModels;
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
 
-    public CartFrgAdapter(Context context, List<ProductModel> productModels) {
+    public CartFrgAdapter(Context context, List<StockViewModel> productModels) {
         this.context = context;
         this.productModels = productModels;
         sqLiteDB = new SQLiteDB(context);
@@ -52,23 +53,25 @@ public class CartFrgAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ProductModel product = productModels.get(i);
+        StockViewModel product = productModels.get(i);
 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.cart_sample_layout, null);
         }
 
+
+        StringBuilder st = new StringBuilder();
         TextView productname = view.findViewById(R.id.cart_fr_prod_nameid);
         TextView prodcode = view.findViewById(R.id.cart_fr_prod_codeid2);
         TextView price = view.findViewById(R.id.cart_fr_prod_Priceid);
         TextView stock = view.findViewById(R.id.cart_fr_prod_stockstatusid);
         ImageView productImage = view.findViewById(R.id.cart_fr_prod_Imageid);
         ImageButton imageButton = view.findViewById(R.id.cart_fr_btn_delete_Id);
-        productname.setText(product.getProductname());
-        prodcode.setText(product.getL4code());
-        stock.setText("Available");
-        price.setText("TK. " + product.getSalesrate());
+        productname.setText(product.getProdName());
+        prodcode.setText(product.getPcode());
+        stock.setText(String.format("In Stock %s %s", product.getCurrentQty(), product.getUomName()));
+        price.setText(String.format(" RM :%s", product.getSalesRate()));
         byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         productImage.setImageBitmap(bitmap);
@@ -76,7 +79,7 @@ public class CartFrgAdapter extends BaseAdapter {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sqLiteDB.deleteSingleProduct(product.getL4code());
+                sqLiteDB.deleteSingleProduct(product.getPcode());
                 productModels.remove(i); // remove the item
                 notifyDataSetChanged();
             }

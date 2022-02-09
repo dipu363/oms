@@ -16,12 +16,17 @@ import com.aait.oms.R;
 import com.aait.oms.adapter.FavoriteProductAdapter;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.product.ProductFilterRequest;
 import com.aait.oms.product.ProductInterface;
-import com.aait.oms.product.ProductModel;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
-import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +35,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Favorite_Product_Fragment extends Fragment {
-    FavoriteProductAdapter adapter;
+    FavoriteProductAdapter fabAdapter;
     ListView listView;
-    List<ProductModel> productModelList;
+    List<StockViewModel> productList;
     ArrayList<String> prodidlist = new ArrayList<>();
-    ProductModel productModel;
     SQLiteDB sqLiteDB;
     AppUtils appUtils;
     ProgressDialog progressDialog;
@@ -46,7 +50,7 @@ public class Favorite_Product_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        productModelList = new ArrayList<>();
+        productList = new ArrayList<>();
         sqLiteDB = new SQLiteDB(getContext());
         appUtils = new AppUtils(getContext());
         progressDialog = new ProgressDialog(getContext());
@@ -80,42 +84,36 @@ public class Favorite_Product_Fragment extends Fragment {
     }
 
     private void getsingleproduct(String id) {
-
+        ProductFilterRequest filterRequest = new ProductFilterRequest();
+        filterRequest.setL4Code(id);
+        Gson gson = new Gson();
+        String json = gson.toJson(filterRequest);
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         progressDialog.show();
         progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
         ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getsingleproduct(id);
+        Call<BaseResponse> productlist = apiService.productFilter(jsonObject);
         productlist.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
                 assert response.body() != null;
-                Log.e("success", response.body().toString());
-                if (response.isSuccessful()) {
-                    Log.e("success", response.body().toString());
-                    BaseResponse baseResponse = response.body();
-                    assert baseResponse != null;
-                    Object row = baseResponse.getObj();
-                    LinkedTreeMap<Object, Object> t = (LinkedTreeMap) row;
-                    String l1code = String.valueOf(t.get("l1code"));
-                    String l2code = String.valueOf(t.get("l2code"));
-                    String l3code = String.valueOf(t.get("l3code"));
-                    String l4code = String.valueOf(t.get("l4code"));
-                    String salesrate = String.valueOf(t.get("salesrate"));
-                    String uomid = String.valueOf(t.get("uomid"));
-                    String productname = String.valueOf(t.get("productname"));
-                    String activeStatus = String.valueOf(t.get("activeStatus"));
-                    String ledgername = String.valueOf(t.get("ledgername"));
-                    String producPhoto = String.valueOf(t.get("productPhoto"));
-                    String picbyte = String.valueOf(t.get("picByte"));
-                    String imagetypt = String.valueOf(t.get("imageType"));
+                if(response.isSuccessful()) {
 
-                    productModel = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
-                    productModelList.add(productModel);
+                    BaseResponse baseResponse = response.body();
+                    if (baseResponse.getItems().size() == 0) {
+                        appUtils.appToast("Data Note found");
+                    } else {
+                        productList = baseResponse.getItems();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(productList);
+                        Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                        }.getType();
+                        ArrayList<StockViewModel> product = gson.fromJson(json, typeMyType);
+                        fabAdapter = new FavoriteProductAdapter(getContext(), product);
+                        listView.setAdapter(fabAdapter);
+                    }
 
                 }
-
-                adapter = new FavoriteProductAdapter(getContext(), productModelList);
-                listView.setAdapter(adapter);
                 progressDialog.dismiss();
             }
 

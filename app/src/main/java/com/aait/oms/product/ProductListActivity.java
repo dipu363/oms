@@ -25,10 +25,14 @@ import android.widget.Toast;
 import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
+import com.aait.oms.orders.OrderProductAdapter;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.CommonFunctions;
+import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
     ListView listView;
     //RecyclerView recyclerView;
     ProductAdapter productAdapter;
-    List<ProductModel> allproductlist;
+    List productlist ;
 
     AppUtils appUtils;
 
@@ -57,11 +61,8 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("  Products");
         appUtils = new AppUtils(this);
-
+        productlist = new ArrayList();
         listView = findViewById(R.id.productlist_id);
-        //recyclerView = findViewById(R.id.product_list_recy_id);
-        // searchView1 = findViewById(R.id.serchviewid);
-        // searchView1.setOnQueryTextListener(this);
         netWorkCheck(this);
     }
 
@@ -75,65 +76,23 @@ public class ProductListActivity extends AppCompatActivity implements SearchView
 
     private void getallproduct(Context context) {
         ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
-        Call<BaseResponse> productlist = apiService.getallproduct();
-        productlist.enqueue(new Callback<BaseResponse>() {
+        Call<BaseResponse> call = apiService.getallproduct();
+        call.enqueue(new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
 
-                if (response.code() == 500) {
-                    showMaseage("Data Note found");
-                } else {
-
-
-                    // Log.e("success",response.body().toString());
-                    // BaseResponse baseResponse = response.body();
-                    assert baseResponse != null;
-                    allproductlist = baseResponse.getData();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod;
-
-
-                    for (int i = 0; i < allproductlist.size(); i++) {
-                        Object getrow = allproductlist.get(i);
-                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
-
-                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte =   String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));
-
-            /*            String pcode = String.valueOf(t.get("pcode"));
-                        String uomName = String.valueOf(t.get("uomName"));
-                        String soldQty = String.valueOf(t.get("soldQty"));
-                        String totalQty = String.valueOf(t.get("totalQty"));
-                        String currentQty = String.valueOf(t.get("currentQty"));
-                        String avgPurRate = String.valueOf(t.get("avgPurRate"));
-                        String salesRate = String.valueOf(t.get("salesRate"));
-                        String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
-                        String pname = String.valueOf(t.get("pname"));
-                        String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
-                        prod = new ProductModel(l1code,l2code,l3code,l4code,salesrate,uomid,productname,activeStatus,ledgername,producPhoto,picbyte,imagetypt);
-
-                        //  prod = new StockViewModel(pcode, uomName, soldQty, totalQty, currentQty, avgPurRate, salesRate, currentTotalPrice, pname, cumTotalPrice);
-                        prodname.add(prod);
-
-
-
-                    }
-
-                   // Log.d("prodname", prodname.toString());
-
-                    productAdapter = new ProductAdapter(context, prodname);
+                if (baseResponse != null&& baseResponse.getData().size()!=0) {
+                    productlist = baseResponse.getData();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(productlist);
+                    Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                    }.getType();
+                    ArrayList<StockViewModel> product = gson.fromJson(json, typeMyType);
+                    productAdapter = new ProductAdapter(context, product);
                     listView.setAdapter(productAdapter);
+                } else {
+                    appUtils.appToast("Data Note found");
 
                 }
             }

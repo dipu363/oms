@@ -36,9 +36,12 @@ import com.aait.oms.R;
 import com.aait.oms.apiconfig.ApiClient;
 import com.aait.oms.model.BaseResponse;
 import com.aait.oms.product.ProductAdapter;
+import com.aait.oms.product.ProductFilterRequest;
+import com.aait.oms.product.ProductGridAdapter;
 import com.aait.oms.product.ProductInGridViewActivity;
 import com.aait.oms.product.ProductInterface;
 import com.aait.oms.product.ProductModel;
+import com.aait.oms.product.StockViewModel;
 import com.aait.oms.rootcategory.Prod1L;
 import com.aait.oms.rootcategory.ProdCatagoryModel;
 import com.aait.oms.subcategory.ProdSubCatagoryModel;
@@ -46,6 +49,8 @@ import com.aait.oms.ui.LogInActivity;
 import com.aait.oms.util.AppUtils;
 import com.aait.oms.util.SQLiteDB;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
@@ -62,7 +67,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
     ImageButton btnnext;
     TextView textView;
     ListView orderlistView;
-    List<ProductModel> allproductlist;
+    List productlist;
     List<Prod1L> allcatgorylist;
     List<ProdSubCatagoryModel> allsubcatlist;
     OrderProductAdapter orderProductAdapter;
@@ -91,7 +96,7 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
         subcat = findViewById(R.id.subcatagoryid);
         btnnext = findViewById(R.id.btnordernextid);
         orderlistView = findViewById(R.id.order_productList_id);
-        allproductlist = new ArrayList<>();
+       productlist = new ArrayList<>();
         allcatgorylist = new ArrayList<>();
         allsubcatlist = new ArrayList<>();
         checkedValue = new ArrayList<>();
@@ -228,7 +233,6 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
                         Type listType = new TypeToken<ProdSubCatagoryModel[]>() {
                         }.getType();
                         subcatagory = new Gson().fromJson(jsons, listType);
-                        subcatagory = new Gson().fromJson(jsons, listType);
                         subCatSpinnerAdapter = new SubCatSpinnerAdapter(context, android.R.layout.simple_spinner_item, subcatagory);
                         subCatSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         subcat.setAdapter(subCatSpinnerAdapter);
@@ -264,55 +268,35 @@ public class OrderActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     private void getallproduct(Context context, int id) {
+
+        ProductFilterRequest filterRequest = new ProductFilterRequest();
+        filterRequest.setL2Code(id);
+        Gson gson = new Gson();
+        String json = gson.toJson(filterRequest);
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         progressDialog.show();
         progressDialog.setContentView(R.layout.custom_prograess_dialog_layout);
-        OrderService apiService = ApiClient.getRetrofit().create(OrderService.class);
-        Call<BaseResponse> productlist = apiService.getproductbyl2id(id);
-        productlist.enqueue(new Callback<BaseResponse>() {
+        ProductInterface apiService = ApiClient.getRetrofit().create(ProductInterface.class);
+        Call<BaseResponse> call = apiService.productFilter(jsonObject);
+        call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-                if (response.isSuccessful()) {
-                    BaseResponse baseResponse = response.body();
-                    assert baseResponse != null;
-                    allproductlist = baseResponse.getItems();
-                    List<ProductModel> prodname = new ArrayList();
-                    ProductModel prod = new ProductModel();
-                    for (int i = 0; i < allproductlist.size(); i++) {
-                        Object getrow = allproductlist.get(i);
-                        LinkedTreeMap<Object, Object> t = (LinkedTreeMap) getrow;
 
-                        String l1code = String.valueOf(t.get("l1code"));
-                        String l2code = String.valueOf(t.get("l2code"));
-                        String l3code = String.valueOf(t.get("l3code"));
-                        String l4code = String.valueOf(t.get("l4code"));
-                        String salesrate = String.valueOf(t.get("salesrate"));
-                        String uomid = String.valueOf(t.get("uomid"));
-                        String productname = String.valueOf(t.get("productname"));
-                        String activeStatus = String.valueOf(t.get("activeStatus"));
-                        String ledgername = String.valueOf(t.get("ledgername"));
-                        String producPhoto = String.valueOf(t.get("productPhoto"));
-                        String picbyte = String.valueOf(t.get("picByte"));
-                        String imagetypt = String.valueOf(t.get("imageType"));
-
-                 /*   String pcode = String.valueOf(t.get("pcode"));
-                    String uomName = String.valueOf(t.get("uomName"));
-                    String soldQty = String.valueOf(t.get("soldQty"));
-                    String totalQty = String.valueOf(t.get("totalQty"));
-                    String currentQty = String.valueOf(t.get("currentQty"));
-                    String avgPurRate = String.valueOf(t.get("avgPurRate"));
-                    String salesRate = String.valueOf(t.get("salesRate"));
-                    String currentTotalPrice = String.valueOf(t.get("currentTotalPrice"));
-                    String pname = String.valueOf(t.get("pname"));
-                    String cumTotalPrice = String.valueOf(t.get("cumTotalPrice"));*/
-
-                        prod = new ProductModel(l1code, l2code, l3code, l4code, salesrate, uomid, productname, activeStatus, ledgername, producPhoto, picbyte, imagetypt);
-                        prodname.add(prod);
-                    }
-                    orderProductAdapter = new OrderProductAdapter(context, prodname);
+                BaseResponse baseResponse = response.body();
+                if (response.isSuccessful()&& baseResponse.getItems().size() != 0) {
+                    productlist = baseResponse.getItems();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(productlist);
+                    Type typeMyType = new TypeToken<ArrayList<StockViewModel>>() {
+                    }.getType();
+                    ArrayList<StockViewModel> product = gson.fromJson(json, typeMyType);
+                    orderProductAdapter = new OrderProductAdapter(context, product);
                     orderlistView.setAdapter(orderProductAdapter);
-                    progressDialog.dismiss();
-                }
+                } else {
+                    appUtils.appToast("Data Note found");
 
+                }
+                    progressDialog.dismiss();
             }
 
             @Override

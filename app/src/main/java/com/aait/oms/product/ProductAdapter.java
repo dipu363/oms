@@ -23,15 +23,15 @@ import java.util.Locale;
 public class ProductAdapter extends BaseAdapter implements Filterable {
 
     Context mContext;
-    List<ProductModel> productModels;
-    List<ProductModel> itemsModelListFiltered;
-    private final ArrayList<ProductModel> arraylist;
+    List<StockViewModel> productModels;
+    List<StockViewModel> itemsModelListFiltered;
+    private final ArrayList<StockViewModel> arraylist;
 
-    public ProductAdapter(Context mContext, List<ProductModel> productModels) {
+    public ProductAdapter(Context mContext, List<StockViewModel> productModels) {
         this.mContext = mContext;
         this.productModels = productModels;
         this.itemsModelListFiltered = productModels;
-        this.arraylist = new ArrayList<ProductModel>();
+        this.arraylist = new ArrayList<StockViewModel>();
         this.arraylist.addAll(productModels);
 
     }
@@ -54,7 +54,7 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
     @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ProductModel product = itemsModelListFiltered.get(position);
+        StockViewModel product = itemsModelListFiltered.get(position);
         if (convertView == null) {
 
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,10 +70,10 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         ImageView productImage = convertView.findViewById(R.id.prodListView_productImageid);
 
 
-        productname.setText(product.getProductname());
-        prodcode.setText(product.getL4code());
-        stock.setText("Available");
-        price.setText("TK. " + product.getSalesrate());
+        productname.setText(product.getProdName());
+        prodcode.setText(product.getPcode());
+        stock.setText(String.format("In Stock :%s %s", product.getCurrentQty(), product.getUomName()));
+        price.setText(String.format(" RM :%s", product.getSalesRate()));
 
         byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -94,11 +94,11 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
                     filterResults.values = productModels;
 
                 } else {
-                    List<ProductModel> resultsModel = new ArrayList<>();
+                    List<StockViewModel> resultsModel = new ArrayList<>();
                     String searchStr = constraint.toString().toLowerCase();
 
-                    for (ProductModel prod : productModels) {
-                        if (prod.getProductname().toLowerCase().contains(searchStr)) {
+                    for (StockViewModel prod : productModels) {
+                        if (prod.getProdName().toLowerCase().contains(searchStr)) {
                             resultsModel.add(prod);
                         }
                         filterResults.count = resultsModel.size();
@@ -113,7 +113,7 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                itemsModelListFiltered = (List<ProductModel>) results.values;
+                itemsModelListFiltered = (List<StockViewModel>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -128,8 +128,8 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         if (charText.length() == 0) {
             productModels.addAll(arraylist);
         } else {
-            for (ProductModel sp : arraylist) {
-                if (sp.getProductname().toLowerCase(Locale.getDefault()).contains(charText)) {
+            for (StockViewModel sp : arraylist) {
+                if (sp.getProdName().toLowerCase(Locale.getDefault()).contains(charText)) {
                     productModels.add(sp);
                 }
             }
