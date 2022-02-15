@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,10 +70,15 @@ public class ProductAdapter extends BaseAdapter implements Filterable {
         TextView stock = convertView.findViewById(R.id.stockstatusid);
         ImageView productImage = convertView.findViewById(R.id.prodListView_productImageid);
 
-
+        int prodqty = Integer.parseInt(product.getCurrentQty());
         productname.setText(product.getProdName());
         prodcode.setText(product.getPcode());
-        stock.setText(String.format("In Stock :%s %s", product.getCurrentQty(), product.getUomName()));
+        if(prodqty<1){
+            stock.setText(String.format("In Stock :%s %s", prodqty, product.getUomName()));
+        }else{
+            stock.setText("Out of Stock");
+        }
+
         price.setText(String.format(" RM :%s", product.getSalesRate()));
 
         byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);

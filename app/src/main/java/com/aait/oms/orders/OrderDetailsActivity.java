@@ -81,7 +81,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             OrderDetailsModel itemtotal = detaillist.get(i);
                             total = total + itemtotal.getItemTotal();
                         }
-                        totaltextview.setText("Order Total: " + total);
+                        totaltextview.setText("Order Total: " + String.format("%.2f", total));
                     } else {
                         appUtils.appToast("Item Not found");
                     }

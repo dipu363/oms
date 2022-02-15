@@ -1,16 +1,20 @@
 package com.aait.oms.ui;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.aait.oms.MainActivity;
 import com.aait.oms.R;
+import com.aait.oms.orders.ConfirmOrderActivity;
 import com.aait.oms.util.SQLiteDB;
 
 @SuppressLint("CustomSplashScreen")
@@ -29,7 +33,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_splash_screen);
-
 
         mRunnable = () -> {
             try {

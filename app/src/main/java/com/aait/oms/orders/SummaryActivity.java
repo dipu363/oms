@@ -99,7 +99,7 @@ public class SummaryActivity extends AppCompatActivity implements View.OnClickLi
                         productOrders.size();
                         summaryAdapter = new SummaryAdapter(this, productOrders);
                         lvSummary.setAdapter(summaryAdapter);
-                        tvTotal.setText("Order Total: " + Total);
+                        tvTotal.setText("Order Total: " +String.format("%.2f",Total) );
                     } else {
                         appUtils.appToast("Item quantity Not found");
                     }

@@ -11,6 +11,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -72,7 +73,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     BranchModel[] branchsarraylist;
     List<OrderDetailsModel> orderDetailsModels = new ArrayList<>();
     BranchAdapter branchAdapter;
-    String deliverty, bname, baddress, bmobile;
+    String deliverty, bname, baddress, bmobile ,currentLocation;
     int branchid, orderID;
     String option;
     ArrayList<String> senddatatoinvoice;
@@ -80,6 +81,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     AppUtils appUtils;
     Dialog fullScreen_dialog_1;
     View fullScreenView_1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,10 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("   Confirm Order ");
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ConfirmOrderActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
 
         radioButton1 = findViewById(R.id.radiobtn1);
         radioButton2 = findViewById(R.id.radiobtn2);
@@ -119,7 +125,8 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
         btnInvoice = fullScreenView_1.findViewById(R.id.dialog_btn_invoice);
         btnContinue.setOnClickListener(this);
         btnInvoice.setOnClickListener(this);
-
+       // currentLocation= appUtils.getCurrrentLocation();
+        getCurrrentLocation();
         //for spinner
         String[] payoption = {"Select", "Cash On Delivery", "Online Banking"};
         ArrayAdapter<CharSequence> payAdapter = new ArrayAdapter<CharSequence>(this, R.layout.spinner_text, payoption);
@@ -150,6 +157,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
+
     }
 
     @SuppressLint("ResourceAsColor")
@@ -165,16 +173,23 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 cmobile.setVisibility(View.INVISIBLE);
                 getbrnachList(this);
                 deliverty = radioButton1.getText().toString().trim();
-
                 break;
             case R.id.radiobtn2:
                 if (checked)
                     getbrnachList(this);
-                getCurrrentLocation();
-                selectdelioption.setText(R.string.selecthome);
-                selectdelioption.setVisibility(View.VISIBLE);
-                deliverty = radioButton2.getText().toString().trim();
-
+                    SQLiteDB sqLiteDB = new SQLiteDB(this);
+                     Cursor cursor = sqLiteDB.getUserInfo();
+                     String usermobile = "";
+                    if (cursor.moveToFirst()) {
+                        usermobile = cursor.getString(1);
+                    }
+                    shipaddress.setText(currentLocation);
+                    cmobile.setText(usermobile);
+                    shipaddress.setVisibility(View.VISIBLE);
+                    cmobile.setVisibility(View.VISIBLE);
+                    selectdelioption.setText(R.string.selecthome);
+                    selectdelioption.setVisibility(View.VISIBLE);
+                    deliverty = radioButton2.getText().toString().trim();
                 break;
         }
     }
@@ -424,18 +439,11 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    private void getCurrrentLocation() {
+   private void getCurrrentLocation() {
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ConfirmOrderActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         } else {
-            SQLiteDB sqLiteDB = new SQLiteDB(this);
-            Cursor cursor = sqLiteDB.getUserInfo();
-            String usermobile = "";
-            if (cursor.moveToFirst()) {
-                usermobile = cursor.getString(1);
-            }
-
-            String finalUsermobile = usermobile;
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
@@ -445,15 +453,12 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                     if (location != null) {
 
                         try {
-
                             //initial address list
                             Geocoder geocoder = new Geocoder(ConfirmOrderActivity.this,
                                     Locale.getDefault());
-                            List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            shipaddress.setVisibility(View.VISIBLE);
-                            shipaddress.setText(addressList.get(0).getAddressLine(0));
-                            cmobile.setVisibility(View.VISIBLE);
-                            cmobile.setText(finalUsermobile);
+                           List<Address> address = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            currentLocation = address.get(0).getAddressLine(0);
+                           // System.out.println("Address :: "+currentLocation);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -463,5 +468,7 @@ public class ConfirmOrderActivity extends AppCompatActivity implements View.OnCl
                 }
             });
         }
+
+
     }
 }

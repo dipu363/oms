@@ -72,8 +72,8 @@ public class Product_Details_view_Activity extends AppCompatActivity implements 
         prodcode.setText("Code : " + prodmodel.getPcode());
         prodprice.setText(" RM. " + prodmodel.getSalesRate());
         proddetails.setText(prodmodel.getProdDetails());
-        String curQty = "Available "+String.valueOf(prodmodel.getCurrentQty()) + prodmodel.getUomName();
-        prodstock.setText(curQty);
+
+        prodstock.setText(String.format("In Stock :%s %s", prodmodel.getCurrentQty(), prodmodel.getUomName()));
 
         byte[] bytes = Base64.decode(prodmodel.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

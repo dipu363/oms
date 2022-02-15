@@ -59,7 +59,7 @@ public class ProductGridAdapter extends BaseAdapter {
     @SuppressLint({"InflateParams", "SetTextI18n"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        StockViewModel stockViewModel = itemsModelListFiltered.get(position);
+        StockViewModel product = itemsModelListFiltered.get(position);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.productgridviewsample, null);
@@ -75,23 +75,23 @@ public class ProductGridAdapter extends BaseAdapter {
 
 
         //set data to view
-        productname.setText(stockViewModel.getProdName());
-        productumlcode.setText(stockViewModel.getPcode());
-        productprice.setText("RM. " + stockViewModel.getSalesRate());
-        byte[] bytes = Base64.decode(stockViewModel.getPicByte(), Base64.DEFAULT);
+        productname.setText(product.getProdName());
+        productumlcode.setText(product.getPcode());
+        productprice.setText("RM. " + product.getSalesRate());
+        byte[] bytes = Base64.decode(product.getPicByte(), Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         productImage.setImageBitmap(bitmap);
 
         favoBotton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor1 = sqLiteDB.getSingleFavProduct(stockViewModel.getPcode());
+                Cursor cursor1 = sqLiteDB.getSingleFavProduct(product.getPcode());
 
                 if (cursor1.moveToFirst()) {
                     appUtils.appToast("This product already added to favorite list");
 
                 } else {
-                    sqLiteDB.insertProduct(stockViewModel.getPcode());
+                    sqLiteDB.insertProduct(product.getPcode());
                     appUtils.appToast("A New Product added as your favorite Product");
                 }
 
@@ -100,15 +100,18 @@ public class ProductGridAdapter extends BaseAdapter {
         cartBotton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cursor1 = sqLiteDB.getSingleProduct(stockViewModel.getPcode());
+                Cursor cursor1 = sqLiteDB.getSingleProduct(product.getPcode());
+                int prodqty = Integer.parseInt(product.getCurrentQty());
 
                 if (cursor1.moveToFirst()) {
                     appUtils.appToast("This product already added to your cart");
 
-                } else {
-                    sqLiteDB.insertCardProduct(stockViewModel.getPcode());
+                } else if(prodqty<1){
+                    appUtils.appToast("Product is out of Stock");
+                }else {
+                    sqLiteDB.insertCardProduct(product.getPcode());
                     appUtils.appToast("A New Product added in your Cart");
-                    Cursor c = sqLiteDB.getAllCardProduct();
+
                 }
             }
         });
@@ -116,9 +119,9 @@ public class ProductGridAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Gson gson = new Gson();
-                String product = gson.toJson(stockViewModel);
+                String productdetails = gson.toJson(product);
                 Intent intent = new Intent(mContext, Product_Details_view_Activity.class);
-                intent.putExtra("product", product);
+                intent.putExtra("product", productdetails);
                 mContext.startActivity(intent);
             }
         });
